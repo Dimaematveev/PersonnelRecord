@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PersonnelRecord.BL.Interfaces
 {
+    /// <summary>
+    /// Интерфейс Динамика
+    /// </summary>
     interface IChange
     {
     }

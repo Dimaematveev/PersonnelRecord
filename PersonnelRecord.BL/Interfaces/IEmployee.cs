@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace PersonnelRecord.BL.Interfaces
 {
+    /// <summary>
+    /// Интерфейс Сотрудник
+    /// </summary>
     interface IEmployee
     {
+        string FIO { get; }
+
+        void AddWork(int prikaz);
     }
 }

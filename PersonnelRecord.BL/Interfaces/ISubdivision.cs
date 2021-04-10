@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace PersonnelRecord.BL.Interfaces
 {
+    /// <summary>
+    /// Интерфейс Подразделение
+    /// </summary>
     interface ISubdivision
     {
+
     }
 }
