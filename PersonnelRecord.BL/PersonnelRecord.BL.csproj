@@ -41,11 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Employee.cs" />
+    <Compile Include="Classes\SimpleChange.cs" />
+    <Compile Include="Classes\SimpleEmployee.cs" />
+    <Compile Include="Classes\SimplePosition.cs" />
+    <Compile Include="Classes\SimpleUnit.cs" />
+    <Compile Include="Enums\RecordType.cs" />
     <Compile Include="Interfaces\IChange.cs" />
     <Compile Include="Interfaces\IEmployee.cs" />
     <Compile Include="Interfaces\IPosition.cs" />
-    <Compile Include="Interfaces\ISubdivision.cs" />
+    <Compile Include="Interfaces\IUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
