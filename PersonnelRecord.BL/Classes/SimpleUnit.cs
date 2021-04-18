@@ -108,30 +108,39 @@ namespace PersonnelRecord.BL.Classes
 
         public bool DeletePosition(IPosition deletedPosition)
         {
-            throw new NotImplementedException();
+            if (deletedPosition == null)
+            {
+                return false;
+            }
+            if (!positions.Contains(deletedPosition))
+            {
+                return false;
+            }
+            positions.Remove(deletedPosition);
+            return true;
         }
 
-        public void ChangeMainSubdivision(IUnit newMainUnit)
+        public bool ChangeMainUnit(IUnit newMainUnit)
         {
             throw new NotImplementedException();
         }
 
-        public void AddSubordinateSubdivision(IUnit addedSubordinateUnit)
+        public bool AddSubordinateUnit(IUnit addedSubordinateUnit)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteSubordinateSubdivision(IUnit deletedSubordinateUnit)
+        public bool DeleteSubordinateUnit(IUnit deletedSubordinateUnit)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete()
+        public bool Delete()
         {
             throw new NotImplementedException();
         }
 
-      
+
 
         //public void Rename(string newName)
         //{
@@ -174,6 +183,6 @@ namespace PersonnelRecord.BL.Classes
         //    HierarchyTier = 0;
         //}
 
-       
+
     }
 }

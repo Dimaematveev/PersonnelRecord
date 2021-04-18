@@ -73,23 +73,27 @@ namespace PersonnelRecord.BL.Interfaces
         /// Изменить Главное подразделение
         /// </summary>
         /// <param name="newMainUnit">Новое главное подразделение</param>
-        void ChangeMainSubdivision(IUnit newMainUnit);
+        /// <returns>True - Изменили главное подразделение, False - нет</returns>
+        bool ChangeMainUnit(IUnit newMainUnit);
 
         /// <summary>
         /// Добавить подчиненное подразделение
         /// </summary>
         /// <param name="addedSubordinateUnit">Добавляемое подчиненное подразделение</param>
-        void AddSubordinateSubdivision(IUnit addedSubordinateUnit);
+        /// <returns>True - Добавили подчиненное подразделение, False - нет</returns>
+        bool AddSubordinateUnit(IUnit addedSubordinateUnit);
 
         /// <summary>
         /// Удалить подчиненное подразделение
         /// </summary>
         /// <param name="deletedSubordinateUnit">Удаляемое подчиненное подразделение</param>
-        void DeleteSubordinateSubdivision(IUnit deletedSubordinateUnit);
+        /// <returns>True - Удалили подчиненное подразделение, False - нет</returns>
+        bool DeleteSubordinateUnit(IUnit deletedSubordinateUnit);
 
         /// <summary>
         /// Удалить подразделение
         /// </summary>
-        void Delete();
+        /// <returns>True - Удалили подразделение, False - нет</returns>
+        bool Delete();
     }
 }
