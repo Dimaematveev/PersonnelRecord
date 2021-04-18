@@ -120,6 +120,11 @@ namespace PersonnelRecord.BL.Classes
             return true;
         }
 
+        public IReadOnlyList<IUnit> GetMainUnits()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool ChangeMainUnit(IUnit newMainUnit)
         {
             throw new NotImplementedException();
@@ -139,6 +144,8 @@ namespace PersonnelRecord.BL.Classes
         {
             throw new NotImplementedException();
         }
+
+        
 
 
 

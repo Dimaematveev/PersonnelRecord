@@ -41,7 +41,6 @@ namespace PersonnelRecord.BL.Interfaces
         /// <returns>Ярус иерархии</returns>
         int GetHierarchyTier();
 
-
         /// <summary>
         /// Узнать удалено ли подразделение
         /// </summary>
@@ -68,6 +67,12 @@ namespace PersonnelRecord.BL.Interfaces
         /// <param name="deletedPosition"> Удаляемая должность</param>
         /// <returns>True - Удалили должность, False - нет</returns>
         bool DeletePosition(IPosition deletedPosition);
+
+        /// <summary>
+        /// Получить список всех главных подразделений
+        /// </summary>
+        /// <returns>Список подразделений</returns>
+        IReadOnlyList<IUnit> GetMainUnits();
 
         /// <summary>
         /// Изменить Главное подразделение
