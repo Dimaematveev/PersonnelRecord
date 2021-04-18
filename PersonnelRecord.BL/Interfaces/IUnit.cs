@@ -52,19 +52,22 @@ namespace PersonnelRecord.BL.Interfaces
         /// Переименовать подразделение
         /// </summary>
         /// <param name="newName">Новое название подразделения</param>
-        void Rename(string newName);
+        /// <returns>True - Удалось переименовать, False - нет</returns>
+        bool Rename(string newName);
 
         /// <summary>
         /// Добавить должность подразделению по названию
         /// </summary>
         /// <param name="newPosition">Название новой должности</param>
-        void AddPosition(string newPosition);
+        /// <returns>True - Добавили должность, False - нет</returns>
+        bool AddPosition(string newPosition);
 
         /// <summary>
         /// Удалить должность у подразделение
         /// </summary>
         /// <param name="deletedPosition"> Удаляемая должность</param>
-        void DeletePosition(IPosition deletedPosition);
+        /// <returns>True - Удалили должность, False - нет</returns>
+        bool DeletePosition(IPosition deletedPosition);
 
         /// <summary>
         /// Изменить Главное подразделение

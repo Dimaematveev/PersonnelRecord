@@ -60,7 +60,7 @@ namespace PersonnelRecord.BL.Classes
 
         public string GetName()
         {
-            throw new NotImplementedException();
+            return Name;
         }
 
         public IUnit GetUnit()

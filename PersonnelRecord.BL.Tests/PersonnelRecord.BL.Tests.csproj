@@ -54,7 +54,8 @@
     <None Include="ClassesOLD\SimpleEmployeeTests.cs" />
     <None Include="ClassesOLD\SimplePositionTests.cs" />
     <None Include="ClassesOLD\SimpleUnitTests.cs" />
-    <Compile Include="Classes\SimpleUnitTests.cs" />
+    <Compile Include="Classes\Unit\SimpleUnitTests.cs" />
+    <Compile Include="Classes\Unit\SimpleUnitConstructorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,7 +71,6 @@
     <Folder Include="Classes\Change\" />
     <Folder Include="Classes\Employee\" />
     <Folder Include="Classes\Position\" />
-    <Folder Include="Classes\Unit\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

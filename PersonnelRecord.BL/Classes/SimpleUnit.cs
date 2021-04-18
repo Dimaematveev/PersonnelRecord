@@ -45,6 +45,7 @@ namespace PersonnelRecord.BL.Classes
         public SimpleUnit(string nameUnit, List<string> positionsName)
         {
             name = nameUnit;
+            hierarchyTier = 0;
             mainUnit = null;
             subordinateUnits = new List<IUnit>();
             positions = new List<IPosition>();
@@ -52,50 +53,60 @@ namespace PersonnelRecord.BL.Classes
             {
                 positions.Add(new SimplePosition(positionName, this));
             }
-            hierarchyTier = 0;
+            
         }
 
         public string GetName()
         {
-            throw new NotImplementedException();
+            return name;
         }
 
         public IUnit GetMainUnit()
         {
-            throw new NotImplementedException();
+            return mainUnit;
         }
 
         public IReadOnlyList<IUnit> GetSubordinateUnits()
         {
-            throw new NotImplementedException();
+            return subordinateUnits.AsReadOnly();
         }
 
         public IReadOnlyList<IPosition> GetPositions()
         {
-            throw new NotImplementedException();
+            return positions.AsReadOnly();
         }
 
         public int GetHierarchyTier()
         {
-            throw new NotImplementedException();
+            return hierarchyTier;
         }
 
         public bool GetIsDelete()
         {
-            throw new NotImplementedException();
+            return isDelete;
         }
 
-        public void Rename(string newName)
+        public bool Rename(string newName)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(newName))
+            {
+                return false;
+            }
+            name = newName;
+            return true;
         }
 
-        public void AddPosition(string newPosition)
+        public bool AddPosition(string newPosition)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(newPosition))
+            {
+                return false;
+            }
+            positions.Add(new SimplePosition(newPosition, this));
+            return true;
         }
 
-        public void DeletePosition(IPosition deletedPosition)
+        public bool DeletePosition(IPosition deletedPosition)
         {
             throw new NotImplementedException();
         }
