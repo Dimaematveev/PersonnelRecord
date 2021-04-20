@@ -52,7 +52,7 @@ namespace PersonnelRecord.BL.Interfaces
         /// Совмещает должность?
         /// </summary>
         /// <returns>True - Совмещает, false - нет</returns>
-        bool IsCombination();
+        bool GetIsCombination();
 
         /// <summary>
         /// Получить статус сотрудника. 
@@ -70,7 +70,8 @@ namespace PersonnelRecord.BL.Interfaces
         /// <summary>
         /// Изменить статус сотрудника на False
         /// </summary>
-        void ChangeStatusFalse();
+        /// <returns>true - удалили флаг работающего человека, false- нет получилось</returns>
+        bool ChangeStatusFalse();
 
     }
 }

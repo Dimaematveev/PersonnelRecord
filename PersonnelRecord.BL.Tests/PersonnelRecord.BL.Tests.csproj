@@ -54,6 +54,12 @@
     <None Include="ClassesOLD\SimpleEmployeeTests.cs" />
     <None Include="ClassesOLD\SimplePositionTests.cs" />
     <None Include="ClassesOLD\SimpleUnitTests.cs" />
+    <Compile Include="Classes\Change\SimpleChangeConstructorTests.cs" />
+    <Compile Include="Classes\Employee\SimpleEmployeeConstructorTests.cs" />
+    <Compile Include="Classes\Position\SimplePositionConstructorTests.cs" />
+    <Compile Include="Classes\Position\SimplePositionTests.cs" />
+    <Compile Include="Classes\Employee\SimpleEmployeeTests.cs" />
+    <Compile Include="Classes\Change\SimpleChangeTests.cs" />
     <Compile Include="Classes\Unit\SimpleUnitTests.cs" />
     <Compile Include="Classes\Unit\SimpleUnitConstructorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,11 +73,7 @@
       <Name>PersonnelRecord.BL</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\Change\" />
-    <Folder Include="Classes\Employee\" />
-    <Folder Include="Classes\Position\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

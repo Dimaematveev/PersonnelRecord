@@ -13,64 +13,96 @@ namespace PersonnelRecord.BL.Classes
     /// </summary>
     public class SimpleChange : IChange
     {
-        public IChange PrevpreviousChange { get; }
-        public int ID { get; }
-        public int NumberOrder { get; }
-        public DateTime DateOfChange { get; }
-        public IPosition Position { get; }
-        public IEmployee Employee { get; }
-        public bool CombinationOfPosition { get; }
-        public bool IsWork { get; }
-        public sbyte Status { get; }
-
-        public void ChangeStatusFalse()
-        {
-            throw new NotImplementedException();
-        }
-
-        public DateTime GetDateChange()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEmployee GetEmployee()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int GetID()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int GetNumberOrder()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IPosition GetPosition()
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// предыдущую динамику
+        /// </summary>
+        private IChange prevpreviousChange;
         public IChange GetPreviousChange()
         {
-            throw new NotImplementedException();
+            return prevpreviousChange;
         }
 
-        public RecordType GetRecordType()
+        /// <summary>
+        /// ID Динамики
+        /// </summary>
+        private int id;
+        public int GetID()
         {
-            throw new NotImplementedException();
+            return id;
         }
 
+        /// <summary>
+        /// Номер приказа
+        /// </summary>
+        private int numberOrder;
+        public int GetNumberOrder()
+        {
+            return numberOrder;
+        }
+
+        /// <summary>
+        /// Дату внесения данных
+        /// </summary>
+        private DateTime dateOfChange;
+        public DateTime GetDateChange()
+        {
+            return dateOfChange;
+        }
+
+        /// <summary>
+        /// Занимаемая должность
+        /// </summary>
+        private IPosition position;
+        public IPosition GetPosition()
+        {
+            return position;
+        }
+
+        /// <summary>
+        /// Сотрудник
+        /// </summary>
+        private IEmployee employee;
+        public IEmployee GetEmployee()
+        {
+            return employee;
+        }
+
+        // <summary>
+        /// Совмещает должность?
+        /// </summary>
+        private bool combinationOfPosition;
+        public bool GetIsCombination()
+        {
+            return combinationOfPosition;
+        }
+
+        /// <summary>
+        /// Статус сотрудника. 
+        /// Занимает эту должность или нет
+        /// </summary>
+        private bool isWork;
         public bool GetStatus()
         {
-            throw new NotImplementedException();
+            return isWork;
         }
 
-        public bool IsCombination()
+        /// <summary>
+        /// Тип изменения
+        /// </summary>
+        private RecordType status;
+        public RecordType GetRecordType()
         {
-            throw new NotImplementedException();
+            return status;
+        }
+
+        public bool ChangeStatusFalse()
+        {
+            if (isWork == false)
+            {
+                return false;
+            }
+            isWork = false;
+            return true;
         }
     }
 }

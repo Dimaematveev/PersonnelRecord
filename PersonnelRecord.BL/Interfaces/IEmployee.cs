@@ -12,7 +12,7 @@ namespace PersonnelRecord.BL.Interfaces
     public interface IEmployee
     {
         /// <summary>
-        /// Получить ID
+        /// Получить ID сотрудника или таб.номер
         /// </summary>
         /// <returns>ID сотрудника(Таб.номер)</returns>
         int GetID();

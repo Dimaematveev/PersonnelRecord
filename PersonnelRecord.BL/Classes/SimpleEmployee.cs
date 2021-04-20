@@ -8,14 +8,46 @@ using PersonnelRecord.BL.Interfaces;
 namespace PersonnelRecord.BL.Classes
 {
     /// <summary>
-    /// Класс  Простой Сотрудник
+    /// Класс Простой Сотрудник
     /// </summary>
     public class SimpleEmployee : IEmployee
     {
-        public int ID { get; }
-        public int FIO { get; }
-        public List<IChange> Changes { get; }
-        public bool IsWork { get; }
+        /// <summary>
+        ///  ID Сотрудника или таб. номер
+        /// </summary>
+        private int id;
+        public int GetID()
+        {
+            return id;
+        }
+       
+        /// <summary>
+        /// ФИО
+        /// </summary>
+        private string fullName;
+        public string GetFullName()
+        {
+            return fullName;
+        }
+       
+        /// <summary>
+        /// Дата рождения
+        /// </summary>
+        private DateTime birthday;
+        public DateTime GetBirthday()
+        {
+            return birthday;
+        }
+        
+        /// <summary>
+        /// Список динамики сотрудника
+        /// </summary>
+        private List<IChange> changes;
+        public IReadOnlyList<IChange> GetChanges()
+        {
+            return changes.AsReadOnly();
+        }
+
 
         public void AddPosition(int numberOrder, IPosition position)
         {
@@ -37,26 +69,7 @@ namespace PersonnelRecord.BL.Classes
             throw new NotImplementedException();
         }
 
-        public DateTime GetBirthday()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IReadOnlyList<IChange> GetChanges()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetFullName()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int GetID()
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public IReadOnlyList<IPosition> GetListCurrentPositions()
         {
             throw new NotImplementedException();

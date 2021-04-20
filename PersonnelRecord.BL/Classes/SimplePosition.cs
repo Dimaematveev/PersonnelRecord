@@ -12,60 +12,99 @@ namespace PersonnelRecord.BL.Classes
     /// </summary>
     public class SimplePosition : IPosition
     {
-        internal SimplePosition(string name)
+        /// <summary>
+        /// Название должности
+        /// </summary>
+        private string name;
+        public string GetName()
         {
-            Name = name;
+            return name;
         }
-        //Setsubbdiv;
-
-        internal SimplePosition(string name, IUnit subdivision)
+        
+        /// <summary>
+        /// Подразделение к которому относится должность
+        /// </summary>
+        private IUnit unit;
+        public IUnit GetUnit()
         {
-            if (string.IsNullOrWhiteSpace(name))
+            return unit;
+        }
+
+        /// <summary>
+        /// Занята ли должность
+        /// </summary>
+        private bool isPositionBusy;
+        public bool GetIsPositionBusy()
+        {
+            return isPositionBusy;
+        }
+        
+        /// <summary>
+        /// Удалена ли должность
+        /// </summary>
+        private bool isDelete;
+        public bool GetIsDelete()
+        {
+            return isDelete;
+        }
+
+        //internal SimplePosition(string namePosition)
+        //{
+        //   name = namePosition;
+        //}
+        ////Setsubbdiv;
+
+        internal SimplePosition(string namePosition, IUnit unit)
+        {
+            if (string.IsNullOrWhiteSpace(namePosition))
             {
                 throw new ArgumentNullException("Название должности не должно быть пустым!!!");
             }
-            if (subdivision == null)
+            if (unit == null)
             {
                 throw new ArgumentNullException("Подразделение не должно быть null!!!");
             }
-            Name = name;
-            Subdivision = subdivision;
+            name = namePosition;
+            this.unit = unit;
 
 
-            IsWork = true;
-            IsDelete = false;
+            isPositionBusy = false;
+            isDelete = false;
 
         }
 
-        public string Name { get; private set; }
-        public IUnit Subdivision { get; private set; }
-        public bool IsWork { get; private set; }
-        public bool IsDelete { get; private set; }
+       
 
-
-        public void Delete()
+        
+        public bool Delete()
         {
-            IsDelete = true;
+            if (isPositionBusy)
+            {
+                return false;
+            }
+
+            isDelete = true;
+            return true;
         }
 
-        public bool GetIsDelete()
+        public bool BusyPosition()
         {
-            throw new NotImplementedException();
+            if (isPositionBusy)
+            {
+                return false;
+            }
+            isPositionBusy = true;
+            return true;
         }
 
-        public bool GetIsPositionBusy()
+        public bool NotBusyPosition()
         {
-            throw new NotImplementedException();
-        }
-
-        public string GetName()
-        {
-            return Name;
-        }
-
-        public IUnit GetUnit()
-        {
-            throw new NotImplementedException();
+            if (!isPositionBusy)
+            {
+                return false;
+            }
+            isPositionBusy = false;
+            return true;
         }
     }
 }

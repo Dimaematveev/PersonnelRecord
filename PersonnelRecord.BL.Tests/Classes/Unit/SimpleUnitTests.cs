@@ -239,6 +239,36 @@ namespace PersonnelRecord.BL.Classes.Unit.Tests
         }
         #endregion
 
+
+
+        #region Функция GetMainUnits (Получить все главные подразделения)
+        [TestMethod()]
+        public void GetMainUnits_WithValidArguments_ListIUnitReturned()
+        {
+            Debug.WriteLine("Начало теста Получить все главные подразделения. Корректные параметры, возврат список подразделений.");
+
+            // Arrange(настройка)
+            IUnit unit2 = new SimpleUnit("1", new List<string>() { "2" });
+
+            Debug.WriteLine($"Новое главное подразделение = '{unit2.GetName()}'.");
+
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал Изменять");
+            var ret = unit.ChangeMainUnit(unit2);
+            Debug.WriteLine("Изменил");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{unit2.GetName()}', unit.GetMainUnit() = '{unit.GetMainUnit().GetName()}'.");
+            Assert.AreEqual(unit2, unit.GetMainUnit());
+            Debug.WriteLine($"Должно быть = '{true}', unit.ChangeMainUnit().return = '{ret}'.");
+            Assert.IsTrue(ret);
+
+            Debug.WriteLine("Удаление Закончено. ");
+        }
+        #endregion
+
+
         #region Функция AddSubordinateUnit (Добавить подчиненное подразделение) ---- ХЕРНЯ не придумал
         [TestMethod()]
         public void AddSubordinateUnit_WithValidArguments_AddSubordinateUnitAndTrueReturned()
@@ -300,32 +330,6 @@ namespace PersonnelRecord.BL.Classes.Unit.Tests
 
         
 
-
-
-        #region Функция GetMainUnits (Получить все главные подразделения)
-        [TestMethod()]
-        public void GetMainUnits_WithValidArguments_ListIUnitReturned()
-        {
-            Debug.WriteLine("Начало теста Получить все главные подразделения. Корректные параметры, возврат список подразделений.");
-
-            // Arrange(настройка)
-            IUnit unit2 = new SimpleUnit("1", new List<string>() { "2" });
-            Debug.WriteLine($"Новое главное подразделение = '{unit2.GetName()}'.");
-
-            // Act — выполнение 
-            Debug.WriteLine("Начал Изменять");
-            var ret = unit.ChangeMainUnit(unit2);
-            Debug.WriteLine("Изменил");
-
-            // Assert — проверка
-            Debug.WriteLine($"Должно быть = '{unit2.GetName()}', unit.GetMainUnit() = '{unit.GetMainUnit().GetName()}'.");
-            Assert.AreEqual(unit2, unit.GetMainUnit());
-            Debug.WriteLine($"Должно быть = '{true}', unit.ChangeMainUnit().return = '{ret}'.");
-            Assert.IsTrue(ret);
-
-            Debug.WriteLine("Удаление Закончено. ");
-        }
-        #endregion
 
         #region Функция ChangeMainUnit (Изменить главное подразделение)
         [TestMethod()]

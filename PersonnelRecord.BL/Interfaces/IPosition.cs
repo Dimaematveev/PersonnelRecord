@@ -35,9 +35,25 @@ namespace PersonnelRecord.BL.Interfaces
         /// <returns> True - Удалена, False - нет</returns>
         bool GetIsDelete();
 
+
+
         /// <summary>
         /// Удалить должность
         /// </summary>
-        void Delete();
+        /// <returns>True -Удалил должность, False - нет</returns>
+        bool Delete();
+
+        /// <summary>
+        /// Занять должность
+        /// </summary>
+        /// <returns>True -занял должность, False - нет</returns>
+        bool BusyPosition();
+
+        //TODO: Переименовать
+        /// <summary>
+        /// Снять с должности
+        /// </summary>
+        /// <returns>True - Сняли с должности, False - нет</returns>
+        bool NotBusyPosition();
     }
 }

@@ -16,31 +16,56 @@ namespace PersonnelRecord.BL.Classes
         /// Название подразделения
         /// </summary>
         private string name;
+        public string GetName()
+        {
+            return name;
+        }
 
         /// <summary>
         /// Главное подразделение
         /// </summary>
         private IUnit mainUnit;
+        public IUnit GetMainUnit()
+        {
+            return mainUnit;
+        }
 
         /// <summary>
         /// Список Подчиненных подразделений
         /// </summary>
         private List<IUnit> subordinateUnits;
+        public IReadOnlyList<IUnit> GetSubordinateUnits()
+        {
+            return subordinateUnits.AsReadOnly();
+        }
 
         /// <summary>
         /// Список Должностей
         /// </summary>
         private List<IPosition> positions;
-        
+        public IReadOnlyList<IPosition> GetPositions()
+        {
+            return positions.AsReadOnly();
+        }
+       
         /// <summary>
         /// Ярус иерархии
         /// </summary>
         private int hierarchyTier;
+        public int GetHierarchyTier()
+        {
+            return hierarchyTier;
+        }
 
         /// <summary>
         /// Удалено подразделение?
         /// </summary>
         private bool isDelete;
+        public bool GetIsDelete()
+        {
+            return isDelete;
+        }
+
 
         public SimpleUnit(string nameUnit, List<string> positionsName)
         {
@@ -54,36 +79,6 @@ namespace PersonnelRecord.BL.Classes
                 positions.Add(new SimplePosition(positionName, this));
             }
             
-        }
-
-        public string GetName()
-        {
-            return name;
-        }
-
-        public IUnit GetMainUnit()
-        {
-            return mainUnit;
-        }
-
-        public IReadOnlyList<IUnit> GetSubordinateUnits()
-        {
-            return subordinateUnits.AsReadOnly();
-        }
-
-        public IReadOnlyList<IPosition> GetPositions()
-        {
-            return positions.AsReadOnly();
-        }
-
-        public int GetHierarchyTier()
-        {
-            return hierarchyTier;
-        }
-
-        public bool GetIsDelete()
-        {
-            return isDelete;
         }
 
         public bool Rename(string newName)
@@ -122,7 +117,15 @@ namespace PersonnelRecord.BL.Classes
 
         public IReadOnlyList<IUnit> GetMainUnits()
         {
-            throw new NotImplementedException();
+            List<IUnit> units = new List<IUnit>() { };
+            
+            IUnit lastMainUnit = mainUnit;
+            while (lastMainUnit != null)
+            {
+                units.Add(lastMainUnit);
+                lastMainUnit = lastMainUnit.GetMainUnit();
+            }
+            return units;
         }
 
         public bool ChangeMainUnit(IUnit newMainUnit)
