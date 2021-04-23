@@ -82,6 +82,13 @@ namespace PersonnelRecord.BL.Interfaces
         bool ChangeMainUnit(IUnit newMainUnit);
 
         /// <summary>
+        ///  Переподчинение подразделения
+        /// </summary>
+        /// <param name="newMainUnit">Новое главное подразделение</param>
+        /// <returns>True - переподчинили  подразделение, False - нет</returns>
+        bool Reassignment(IUnit newMainUnit);
+
+        /// <summary>
         /// Добавить подчиненное подразделение
         /// </summary>
         /// <param name="addedSubordinateUnit">Добавляемое подчиненное подразделение</param>

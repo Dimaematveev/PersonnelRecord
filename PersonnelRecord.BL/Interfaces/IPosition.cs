@@ -44,6 +44,12 @@ namespace PersonnelRecord.BL.Interfaces
         bool Delete();
 
         /// <summary>
+        /// Проверка, можно ли удалить должность
+        /// </summary>
+        /// <returns>True -возможно удалить должность, False - нет</returns>
+        bool IsPossibleDeletePosition();
+
+        /// <summary>
         /// Занять должность
         /// </summary>
         /// <returns>True -занял должность, False - нет</returns>

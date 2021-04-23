@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PersonnelRecord.BL.Classes;
+using PersonnelRecord.BL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,63 +14,32 @@ namespace PersonnelRecord.BL.Classes.Employee.Tests
     public class SimpleEmployeeConstructorTests
     {
         [TestMethod()]
-        public void AddPosition()
+        public void ConstructorTest_Pos1AndUnit1_CreateClass()
         {
-            Assert.Fail();
-        }
+            //Arrange (настройка) — в этом блоке кода мы настраиваем 
+            //тестовое окружение тестируемого юнита;
+            Debug.WriteLine("Начало теста. Корректные параметры!");
+            var id = 1;
+            Debug.WriteLine("id = '1'");
+            var name = "Name1";
+            Debug.WriteLine("name = 'Name1'");
+            var birthday = new DateTime(1994, 12, 2);
+            Debug.WriteLine("birthday = '2.12.1994'");
+            var changes = new List<IChange>().AsReadOnly();
+            // Act — выполнение или вызов тестируемого сценария;
+            var employee = new SimpleEmployee(id, name, birthday);
+            Debug.WriteLine("Создали класс employee");
 
-        [TestMethod()]
-        public void ChangeFullName()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void ChangePosition()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void Dismissal()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetBirthday()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetChanges()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetFullName()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetID()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetListCurrentPositions()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void Recruitment()
-        {
-            Assert.Fail();
+            // Assert — проверка того, что тестируемый вызов ведет себя 
+            // определенным образом.
+            Debug.WriteLine($"Должно быть='{name}', position.GetName='{employee.GetFullName()}'");
+            Assert.AreEqual(name, employee.GetFullName());
+            Debug.WriteLine($"Должно быть='{id}', position.GetName='{employee.GetID()}'");
+            Assert.AreEqual(id, employee.GetID());
+            Debug.WriteLine($"Должно быть='{birthday}', position.GetName='{employee.GetBirthday()}'");
+            Assert.AreEqual(birthday, employee.GetBirthday());
+            Debug.WriteLine($"Должно быть='{changes.Count}', position.GetName='{employee.GetChanges().Count}'");
+            CollectionAssert.AreEqual(changes.ToList(), employee.GetChanges().ToList());
         }
     }
 }

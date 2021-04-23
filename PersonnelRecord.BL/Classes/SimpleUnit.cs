@@ -12,6 +12,7 @@ namespace PersonnelRecord.BL.Classes
     /// </summary>
     public class SimpleUnit : IUnit
     {
+        #region Поля
         /// <summary>
         /// Название подразделения
         /// </summary>
@@ -65,7 +66,7 @@ namespace PersonnelRecord.BL.Classes
         {
             return isDelete;
         }
-
+        #endregion
 
         public SimpleUnit(string nameUnit, List<string> positionsName)
         {
@@ -111,6 +112,11 @@ namespace PersonnelRecord.BL.Classes
             {
                 return false;
             }
+            if (!deletedPosition.Delete())
+            {
+                return false;
+            }
+
             positions.Remove(deletedPosition);
             return true;
         }
@@ -130,25 +136,110 @@ namespace PersonnelRecord.BL.Classes
 
         public bool ChangeMainUnit(IUnit newMainUnit)
         {
-            throw new NotImplementedException();
+            if (newMainUnit == null)
+            {
+                return false;
+            }
+            if (newMainUnit.GetHierarchyTier() == 0)
+            {
+                return false;
+            }
+            if (!newMainUnit.GetIsDelete())
+            {
+                return false;
+            }
+            if (newMainUnit == this)
+            {
+                return false;
+            }
+            if (newMainUnit.GetMainUnits().Contains(this))
+            {
+                return false;
+            }
+            mainUnit = newMainUnit;
+            hierarchyTier = newMainUnit.GetHierarchyTier() + 1;
+            return true;
         }
 
         public bool AddSubordinateUnit(IUnit addedSubordinateUnit)
         {
-            throw new NotImplementedException();
+            if (addedSubordinateUnit == null)
+            {
+                return false;
+            }
+            if (addedSubordinateUnit == this)
+            {
+                return false;
+            }
+            if (addedSubordinateUnit.GetMainUnit() != this)
+            {
+                return false;
+            }
+
+            subordinateUnits.Add(addedSubordinateUnit);
+            return true;
         }
 
         public bool DeleteSubordinateUnit(IUnit deletedSubordinateUnit)
         {
-            throw new NotImplementedException();
+            if (!subordinateUnits.Contains(deletedSubordinateUnit))
+            {
+                return false;
+            }
+            subordinateUnits.Remove(deletedSubordinateUnit);
+            return true;
+        }
+
+        public bool Reassignment(IUnit newMainUnit)
+        {
+            //Удалить из главного
+            if (!this.mainUnit.DeleteSubordinateUnit(this))
+            {
+                return false;
+            }
+
+
+            //Добавть в главное
+            if (!newMainUnit.AddSubordinateUnit(this))
+            {
+                this.mainUnit.AddSubordinateUnit(this);
+                return false;
+            }
+
+            // Изменить главное
+            if (!ChangeMainUnit(this))
+            {
+                this.mainUnit.AddSubordinateUnit(this);
+                newMainUnit.DeleteSubordinateUnit(this);
+                return false;
+            }
+            
+            return true;
+
         }
 
         public bool Delete()
         {
-            throw new NotImplementedException();
+            foreach (var pos in positions)
+            {
+                if (!pos.IsPossibleDeletePosition())
+                {
+                    return false;
+                }
+            }
+            foreach (var subUnit in subordinateUnits)
+            {
+                subUnit.Reassignment(this.GetMainUnit());
+            }
+            isDelete = true;
+            mainUnit = null;
+            hierarchyTier = 0;
+            return true;
         }
 
-        
+       
+
+
 
 
 

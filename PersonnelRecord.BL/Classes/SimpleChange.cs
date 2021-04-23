@@ -13,6 +13,9 @@ namespace PersonnelRecord.BL.Classes
     /// </summary>
     public class SimpleChange : IChange
     {
+        private static int maxID;
+
+        #region Поля
         /// <summary>
         /// предыдущую динамику
         /// </summary>
@@ -94,6 +97,33 @@ namespace PersonnelRecord.BL.Classes
         {
             return status;
         }
+        #endregion
+
+        private SimpleChange(IChange prevpreviousChange,
+                             int numberOrder,
+                             IEmployee employee,
+                             IPosition position,
+                             bool combinationOfPosition,
+                             bool isWork,
+                             RecordType status)
+        {
+            
+            this.prevpreviousChange = prevpreviousChange;
+            this.numberOrder = numberOrder;
+            this.employee = employee;
+            this.position = position;
+            this.combinationOfPosition = combinationOfPosition;
+            this.isWork = isWork;
+            this.status = status;
+
+            if (prevpreviousChange != null)
+            {
+                prevpreviousChange.ChangeStatusFalse();
+            }
+            maxID++;
+            this.id = maxID;
+
+        }
 
         public bool ChangeStatusFalse()
         {
@@ -103,6 +133,74 @@ namespace PersonnelRecord.BL.Classes
             }
             isWork = false;
             return true;
+        }
+
+        /// <summary>
+        /// Нанять на должность
+        /// </summary>
+        /// <param name="numberOrder">Номер приказа</param>
+        /// <param name="employee">Сотрудник</param>
+        /// <param name="position">Должность</param>
+        /// <param name="combinationOfPosition">Совмещенная должность?</param>
+        /// <returns>Новая динамика</returns>
+        public static IChange Recruitment(int numberOrder,
+                                          IEmployee employee,
+                                          IPosition position,
+                                          bool combinationOfPosition)
+        {
+            var change = new SimpleChange(null,
+                                          numberOrder,
+                                          employee,
+                                          position,
+                                          combinationOfPosition,
+                                          true,
+                                          RecordType.Найм);
+            return change;
+        }
+
+        /// <summary>
+        /// Изменить должность
+        /// </summary>
+        /// <param name="numberOrder">Номер приказа</param>
+        /// <param name="employee">Сотрудник</param>
+        /// <param name="prevpreviousChange">Предыдущая динамика</param>
+        /// <param name="position">Должность</param>
+        /// <returns>Новая динамика</returns>
+        public static IChange Transfer(int numberOrder,
+                                          IEmployee employee,
+                                          IChange prevpreviousChange,
+                                          IPosition position)
+        {
+            var change = new SimpleChange(prevpreviousChange,
+                                          numberOrder,
+                                          employee,
+                                          position,
+                                          prevpreviousChange.GetIsCombination(),
+                                          true,
+                                          RecordType.Изменение);
+            
+            return change;
+        }
+        /// <summary>
+        /// Уволить с должности
+        /// </summary>
+        /// <param name="numberOrder">Номер приказа</param>
+        /// <param name="employee">Сотрудник</param>
+        /// <param name="prevpreviousChange">Предыдущая динамика</param>
+        /// <returns>Новая динамика</returns>
+        public static IChange Dismissal(int numberOrder,
+                                          IEmployee employee,
+                                          IChange prevpreviousChange)
+        {
+            var change = new SimpleChange(prevpreviousChange,
+                                          numberOrder,
+                                          employee,
+                                          null,
+                                          prevpreviousChange.GetIsCombination(),
+                                          false,
+                                          RecordType.Увольнение);
+
+            return change;
         }
     }
 }

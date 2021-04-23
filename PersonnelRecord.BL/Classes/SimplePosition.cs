@@ -12,6 +12,7 @@ namespace PersonnelRecord.BL.Classes
     /// </summary>
     public class SimplePosition : IPosition
     {
+        #region Поля
         /// <summary>
         /// Название должности
         /// </summary>
@@ -47,6 +48,7 @@ namespace PersonnelRecord.BL.Classes
         {
             return isDelete;
         }
+        #endregion
 
         //internal SimplePosition(string namePosition)
         //{
@@ -78,7 +80,7 @@ namespace PersonnelRecord.BL.Classes
         
         public bool Delete()
         {
-            if (isPositionBusy)
+            if (!IsPossibleDeletePosition())
             {
                 return false;
             }
@@ -104,6 +106,16 @@ namespace PersonnelRecord.BL.Classes
                 return false;
             }
             isPositionBusy = false;
+            return true;
+        }
+
+        public bool IsPossibleDeletePosition()
+        {
+            if (isPositionBusy)
+            {
+                return false;
+            }
+
             return true;
         }
     }
