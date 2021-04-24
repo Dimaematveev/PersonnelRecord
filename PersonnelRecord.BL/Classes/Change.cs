@@ -131,6 +131,9 @@ namespace PersonnelRecord.BL.Classes
         }
         #endregion
 
+
+
+
         private Change(Change prevpreviousChange,
                              int numberOrder,
                              Employee employee,
@@ -158,12 +161,25 @@ namespace PersonnelRecord.BL.Classes
         }
 
         /// <summary>
+        /// Проверить возможно ли изменить статус на false
+        /// </summary>
+        /// <returns>true - Возможно изменить, false- нет</returns>
+        public bool IsPossibleChangeStatusToFalse()
+        {
+            if (isWork == false)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Изменить статус сотрудника на False
         /// </summary>
         /// <returns>true - удалили флаг работающего человека, false- нет получилось</returns>
         public bool ChangeStatusFalse()
         {
-            if (isWork == false)
+            if (!IsPossibleChangeStatusToFalse())
             {
                 return false;
             }
@@ -185,14 +201,15 @@ namespace PersonnelRecord.BL.Classes
                                           bool combinationOfPosition)
         {
             var change = new Change(null,
-                                          numberOrder,
-                                          employee,
-                                          position,
-                                          combinationOfPosition,
-                                          true,
-                                          RecordType.Найм);
+                                    numberOrder,
+                                    employee,
+                                    position,
+                                    combinationOfPosition,
+                                    true,
+                                    RecordType.Найм);
             return change;
         }
+
 
         /// <summary>
         /// Изменить должность
@@ -208,12 +225,12 @@ namespace PersonnelRecord.BL.Classes
                                           Position position)
         {
             var change = new Change(prevpreviousChange,
-                                          numberOrder,
-                                          employee,
-                                          position,
-                                          prevpreviousChange.GetIsCombination(),
-                                          true,
-                                          RecordType.Изменение);
+                                    numberOrder,
+                                    employee,
+                                    position,
+                                    prevpreviousChange.GetIsCombination(),
+                                    true,
+                                    RecordType.Изменение);
 
             return change;
         }
@@ -229,14 +246,15 @@ namespace PersonnelRecord.BL.Classes
                                           Change prevpreviousChange)
         {
             var change = new Change(prevpreviousChange,
-                                          numberOrder,
-                                          employee,
-                                          null,
-                                          prevpreviousChange.GetIsCombination(),
-                                          false,
-                                          RecordType.Увольнение);
+                                    numberOrder,
+                                    employee,
+                                    null,
+                                    prevpreviousChange.GetIsCombination(),
+                                    false,
+                                    RecordType.Увольнение);
 
             return change;
         }
+
     }
 }
