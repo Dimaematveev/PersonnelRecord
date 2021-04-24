@@ -1,12 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PersonnelRecord.BL.Classes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PersonnelRecord.BL.Classes.Change.Tests
+namespace PersonnelRecord.BL.Classes.Changes.Tests
 {
     [TestClass()]
     public class SimpleChangeTests

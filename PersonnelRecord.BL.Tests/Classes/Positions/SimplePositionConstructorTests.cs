@@ -1,13 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PersonnelRecord.BL.Classes;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PersonnelRecord.BL.Classes.Position.Tests
+namespace PersonnelRecord.BL.Classes.Positions.Tests
 {
     [TestClass()]
     public class SimplePositionConstructorTests
@@ -20,9 +16,9 @@ namespace PersonnelRecord.BL.Classes.Position.Tests
             Debug.WriteLine("Начало теста. Корректные параметры!");
             var nameUnit = "Unit1";
             Debug.WriteLine("nameUnit = 'Unit1'");
-            var positionsName = new List<string>() { "Pos1"};
+            var positionsName = new List<string>() { "Pos1" };
             Debug.WriteLine("positionsName = 'Pos1'");
-            var unit = new SimpleUnit(nameUnit, positionsName);
+            var unit = new Unit(nameUnit, positionsName);
             Debug.WriteLine("Создали класс unit");
 
             // Act — выполнение или вызов тестируемого сценария;

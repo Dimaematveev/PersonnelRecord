@@ -1,20 +1,16 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PersonnelRecord.BL.Classes;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PersonnelRecord.BL.Classes.Position.Tests
+namespace PersonnelRecord.BL.Classes.Positions.Tests
 {
     [TestClass()]
     public class SimplePositionTests
     {
         private string namePosition;
-        private SimplePosition position;
-        private SimpleUnit unit;
+        private Position position;
+        private Unit unit;
         #region Первоначальная настройка
         [TestInitialize]
         public void TestInitialize()
@@ -24,14 +20,14 @@ namespace PersonnelRecord.BL.Classes.Position.Tests
             //тестовое окружение тестируемого юнита;
             var nameUnit = "Unit1";
             Debug.WriteLine("nameUnit = 'Unit1'");
-            namePosition = "Pos1" ;
+            namePosition = "Pos1";
             Debug.WriteLine("positionsName = 'Pos1'");
-            unit = new SimpleUnit(nameUnit, new List<string>() { namePosition });
+            unit = new Unit(nameUnit, new List<string>() { namePosition });
             Debug.WriteLine("Создали класс unit");
 
             // Act — выполнение или вызов тестируемого сценария;
             Debug.WriteLine("Выделяем класс Position");
-            position = (SimplePosition)(unit.GetPositions().FirstOrDefault());
+            position = (Position)(unit.GetPositions().FirstOrDefault());
             Debug.WriteLine("Выделили класс Position");
 
             Debug.WriteLine("Настройка закончена");

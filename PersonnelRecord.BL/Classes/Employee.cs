@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PersonnelRecord.BL.Interfaces;
 
 namespace PersonnelRecord.BL.Classes
 {
     /// <summary>
     /// Класс Простой Сотрудник
     /// </summary>
-    public class SimpleEmployee : IEmployee
+    public class Employee
     {
         #region Поля
         /// <summary>
@@ -25,7 +22,7 @@ namespace PersonnelRecord.BL.Classes
         {
             return id;
         }
-       
+
         /// <summary>
         /// ФИО
         /// </summary>
@@ -38,7 +35,7 @@ namespace PersonnelRecord.BL.Classes
         {
             return fullName;
         }
-       
+
         /// <summary>
         /// Дата рождения
         /// </summary>
@@ -51,28 +48,28 @@ namespace PersonnelRecord.BL.Classes
         {
             return birthday;
         }
-        
+
         /// <summary>
         /// Список динамики сотрудника
         /// </summary>
-        private List<IChange> changes;
+        private List<Change> changes;
         /// <summary>
         /// Получить неизменяемый список динамики сотрудника
         /// </summary>
         /// <returns>Список динамики</returns>
-        public IReadOnlyList<IChange> GetChanges()
+        public IReadOnlyList<Change> GetChanges()
         {
             return changes.AsReadOnly();
         }
 
         #endregion
 
-        public SimpleEmployee(int id, string fullName, DateTime birthday)
+        public Employee(int id, string fullName, DateTime birthday)
         {
             this.id = id;
             this.fullName = fullName;
             this.birthday = birthday;
-            changes = new List<IChange>();
+            changes = new List<Change>();
         }
 
         /// <summary>
@@ -81,9 +78,9 @@ namespace PersonnelRecord.BL.Classes
         /// </summary>
         /// <param name="numberOrder">Номер приказа</param>
         /// <param name="position">Должность</param>
-        public void Recruitment(int numberOrder, IPosition position)
+        public void Recruitment(int numberOrder, Position position)
         {
-            var change = SimpleChange.Recruitment(numberOrder, this, position, false);
+            var change = Change.Recruitment(numberOrder, this, position, false);
             changes.Add(change);
         }
 
@@ -93,9 +90,9 @@ namespace PersonnelRecord.BL.Classes
         /// </summary>
         /// <param name="numberOrder">Номер приказа</param>
         /// <param name="position">Должность</param>
-        public void AddPosition(int numberOrder, IPosition position)
+        public void AddPosition(int numberOrder, Position position)
         {
-            var change = SimpleChange.Recruitment(numberOrder, this, position, true);
+            var change = Change.Recruitment(numberOrder, this, position, true);
             changes.Add(change);
         }
 
@@ -114,10 +111,10 @@ namespace PersonnelRecord.BL.Classes
         /// <param name="numberOrder">Номер приказа</param>
         /// <param name="oldPosition">Старая должность</param>
         /// <param name="newPosition">Новая должность</param>
-        public void ChangePosition(int numberOrder, IPosition oldPosition, IPosition newPosition)
+        public void ChangePosition(int numberOrder, Position oldPosition, Position newPosition)
         {
             var oldChange = changes.Where(x => x.GetStatus()).First(x => x.GetPosition() == oldPosition);
-            var change = SimpleChange.Transfer(numberOrder, this, oldChange, newPosition);
+            var change = Change.Transfer(numberOrder, this, oldChange, newPosition);
             changes.Add(change);
         }
 
@@ -126,10 +123,10 @@ namespace PersonnelRecord.BL.Classes
         /// </summary>
         /// <param name="numberOrder">Номер приказа</param>
         /// <param name="oldPosition">Старая должность</param>
-        public void Dismissal(int numberOrder, IPosition oldPosition)
+        public void Dismissal(int numberOrder, Position oldPosition)
         {
             var oldChange = changes.Where(x => x.GetStatus()).First(x => x.GetPosition() == oldPosition);
-            var change = SimpleChange.Dismissal(numberOrder, this, oldChange);
+            var change = Change.Dismissal(numberOrder, this, oldChange);
             changes.Add(change);
         }
 
@@ -138,11 +135,11 @@ namespace PersonnelRecord.BL.Classes
         /// Получить список должностей сотрудника на которых он находится
         /// </summary>
         /// <returns>Список должностей</returns>
-        public IReadOnlyList<IPosition> GetListCurrentPositions()
+        public IReadOnlyList<Position> GetListCurrentPositions()
         {
             return changes.Where(x => x.GetStatus()).Select(x => x.GetPosition()).ToList().AsReadOnly();
         }
 
-        
+
     }
 }

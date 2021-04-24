@@ -1,21 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PersonnelRecord.BL.Classes;
-using PersonnelRecord.BL.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PersonnelRecord.BL.Classes.Employee.Tests
+namespace PersonnelRecord.BL.Classes.Employes.Tests
 {
     [TestClass()]
     public class SimpleEmployeeTests
     {
 
         private string name;
-        private SimpleEmployee employee;
+        private Employee employee;
 
         #region Первоначальная настройка
         [TestInitialize]
@@ -29,7 +23,7 @@ namespace PersonnelRecord.BL.Classes.Employee.Tests
             var birthday = new DateTime(1994, 12, 2);
             Debug.WriteLine("birthday = '2.12.1994'");
             // Act — выполнение или вызов тестируемого сценария;
-            employee = new SimpleEmployee(id, name, birthday);
+            employee = new Employee(id, name, birthday);
             Debug.WriteLine("Создали класс employee");
 
             Debug.WriteLine("Настройка закончена");

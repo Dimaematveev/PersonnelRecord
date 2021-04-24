@@ -1,14 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PersonnelRecord.BL.Classes;
-using PersonnelRecord.BL.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PersonnelRecord.BL.Classes.Unit.Tests
+namespace PersonnelRecord.BL.Classes.Units.Tests
 {
     [TestClass()]
     public class SimpleUnitConstructorTests
@@ -26,7 +21,7 @@ namespace PersonnelRecord.BL.Classes.Unit.Tests
 
             // Act — выполнение или вызов тестируемого сценария;
             Debug.WriteLine("Создаем класс unit");
-            var unit = new SimpleUnit(nameUnit, positionsName);
+            var unit = new Unit(nameUnit, positionsName);
             Debug.WriteLine("Создали класс unit");
 
             // Assert — проверка того, что тестируемый вызов ведет себя 
@@ -38,7 +33,7 @@ namespace PersonnelRecord.BL.Classes.Unit.Tests
             Assert.IsNull(unit.GetMainUnit());
 
             Debug.WriteLine($"Должно быть='0', unit.GetSubordinateUnits().Count='{unit.GetSubordinateUnits().Count}'");
-            CollectionAssert.AreEqual(new List<IUnit>(), unit.GetSubordinateUnits().ToList());
+            CollectionAssert.AreEqual(new List<Unit>(), (System.Collections.ICollection)unit.GetSubordinateUnits().ToList());
 
 
             Debug.WriteLine($"Должно быть='{positionsName.Count}', unit.GetPositions='{unit.GetPositions().Count}'");

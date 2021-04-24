@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PersonnelRecord.BL.Enums;
-using PersonnelRecord.BL.Interfaces;
+﻿using PersonnelRecord.BL.Enums;
+using System;
 
 namespace PersonnelRecord.BL.Classes
 {
     /// <summary>
     /// Класс простая Динамика
     /// </summary>
-    public class SimpleChange : IChange
+    public class Change
     {
         private static int maxID;
 
@@ -19,12 +14,12 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// предыдущую динамику
         /// </summary>
-        private IChange prevpreviousChange;
+        private Change prevpreviousChange;
         /// <summary>
         /// Получить предыдущее изменение должности (предыдущую динамику)
         /// </summary>
         /// <returns>Предыдущая динамика</returns>
-        public IChange GetPreviousChange()
+        public Change GetPreviousChange()
         {
             return prevpreviousChange;
         }
@@ -71,12 +66,12 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Занимаемая должность
         /// </summary>
-        private IPosition position;
+        private Position position;
         /// <summary>
         /// Получить занимаемую должность
         /// </summary>
         /// <returns>Должность</returns>
-        public IPosition GetPosition()
+        public Position GetPosition()
         {
             return position;
         }
@@ -84,12 +79,12 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Сотрудник
         /// </summary>
-        private IEmployee employee;
+        private Employee employee;
         /// <summary>
         /// Получить сотрудника
         /// </summary>
         /// <returns>Сотрудник</returns>
-        public IEmployee GetEmployee()
+        public Employee GetEmployee()
         {
             return employee;
         }
@@ -136,15 +131,15 @@ namespace PersonnelRecord.BL.Classes
         }
         #endregion
 
-        private SimpleChange(IChange prevpreviousChange,
+        private Change(Change prevpreviousChange,
                              int numberOrder,
-                             IEmployee employee,
-                             IPosition position,
+                             Employee employee,
+                             Position position,
                              bool combinationOfPosition,
                              bool isWork,
                              RecordType status)
         {
-            
+
             this.prevpreviousChange = prevpreviousChange;
             this.numberOrder = numberOrder;
             this.employee = employee;
@@ -184,12 +179,12 @@ namespace PersonnelRecord.BL.Classes
         /// <param name="position">Должность</param>
         /// <param name="combinationOfPosition">Совмещенная должность?</param>
         /// <returns>Новая динамика</returns>
-        public static IChange Recruitment(int numberOrder,
-                                          IEmployee employee,
-                                          IPosition position,
+        public static Change Recruitment(int numberOrder,
+                                          Employee employee,
+                                          Position position,
                                           bool combinationOfPosition)
         {
-            var change = new SimpleChange(null,
+            var change = new Change(null,
                                           numberOrder,
                                           employee,
                                           position,
@@ -207,19 +202,19 @@ namespace PersonnelRecord.BL.Classes
         /// <param name="prevpreviousChange">Предыдущая динамика</param>
         /// <param name="position">Должность</param>
         /// <returns>Новая динамика</returns>
-        public static IChange Transfer(int numberOrder,
-                                          IEmployee employee,
-                                          IChange prevpreviousChange,
-                                          IPosition position)
+        public static Change Transfer(int numberOrder,
+                                          Employee employee,
+                                          Change prevpreviousChange,
+                                          Position position)
         {
-            var change = new SimpleChange(prevpreviousChange,
+            var change = new Change(prevpreviousChange,
                                           numberOrder,
                                           employee,
                                           position,
                                           prevpreviousChange.GetIsCombination(),
                                           true,
                                           RecordType.Изменение);
-            
+
             return change;
         }
         /// <summary>
@@ -229,11 +224,11 @@ namespace PersonnelRecord.BL.Classes
         /// <param name="employee">Сотрудник</param>
         /// <param name="prevpreviousChange">Предыдущая динамика</param>
         /// <returns>Новая динамика</returns>
-        public static IChange Dismissal(int numberOrder,
-                                          IEmployee employee,
-                                          IChange prevpreviousChange)
+        public static Change Dismissal(int numberOrder,
+                                          Employee employee,
+                                          Change prevpreviousChange)
         {
-            var change = new SimpleChange(prevpreviousChange,
+            var change = new Change(prevpreviousChange,
                                           numberOrder,
                                           employee,
                                           null,

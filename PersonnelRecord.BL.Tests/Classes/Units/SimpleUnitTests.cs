@@ -1,46 +1,41 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PersonnelRecord.BL.Classes;
-using PersonnelRecord.BL.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PersonnelRecord.BL.Classes.Unit.Tests
+namespace PersonnelRecord.BL.Classes.Units.Tests
 {
     [TestClass()]
     public class SimpleUnitTests
     {
-        
+
         private string nameUnit;
         private List<string> positionsName;
-        private SimpleUnit unit;
-        
+        private Unit unit;
+
         #region Первоначальная настройка
         [TestInitialize]
         public void TestInitialize()
         {
             Debug.WriteLine("Настройка Подразделения");
-            
+
             var nameMainUnit = "MainUnit";
             var positionsMainUnit = new List<string>() { "MainPos1", "MainPos2" };
-            var mainUnit = new SimpleUnit(nameMainUnit, positionsMainUnit);
-           
+            var mainUnit = new Unit(nameMainUnit, positionsMainUnit);
+
             var nameSubUnit1 = "SubUnit1";
             var positionsSubUnit1 = new List<string>() { "Sub1Pos1", "Sub1Pos2" };
-            var subUnit1 = new SimpleUnit(nameSubUnit1, positionsSubUnit1);
+            var subUnit1 = new Unit(nameSubUnit1, positionsSubUnit1);
 
             var nameSubUnit2 = "SubUnit2";
             var positionsSubUnit2 = new List<string>() { "Sub2Pos1", "Sub2Pos2" };
-            var subUnit2 = new SimpleUnit(nameSubUnit2, positionsSubUnit2);
+            var subUnit2 = new Unit(nameSubUnit2, positionsSubUnit2);
 
             nameUnit = "Unit1";
             positionsName = new List<string>() { "Pos1", "Pos2" };
-            unit = new SimpleUnit(nameUnit, positionsName);
+            unit = new Unit(nameUnit, positionsName);
             Debug.WriteLine($"Название подразделения = '{nameUnit}'");
-            Debug.WriteLine($"Должности = '{positionsName.Aggregate((x,y)=>x+' '+y)}'");
+            Debug.WriteLine($"Должности = '{positionsName.Aggregate((x, y) => x + ' ' + y)}'");
             Debug.WriteLine($"Главное подразделение = '{nameMainUnit}'");
             Debug.WriteLine($"Подчиненные подразделения = '{nameSubUnit1} {nameSubUnit2}'");
             //unit.ChangeMainUnit(mainUnit);
@@ -56,7 +51,7 @@ namespace PersonnelRecord.BL.Classes.Unit.Tests
         public void Rename_WithValidArguments_RenameAndTrueReterned()
         {
             Debug.WriteLine("Начало теста Переименование. Корректные параметры, возврат true.");
-            
+
             // Arrange(настройка)
             string newName = "Unit2";
             Debug.WriteLine($"Новое имя = '{newName}'.");
@@ -113,7 +108,7 @@ namespace PersonnelRecord.BL.Classes.Unit.Tests
 
             // Arrange(настройка)
             var NewPosition = "Pos3";
-            var Positions = unit.GetPositions().Select(x=>x.GetName()).ToList();
+            var Positions = unit.GetPositions().Select(x => x.GetName()).ToList();
             Positions.Add(NewPosition);
             Debug.WriteLine($"Новая должность = '{NewPosition}'.");
 
@@ -124,7 +119,7 @@ namespace PersonnelRecord.BL.Classes.Unit.Tests
 
             // Assert — проверка
             Debug.WriteLine($"Должно быть = '{Positions.Count}', unit.GetPositions() = '{unit.GetPositions().Count}'.");
-            CollectionAssert.AreEqual(Positions, unit.GetPositions().Select(x=>x.GetName()).ToList());
+            CollectionAssert.AreEqual(Positions, unit.GetPositions().Select(x => x.GetName()).ToList());
             Debug.WriteLine($"Должно быть = '{true}', unit.AddPosition().return = '{ret}'.");
             Assert.IsTrue(ret);
 
@@ -195,7 +190,7 @@ namespace PersonnelRecord.BL.Classes.Unit.Tests
 
             // Arrange(настройка)
             var DeletePositionName = "Pos3";
-            var unit2 = new SimpleUnit("unit2", new List<string>() { DeletePositionName });
+            var unit2 = new Unit("unit2", new List<string>() { DeletePositionName });
             var DeletePosition = unit2.GetPositions().FirstOrDefault(x => x.GetName() == DeletePositionName);
             var Positions = unit.GetPositions().ToList();
             Debug.WriteLine($"Удаляемая должность = '{DeletePosition}'.");
@@ -220,7 +215,7 @@ namespace PersonnelRecord.BL.Classes.Unit.Tests
             Debug.WriteLine("Начало теста Удаление должности. Некорректные параметры должность = null, возврат false.");
 
             // Arrange(настройка)
-            IPosition DeletePosition = null;
+            Position DeletePosition = null;
             var Positions = unit.GetPositions().ToList();
             Debug.WriteLine($"Удаляемая должность = '{DeletePosition}'.");
 
@@ -248,7 +243,7 @@ namespace PersonnelRecord.BL.Classes.Unit.Tests
             Debug.WriteLine("Начало теста Получить все главные подразделения. Корректные параметры, возврат список подразделений.");
 
             // Arrange(настройка)
-            IUnit unit2 = new SimpleUnit("1", new List<string>() { "2" });
+            Unit unit2 = new Unit("1", new List<string>() { "2" });
 
             Debug.WriteLine($"Новое главное подразделение = '{unit2.GetName()}'.");
 
@@ -278,7 +273,7 @@ namespace PersonnelRecord.BL.Classes.Unit.Tests
             // Arrange(настройка)
             var NewSubName = "NewSubUnit1";
             var NewListPositions = new List<string>() { "1" };
-            var newUnit = new SimpleUnit(NewSubName, NewListPositions);
+            var newUnit = new Unit(NewSubName, NewListPositions);
 
             var SubUnits = unit.GetSubordinateUnits().ToList();
             SubUnits.Add(newUnit);
@@ -328,7 +323,7 @@ namespace PersonnelRecord.BL.Classes.Unit.Tests
         }
         #endregion
 
-        
+
 
 
         #region Функция ChangeMainUnit (Изменить главное подразделение)
@@ -338,7 +333,7 @@ namespace PersonnelRecord.BL.Classes.Unit.Tests
             Debug.WriteLine("Начало теста Изменение Главного подразделения. Корректные параметры, возврат true.");
 
             // Arrange(настройка)
-            IUnit unit2 = new SimpleUnit("1",new List<string>() { "2" });
+            Unit unit2 = new Unit("1", new List<string>() { "2" });
             Debug.WriteLine($"Новое главное подразделение = '{unit2.GetName()}'.");
 
             // Act — выполнение 
@@ -361,8 +356,8 @@ namespace PersonnelRecord.BL.Classes.Unit.Tests
             Debug.WriteLine("Начало теста Изменение Главного подразделения. Некорректные параметры, главное подразделение = null, возврат false.");
 
             // Arrange(настройка)
-            IUnit unit2 = null;
-            IUnit odlMainUnit = unit.GetMainUnit();
+            Unit unit2 = null;
+            Unit odlMainUnit = unit.GetMainUnit();
             Debug.WriteLine($"Новое главное подразделение = 'null'.");
 
             // Act — выполнение 
@@ -385,8 +380,8 @@ namespace PersonnelRecord.BL.Classes.Unit.Tests
             Debug.WriteLine("Начало теста Изменение Главного подразделения. Некорректные параметры, главное подразделение имеется в подчиненном, возврат false.");
 
             // Arrange(настройка)
-            IUnit unit2 = unit.GetSubordinateUnits().FirstOrDefault();
-            IUnit odlMainUnit = unit.GetMainUnit();
+            Unit unit2 = unit.GetSubordinateUnits().FirstOrDefault();
+            Unit odlMainUnit = unit.GetMainUnit();
             Debug.WriteLine($"Новое главное подразделение = '{unit2.GetName()}'.");
 
             // Act — выполнение 

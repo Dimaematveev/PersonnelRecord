@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PersonnelRecord.BL.Interfaces;
 
 namespace PersonnelRecord.BL.Classes
 {
     /// <summary>
     /// Класс простая Должность
     /// </summary>
-    public class SimplePosition : IPosition
+    public class Position
     {
         #region Поля
         /// <summary>
@@ -25,16 +20,16 @@ namespace PersonnelRecord.BL.Classes
         {
             return name;
         }
-        
+
         /// <summary>
         /// Подразделение к которому относится должность
         /// </summary>
-        private IUnit unit;
+        private Unit unit;
         /// <summary>
         /// Получить подразделение к которому относится должность
         /// </summary>
         /// <returns>Подразделение</returns>
-        public IUnit GetUnit()
+        public Unit GetUnit()
         {
             return unit;
         }
@@ -51,12 +46,12 @@ namespace PersonnelRecord.BL.Classes
         {
             return isPositionBusy;
         }
-        
+
         /// <summary>
         /// Удалена ли должность
         /// </summary>
         private bool isDelete;
-        
+
         /// <summary>
         /// Удалена ли должность
         /// </summary>
@@ -73,7 +68,7 @@ namespace PersonnelRecord.BL.Classes
         //}
         ////Setsubbdiv;
 
-        internal SimplePosition(string namePosition, IUnit unit)
+        internal Position(string namePosition, Unit unit)
         {
             if (string.IsNullOrWhiteSpace(namePosition))
             {

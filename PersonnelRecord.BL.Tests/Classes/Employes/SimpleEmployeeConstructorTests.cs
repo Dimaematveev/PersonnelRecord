@@ -1,14 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PersonnelRecord.BL.Classes;
-using PersonnelRecord.BL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PersonnelRecord.BL.Classes.Employee.Tests
+namespace PersonnelRecord.BL.Classes.Employes.Tests
 {
     [TestClass()]
     public class SimpleEmployeeConstructorTests
@@ -25,9 +21,9 @@ namespace PersonnelRecord.BL.Classes.Employee.Tests
             Debug.WriteLine("name = 'Name1'");
             var birthday = new DateTime(1994, 12, 2);
             Debug.WriteLine("birthday = '2.12.1994'");
-            var changes = new List<IChange>().AsReadOnly();
+            var changes = new List<Change>().AsReadOnly();
             // Act — выполнение или вызов тестируемого сценария;
-            var employee = new SimpleEmployee(id, name, birthday);
+            var employee = new Employee(id, name, birthday);
             Debug.WriteLine("Создали класс employee");
 
             // Assert — проверка того, что тестируемый вызов ведет себя 

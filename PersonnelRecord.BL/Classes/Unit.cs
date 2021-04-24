@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PersonnelRecord.BL.Interfaces;
 
 namespace PersonnelRecord.BL.Classes
 {
     /// <summary>
     /// Класс простое Подразделение
     /// </summary>
-    public class SimpleUnit : IUnit
+    public class Unit
     {
         #region Поля
         /// <summary>
@@ -29,13 +25,13 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Главное подразделение
         /// </summary>
-        private IUnit mainUnit;
+        private Unit mainUnit;
 
         /// <summary>
         /// Получить главное подразделение
         /// </summary>
         /// <returns>Главное подразделение</returns>
-        public IUnit GetMainUnit()
+        public Unit GetMainUnit()
         {
             return mainUnit;
         }
@@ -43,12 +39,12 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Список Подчиненных подразделений
         /// </summary>
-        private List<IUnit> subordinateUnits;
+        private List<Unit> subordinateUnits;
         /// <summary>
         /// Получить список подчиненных(дочерних) подразделений 
         /// </summary>
         /// <returns>Список подчиненных подразделений</returns>
-        public IReadOnlyList<IUnit> GetSubordinateUnits()
+        public IReadOnlyList<Unit> GetSubordinateUnits()
         {
             return subordinateUnits.AsReadOnly();
         }
@@ -56,16 +52,16 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Список Должностей
         /// </summary>
-        private List<IPosition> positions;
+        private List<Position> positions;
         /// <summary>
         /// Получить список должностей этого подразделения
         /// </summary>
         /// <returns>Список должностей</returns>
-        public IReadOnlyList<IPosition> GetPositions()
+        public IReadOnlyList<Position> GetPositions()
         {
             return positions.AsReadOnly();
         }
-       
+
         /// <summary>
         /// Ярус иерархии
         /// </summary>
@@ -94,18 +90,18 @@ namespace PersonnelRecord.BL.Classes
         }
         #endregion
 
-        public SimpleUnit(string nameUnit, List<string> positionsName)
+        public Unit(string nameUnit, List<string> positionsName)
         {
             name = nameUnit;
             hierarchyTier = 0;
             mainUnit = null;
-            subordinateUnits = new List<IUnit>();
-            positions = new List<IPosition>();
+            subordinateUnits = new List<Unit>();
+            positions = new List<Position>();
             foreach (var positionName in positionsName)
             {
-                positions.Add(new SimplePosition(positionName, this));
+                positions.Add(new Position(positionName, this));
             }
-            
+
         }
 
         /// <summary>
@@ -134,7 +130,7 @@ namespace PersonnelRecord.BL.Classes
             {
                 return false;
             }
-            positions.Add(new SimplePosition(newPosition, this));
+            positions.Add(new Position(newPosition, this));
             return true;
         }
 
@@ -143,7 +139,7 @@ namespace PersonnelRecord.BL.Classes
         /// </summary>
         /// <param name="deletedPosition"> Удаляемая должность</param>
         /// <returns>True - Удалили должность, False - нет</returns>
-        public bool DeletePosition(IPosition deletedPosition)
+        public bool DeletePosition(Position deletedPosition)
         {
             if (deletedPosition == null)
             {
@@ -166,11 +162,11 @@ namespace PersonnelRecord.BL.Classes
         /// Получить список всех главных подразделений
         /// </summary>
         /// <returns>Список подразделений</returns>
-        public IReadOnlyList<IUnit> GetMainUnits()
+        public IReadOnlyList<Unit> GetMainUnits()
         {
-            List<IUnit> units = new List<IUnit>() { };
-            
-            IUnit lastMainUnit = mainUnit;
+            List<Unit> units = new List<Unit>() { };
+
+            Unit lastMainUnit = mainUnit;
             while (lastMainUnit != null)
             {
                 units.Add(lastMainUnit);
@@ -184,7 +180,7 @@ namespace PersonnelRecord.BL.Classes
         /// </summary>
         /// <param name="newMainUnit">Новое главное подразделение</param>
         /// <returns>True - Изменили главное подразделение, False - нет</returns>
-        public bool ChangeMainUnit(IUnit newMainUnit)
+        public bool ChangeMainUnit(Unit newMainUnit)
         {
             if (newMainUnit == null)
             {
@@ -216,7 +212,7 @@ namespace PersonnelRecord.BL.Classes
         /// </summary>
         /// <param name="addedSubordinateUnit">Добавляемое подчиненное подразделение</param>
         /// <returns>True - Добавили подчиненное подразделение, False - нет</returns>
-        public bool AddSubordinateUnit(IUnit addedSubordinateUnit)
+        public bool AddSubordinateUnit(Unit addedSubordinateUnit)
         {
             if (addedSubordinateUnit == null)
             {
@@ -239,7 +235,7 @@ namespace PersonnelRecord.BL.Classes
         /// </summary>
         /// <param name="deletedSubordinateUnit">Удаляемое подчиненное подразделение</param>
         /// <returns>True - Удалили подчиненное подразделение, False - нет</returns>
-        public bool DeleteSubordinateUnit(IUnit deletedSubordinateUnit)
+        public bool DeleteSubordinateUnit(Unit deletedSubordinateUnit)
         {
             if (!subordinateUnits.Contains(deletedSubordinateUnit))
             {
@@ -254,7 +250,7 @@ namespace PersonnelRecord.BL.Classes
         /// </summary>
         /// <param name="newMainUnit">Новое главное подразделение</param>
         /// <returns>True - переподчинили  подразделение, False - нет</returns>
-        public bool Reassignment(IUnit newMainUnit)
+        public bool Reassignment(Unit newMainUnit)
         {
 
             //Удалить из главного
@@ -279,7 +275,7 @@ namespace PersonnelRecord.BL.Classes
                 newMainUnit.DeleteSubordinateUnit(this);
                 return false;
             }
-            
+
             return true;
 
         }
@@ -307,7 +303,7 @@ namespace PersonnelRecord.BL.Classes
             return true;
         }
 
-       
+
 
 
 
