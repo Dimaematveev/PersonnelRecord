@@ -17,6 +17,10 @@ namespace PersonnelRecord.BL.Classes
         /// Название подразделения
         /// </summary>
         private string name;
+        /// <summary>
+        /// Получить Название подразделения
+        /// </summary>
+        /// <returns>Название подразделения</returns>
         public string GetName()
         {
             return name;
@@ -26,6 +30,11 @@ namespace PersonnelRecord.BL.Classes
         /// Главное подразделение
         /// </summary>
         private IUnit mainUnit;
+
+        /// <summary>
+        /// Получить главное подразделение
+        /// </summary>
+        /// <returns>Главное подразделение</returns>
         public IUnit GetMainUnit()
         {
             return mainUnit;
@@ -35,6 +44,10 @@ namespace PersonnelRecord.BL.Classes
         /// Список Подчиненных подразделений
         /// </summary>
         private List<IUnit> subordinateUnits;
+        /// <summary>
+        /// Получить список подчиненных(дочерних) подразделений 
+        /// </summary>
+        /// <returns>Список подчиненных подразделений</returns>
         public IReadOnlyList<IUnit> GetSubordinateUnits()
         {
             return subordinateUnits.AsReadOnly();
@@ -44,6 +57,10 @@ namespace PersonnelRecord.BL.Classes
         /// Список Должностей
         /// </summary>
         private List<IPosition> positions;
+        /// <summary>
+        /// Получить список должностей этого подразделения
+        /// </summary>
+        /// <returns>Список должностей</returns>
         public IReadOnlyList<IPosition> GetPositions()
         {
             return positions.AsReadOnly();
@@ -53,6 +70,10 @@ namespace PersonnelRecord.BL.Classes
         /// Ярус иерархии
         /// </summary>
         private int hierarchyTier;
+        /// <summary>
+        /// Получить ярус иерархии
+        /// </summary>
+        /// <returns>Ярус иерархии</returns>
         public int GetHierarchyTier()
         {
             return hierarchyTier;
@@ -62,6 +83,11 @@ namespace PersonnelRecord.BL.Classes
         /// Удалено подразделение?
         /// </summary>
         private bool isDelete;
+
+        /// <summary>
+        /// Узнать удалено ли подразделение
+        /// </summary>
+        /// <returns>True - Удалено, False - нет</returns>
         public bool GetIsDelete()
         {
             return isDelete;
@@ -82,6 +108,11 @@ namespace PersonnelRecord.BL.Classes
             
         }
 
+        /// <summary>
+        /// Переименовать подразделение
+        /// </summary>
+        /// <param name="newName">Новое название подразделения</param>
+        /// <returns>True - Удалось переименовать, False - нет</returns>
         public bool Rename(string newName)
         {
             if (string.IsNullOrWhiteSpace(newName))
@@ -92,6 +123,11 @@ namespace PersonnelRecord.BL.Classes
             return true;
         }
 
+        /// <summary>
+        /// Добавить должность подразделению по названию
+        /// </summary>
+        /// <param name="newPosition">Название новой должности</param>
+        /// <returns>True - Добавили должность, False - нет</returns>
         public bool AddPosition(string newPosition)
         {
             if (string.IsNullOrWhiteSpace(newPosition))
@@ -102,6 +138,11 @@ namespace PersonnelRecord.BL.Classes
             return true;
         }
 
+        /// <summary>
+        /// Удалить должность у подразделение
+        /// </summary>
+        /// <param name="deletedPosition"> Удаляемая должность</param>
+        /// <returns>True - Удалили должность, False - нет</returns>
         public bool DeletePosition(IPosition deletedPosition)
         {
             if (deletedPosition == null)
@@ -121,6 +162,10 @@ namespace PersonnelRecord.BL.Classes
             return true;
         }
 
+        /// <summary>
+        /// Получить список всех главных подразделений
+        /// </summary>
+        /// <returns>Список подразделений</returns>
         public IReadOnlyList<IUnit> GetMainUnits()
         {
             List<IUnit> units = new List<IUnit>() { };
@@ -134,6 +179,11 @@ namespace PersonnelRecord.BL.Classes
             return units;
         }
 
+        /// <summary>
+        /// Изменить Главное подразделение
+        /// </summary>
+        /// <param name="newMainUnit">Новое главное подразделение</param>
+        /// <returns>True - Изменили главное подразделение, False - нет</returns>
         public bool ChangeMainUnit(IUnit newMainUnit)
         {
             if (newMainUnit == null)
@@ -161,6 +211,11 @@ namespace PersonnelRecord.BL.Classes
             return true;
         }
 
+        /// <summary>
+        /// Добавить подчиненное подразделение
+        /// </summary>
+        /// <param name="addedSubordinateUnit">Добавляемое подчиненное подразделение</param>
+        /// <returns>True - Добавили подчиненное подразделение, False - нет</returns>
         public bool AddSubordinateUnit(IUnit addedSubordinateUnit)
         {
             if (addedSubordinateUnit == null)
@@ -179,7 +234,11 @@ namespace PersonnelRecord.BL.Classes
             subordinateUnits.Add(addedSubordinateUnit);
             return true;
         }
-
+        /// <summary>
+        /// Удалить подчиненное подразделение
+        /// </summary>
+        /// <param name="deletedSubordinateUnit">Удаляемое подчиненное подразделение</param>
+        /// <returns>True - Удалили подчиненное подразделение, False - нет</returns>
         public bool DeleteSubordinateUnit(IUnit deletedSubordinateUnit)
         {
             if (!subordinateUnits.Contains(deletedSubordinateUnit))
@@ -190,8 +249,14 @@ namespace PersonnelRecord.BL.Classes
             return true;
         }
 
+        /// <summary>
+        ///  Переподчинение подразделения
+        /// </summary>
+        /// <param name="newMainUnit">Новое главное подразделение</param>
+        /// <returns>True - переподчинили  подразделение, False - нет</returns>
         public bool Reassignment(IUnit newMainUnit)
         {
+
             //Удалить из главного
             if (!this.mainUnit.DeleteSubordinateUnit(this))
             {
@@ -206,6 +271,7 @@ namespace PersonnelRecord.BL.Classes
                 return false;
             }
 
+
             // Изменить главное
             if (!ChangeMainUnit(this))
             {
@@ -218,6 +284,10 @@ namespace PersonnelRecord.BL.Classes
 
         }
 
+        /// <summary>
+        /// Удалить подразделение
+        /// </summary>
+        /// <returns>True - Удалили подразделение, False - нет</returns>
         public bool Delete()
         {
             foreach (var pos in positions)

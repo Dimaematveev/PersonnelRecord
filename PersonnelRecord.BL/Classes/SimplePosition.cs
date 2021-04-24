@@ -17,6 +17,10 @@ namespace PersonnelRecord.BL.Classes
         /// Название должности
         /// </summary>
         private string name;
+        /// <summary>
+        /// Получить название должности
+        /// </summary>
+        /// <returns>Название должности</returns>
         public string GetName()
         {
             return name;
@@ -26,6 +30,10 @@ namespace PersonnelRecord.BL.Classes
         /// Подразделение к которому относится должность
         /// </summary>
         private IUnit unit;
+        /// <summary>
+        /// Получить подразделение к которому относится должность
+        /// </summary>
+        /// <returns>Подразделение</returns>
         public IUnit GetUnit()
         {
             return unit;
@@ -35,6 +43,10 @@ namespace PersonnelRecord.BL.Classes
         /// Занята ли должность
         /// </summary>
         private bool isPositionBusy;
+        /// <summary>
+        /// Занята ли должность
+        /// </summary>
+        /// <returns> True - Занята, False - нет</returns>
         public bool GetIsPositionBusy()
         {
             return isPositionBusy;
@@ -44,6 +56,11 @@ namespace PersonnelRecord.BL.Classes
         /// Удалена ли должность
         /// </summary>
         private bool isDelete;
+        
+        /// <summary>
+        /// Удалена ли должность
+        /// </summary>
+        /// <returns> True - Удалена, False - нет</returns>
         public bool GetIsDelete()
         {
             return isDelete;
@@ -75,9 +92,12 @@ namespace PersonnelRecord.BL.Classes
 
         }
 
-       
 
-        
+
+        /// <summary>
+        /// Удалить должность
+        /// </summary>
+        /// <returns>True -Удалил должность, False - нет</returns>
         public bool Delete()
         {
             if (!IsPossibleDeletePosition())
@@ -89,6 +109,10 @@ namespace PersonnelRecord.BL.Classes
             return true;
         }
 
+        /// <summary>
+        /// Занять должность
+        /// </summary>
+        /// <returns>True -занял должность, False - нет</returns>
         public bool BusyPosition()
         {
             if (isPositionBusy)
@@ -99,6 +123,11 @@ namespace PersonnelRecord.BL.Classes
             return true;
         }
 
+        //TODO: Переименовать
+        /// <summary>
+        /// Снять с должности
+        /// </summary>
+        /// <returns>True - Сняли с должности, False - нет</returns>
         public bool NotBusyPosition()
         {
             if (!isPositionBusy)
@@ -109,6 +138,10 @@ namespace PersonnelRecord.BL.Classes
             return true;
         }
 
+        /// <summary>
+        /// Проверка, можно ли удалить должность
+        /// </summary>
+        /// <returns>True -возможно удалить должность, False - нет</returns>
         public bool IsPossibleDeletePosition()
         {
             if (isPositionBusy)

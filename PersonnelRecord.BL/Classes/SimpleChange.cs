@@ -20,6 +20,10 @@ namespace PersonnelRecord.BL.Classes
         /// предыдущую динамику
         /// </summary>
         private IChange prevpreviousChange;
+        /// <summary>
+        /// Получить предыдущее изменение должности (предыдущую динамику)
+        /// </summary>
+        /// <returns>Предыдущая динамика</returns>
         public IChange GetPreviousChange()
         {
             return prevpreviousChange;
@@ -29,6 +33,10 @@ namespace PersonnelRecord.BL.Classes
         /// ID Динамики
         /// </summary>
         private int id;
+        /// <summary>
+        /// Получить ID Динамики
+        /// </summary>
+        /// <returns>ID Динамики</returns>
         public int GetID()
         {
             return id;
@@ -38,6 +46,10 @@ namespace PersonnelRecord.BL.Classes
         /// Номер приказа
         /// </summary>
         private int numberOrder;
+        /// <summary>
+        /// Получить Номер приказа
+        /// </summary>
+        /// <returns>Номер приказа</returns>
         public int GetNumberOrder()
         {
             return numberOrder;
@@ -47,6 +59,10 @@ namespace PersonnelRecord.BL.Classes
         /// Дату внесения данных
         /// </summary>
         private DateTime dateOfChange;
+        /// <summary>
+        /// Получить дату внесения данных
+        /// </summary>
+        /// <returns>Дата изменения</returns>
         public DateTime GetDateChange()
         {
             return dateOfChange;
@@ -56,6 +72,10 @@ namespace PersonnelRecord.BL.Classes
         /// Занимаемая должность
         /// </summary>
         private IPosition position;
+        /// <summary>
+        /// Получить занимаемую должность
+        /// </summary>
+        /// <returns>Должность</returns>
         public IPosition GetPosition()
         {
             return position;
@@ -65,6 +85,10 @@ namespace PersonnelRecord.BL.Classes
         /// Сотрудник
         /// </summary>
         private IEmployee employee;
+        /// <summary>
+        /// Получить сотрудника
+        /// </summary>
+        /// <returns>Сотрудник</returns>
         public IEmployee GetEmployee()
         {
             return employee;
@@ -74,6 +98,10 @@ namespace PersonnelRecord.BL.Classes
         /// Совмещает должность?
         /// </summary>
         private bool combinationOfPosition;
+        /// <summary>
+        /// Совмещает должность?
+        /// </summary>
+        /// <returns>True - Совмещает, false - нет</returns>
         public bool GetIsCombination()
         {
             return combinationOfPosition;
@@ -84,6 +112,11 @@ namespace PersonnelRecord.BL.Classes
         /// Занимает эту должность или нет
         /// </summary>
         private bool isWork;
+        /// <summary>
+        /// Получить статус сотрудника. 
+        /// Занимает эту должность или нет
+        /// </summary>
+        /// <returns>True - Занимает должность, false - нет</returns>
         public bool GetStatus()
         {
             return isWork;
@@ -93,6 +126,10 @@ namespace PersonnelRecord.BL.Classes
         /// Тип изменения
         /// </summary>
         private RecordType status;
+        /// <summary>
+        /// Получить тип изменения
+        /// </summary>
+        /// <returns>Тип записи</returns>
         public RecordType GetRecordType()
         {
             return status;
@@ -125,6 +162,10 @@ namespace PersonnelRecord.BL.Classes
 
         }
 
+        /// <summary>
+        /// Изменить статус сотрудника на False
+        /// </summary>
+        /// <returns>true - удалили флаг работающего человека, false- нет получилось</returns>
         public bool ChangeStatusFalse()
         {
             if (isWork == false)
