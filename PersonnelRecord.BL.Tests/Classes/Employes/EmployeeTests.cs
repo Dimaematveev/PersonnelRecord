@@ -5,7 +5,7 @@ using System.Diagnostics;
 namespace PersonnelRecord.BL.Classes.Employes.Tests
 {
     [TestClass()]
-    public class SimpleEmployeeTests
+    public class EmployeeTests
     {
 
         private string name;

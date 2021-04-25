@@ -6,7 +6,7 @@ using System.Linq;
 namespace PersonnelRecord.BL.Classes.Positions.Tests
 {
     [TestClass()]
-    public class SimplePositionConstructorTests
+    public class PositionConstructorTests
     {
         [TestMethod()]
         public void ConstructorTest_Pos1AndUnit1_CreateClass()

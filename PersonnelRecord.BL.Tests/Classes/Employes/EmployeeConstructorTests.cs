@@ -7,7 +7,7 @@ using System.Linq;
 namespace PersonnelRecord.BL.Classes.Employes.Tests
 {
     [TestClass()]
-    public class SimpleEmployeeConstructorTests
+    public class EmployeeConstructorTests
     {
         [TestMethod()]
         public void ConstructorTest_Pos1AndUnit1_CreateClass()

@@ -6,7 +6,7 @@ using System.Linq;
 namespace PersonnelRecord.BL.Classes.Units.Tests
 {
     [TestClass()]
-    public class SimpleUnitTests
+    public class UnitTests
     {
 
         private string nameUnit;

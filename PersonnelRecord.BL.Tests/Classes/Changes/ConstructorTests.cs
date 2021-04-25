@@ -3,7 +3,7 @@
 namespace PersonnelRecord.BL.Classes.Changes.Tests
 {
     [TestClass()]
-    public class SimpleChangeConstructorTests
+    public class ConstructorTests
     {
         [TestMethod()]
         public void ChangeStatusFalse()

@@ -54,14 +54,14 @@
     <None Include="ClassesOLD\SimpleEmployeeTests.cs" />
     <None Include="ClassesOLD\SimplePositionTests.cs" />
     <None Include="ClassesOLD\SimpleUnitTests.cs" />
-    <Compile Include="Classes\Changes\SimpleChangeConstructorTests.cs" />
-    <Compile Include="Classes\Employes\SimpleEmployeeConstructorTests.cs" />
-    <Compile Include="Classes\Positions\SimplePositionConstructorTests.cs" />
-    <Compile Include="Classes\Positions\SimplePositionTests.cs" />
-    <Compile Include="Classes\Employes\SimpleEmployeeTests.cs" />
-    <Compile Include="Classes\Changes\SimpleChangeTests.cs" />
-    <Compile Include="Classes\Units\SimpleUnitTests.cs" />
-    <Compile Include="Classes\Units\SimpleUnitConstructorTests.cs" />
+    <Compile Include="Classes\Changes\ConstructorTests.cs" />
+    <Compile Include="Classes\Employes\EmployeeConstructorTests.cs" />
+    <Compile Include="Classes\Positions\PositionConstructorTests.cs" />
+    <Compile Include="Classes\Positions\PositionTests.cs" />
+    <Compile Include="Classes\Employes\EmployeeTests.cs" />
+    <Compile Include="Classes\Changes\ChangeTests.cs" />
+    <Compile Include="Classes\Units\UnitTests.cs" />
+    <Compile Include="Classes\Units\UnitConstructorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

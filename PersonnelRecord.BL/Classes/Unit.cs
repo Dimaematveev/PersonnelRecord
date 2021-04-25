@@ -115,8 +115,26 @@ namespace PersonnelRecord.BL.Classes
             {
                 return false;
             }
+
             name = newName;
             return true;
+        }
+
+        /// <summary>
+        /// Возможно-ли Добавить должность подразделению по названию
+        /// </summary>
+        /// <param name="newPosition">Название новой должности</param>
+        /// <returns>
+        /// Любая строка это ошибка, почему нельзя это сделать, 
+        /// Null - возможно
+        /// </returns>
+        public string IsPossibleAddPosition(string newPosition)
+        {
+            if (string.IsNullOrWhiteSpace(newPosition))
+            {
+                return "Новая должность пуста!!";
+            }
+            return null;
         }
 
         /// <summary>
@@ -126,12 +144,42 @@ namespace PersonnelRecord.BL.Classes
         /// <returns>True - Добавили должность, False - нет</returns>
         public bool AddPosition(string newPosition)
         {
-            if (string.IsNullOrWhiteSpace(newPosition))
+            string Error = IsPossibleAddPosition(newPosition);
+            if (Error != null)
             {
                 return false;
             }
+
             positions.Add(new Position(newPosition, this));
             return true;
+        }
+
+        /// <summary>
+        /// Возможно-ли Удалить должность у подразделение
+        /// </summary>
+        /// <param name="deletedPosition"> Удаляемая должность</param>
+        /// <returns>
+        /// Любая строка это ошибка, почему нельзя это сделать, 
+        /// Null - возможно
+        /// </returns>
+        public string IsPossibleDeletePosition(Position deletedPosition)
+        {
+            if (deletedPosition == null)
+            {
+                return "Должность есть 'NULL'";
+            }
+
+            if (!positions.Contains(deletedPosition))
+            {
+                return "Должности нет в списке 'deletedPosition'";
+            }
+
+            if (!deletedPosition.Delete())
+            {
+                return "Нельзя удалить должность";
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -141,22 +189,17 @@ namespace PersonnelRecord.BL.Classes
         /// <returns>True - Удалили должность, False - нет</returns>
         public bool DeletePosition(Position deletedPosition)
         {
-            if (deletedPosition == null)
+            string Error = IsPossibleDeletePosition(deletedPosition);
+            if (Error != null)
             {
                 return false;
             }
-            if (!positions.Contains(deletedPosition))
-            {
-                return false;
-            }
-            if (!deletedPosition.Delete())
-            {
-                return false;
-            }
-
+           
             positions.Remove(deletedPosition);
             return true;
         }
+
+
 
         /// <summary>
         /// Получить список всех главных подразделений
@@ -173,6 +216,40 @@ namespace PersonnelRecord.BL.Classes
                 lastMainUnit = lastMainUnit.GetMainUnit();
             }
             return units;
+        }
+
+        /// <summary>
+        /// Возможно-ли Изменить Главное подразделение
+        /// </summary>
+        /// <param name="newMainUnit">Новое главное подразделение</param>
+        /// <returns>
+        /// Любая строка это ошибка, почему нельзя это сделать, 
+        /// Null - возможно
+        /// </returns>
+        public string IsPossibleChangeMainUnit(Unit newMainUnit)
+        {
+            if (newMainUnit == null)
+            {
+                return "Новое главное подразделение есть 'NULL'";
+            }
+            if (newMainUnit.GetHierarchyTier() == 0)
+            {
+                return "Новое главное подразделение с ярусом '0'";
+            }
+            if (!newMainUnit.GetIsDelete())
+            {
+                return "Новое главное подразделение'Удалено'";
+            }
+            if (newMainUnit == this)
+            {
+                return "Новое главное подразделение есть наше подразделение";
+            }
+            if (newMainUnit.GetMainUnits().Contains(this))
+            {
+                return "Новое главное подразделение есть одно из дочерних нашего подразделения";
+            }
+            return null;
+           
         }
 
         /// <summary>
@@ -269,7 +346,7 @@ namespace PersonnelRecord.BL.Classes
 
 
             // Изменить главное
-            if (!ChangeMainUnit(this))
+            if (!ChangeMainUnit(newMainUnit))
             {
                 this.mainUnit.AddSubordinateUnit(this);
                 newMainUnit.DeleteSubordinateUnit(this);
