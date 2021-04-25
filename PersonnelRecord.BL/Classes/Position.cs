@@ -118,12 +118,11 @@ namespace PersonnelRecord.BL.Classes
             return true;
         }
 
-        //TODO: Переименовать
         /// <summary>
         /// Снять с должности
         /// </summary>
         /// <returns>True - Сняли с должности, False - нет</returns>
-        public bool NotBusyPosition()
+        public bool RemoveFromPosition()
         {
             if (!isPositionBusy)
             {

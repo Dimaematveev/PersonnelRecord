@@ -8,7 +8,7 @@ namespace PersonnelRecord.BL.Classes
     /// </summary>
     public class Change
     {
-        private static int maxID;
+        private static int maxID = 0;
 
         #region Поля
         /// <summary>
@@ -24,6 +24,7 @@ namespace PersonnelRecord.BL.Classes
             return prevpreviousChange;
         }
 
+        //TODO:Что делать с ID
         /// <summary>
         /// ID Динамики
         /// </summary>
@@ -150,6 +151,7 @@ namespace PersonnelRecord.BL.Classes
             this.combinationOfPosition = combinationOfPosition;
             this.isWork = isWork;
             this.status = status;
+            this.dateOfChange = DateTime.Now;
 
             if (prevpreviousChange != null)
             {

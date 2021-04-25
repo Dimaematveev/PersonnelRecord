@@ -8,6 +8,7 @@ namespace PersonnelRecord.BL.Classes
     /// </summary>
     public class Unit
     {
+
         #region Поля
         /// <summary>
         /// Название подразделения
@@ -90,11 +91,20 @@ namespace PersonnelRecord.BL.Classes
         }
         #endregion
 
-        public Unit(string nameUnit, List<string> positionsName)
+        public Unit(string nameUnit, List<string> positionsName, bool IsMain = false)
         {
             name = nameUnit;
-            hierarchyTier = 0;
+            if (IsMain)
+            {
+                hierarchyTier = 1;
+            }
+            else
+            {
+                hierarchyTier = 0;
+            }
+           
             mainUnit = null;
+            isDelete = false;
             subordinateUnits = new List<Unit>();
             positions = new List<Position>();
             foreach (var positionName in positionsName)
@@ -103,6 +113,8 @@ namespace PersonnelRecord.BL.Classes
             }
 
         }
+
+
 
         /// <summary>
         /// Переименовать подразделение
@@ -236,9 +248,9 @@ namespace PersonnelRecord.BL.Classes
             {
                 return "Новое главное подразделение с ярусом '0'";
             }
-            if (!newMainUnit.GetIsDelete())
+            if (newMainUnit.GetIsDelete())
             {
-                return "Новое главное подразделение'Удалено'";
+                return "Новое главное подразделение 'Удалено'";
             }
             if (newMainUnit == this)
             {
@@ -267,7 +279,7 @@ namespace PersonnelRecord.BL.Classes
             {
                 return false;
             }
-            if (!newMainUnit.GetIsDelete())
+            if (newMainUnit.GetIsDelete())
             {
                 return false;
             }
@@ -299,7 +311,7 @@ namespace PersonnelRecord.BL.Classes
             {
                 return false;
             }
-            if (addedSubordinateUnit.GetMainUnit() != this)
+            if (addedSubordinateUnit.GetMainUnit() == this)
             {
                 return false;
             }
@@ -331,13 +343,13 @@ namespace PersonnelRecord.BL.Classes
         {
 
             //Удалить из главного
-            if (!this.mainUnit.DeleteSubordinateUnit(this))
+            if (this.mainUnit!=null && !this.mainUnit.DeleteSubordinateUnit(this))
             {
                 return false;
             }
 
 
-            //Добавть в главное
+            //Добавить в главное
             if (!newMainUnit.AddSubordinateUnit(this))
             {
                 this.mainUnit.AddSubordinateUnit(this);

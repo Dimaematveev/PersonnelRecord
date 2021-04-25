@@ -110,7 +110,7 @@ namespace PersonnelRecord.BL.Classes.Positions.Tests
             position.BusyPosition();
 
             //ACT
-            var ret = position.NotBusyPosition();
+            var ret = position.RemoveFromPosition();
             //Assert
             Assert.IsTrue(ret);
             Assert.IsFalse(position.GetIsPositionBusy());
@@ -119,9 +119,9 @@ namespace PersonnelRecord.BL.Classes.Positions.Tests
         public void NotBusyPosition_WithNotValidArguments_FalseReterned()
         {
             position.BusyPosition();
-            position.NotBusyPosition();
+            position.RemoveFromPosition();
             //ACT
-            var ret = position.NotBusyPosition();
+            var ret = position.RemoveFromPosition();
             //Assert
             Assert.IsFalse(ret);
             Assert.IsFalse(position.GetIsPositionBusy());

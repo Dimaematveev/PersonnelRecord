@@ -54,7 +54,7 @@
     <None Include="ClassesOLD\SimpleEmployeeTests.cs" />
     <None Include="ClassesOLD\SimplePositionTests.cs" />
     <None Include="ClassesOLD\SimpleUnitTests.cs" />
-    <Compile Include="Classes\Changes\ConstructorTests.cs" />
+    <Compile Include="Classes\Changes\ChangeConstructorTests.cs" />
     <Compile Include="Classes\Employes\EmployeeConstructorTests.cs" />
     <Compile Include="Classes\Positions\PositionConstructorTests.cs" />
     <Compile Include="Classes\Positions\PositionTests.cs" />
