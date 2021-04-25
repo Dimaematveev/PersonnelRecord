@@ -22,19 +22,20 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
             var birthday = new DateTime(1994, 12, 2);
             Debug.WriteLine("birthday = '2.12.1994'");
             var changes = new List<Change>().AsReadOnly();
+
             // Act — выполнение или вызов тестируемого сценария;
             var employee = new Employee(id, name, birthday);
             Debug.WriteLine("Создали класс employee");
 
             // Assert — проверка того, что тестируемый вызов ведет себя 
             // определенным образом.
-            Debug.WriteLine($"Должно быть='{name}', position.GetName='{employee.GetFullName()}'");
+            Debug.WriteLine($"Должно быть='{name}', employee.GetFullName='{employee.GetFullName()}'");
             Assert.AreEqual(name, employee.GetFullName());
-            Debug.WriteLine($"Должно быть='{id}', position.GetName='{employee.GetID()}'");
+            Debug.WriteLine($"Должно быть='{id}', employee.GetID='{employee.GetID()}'");
             Assert.AreEqual(id, employee.GetID());
-            Debug.WriteLine($"Должно быть='{birthday}', position.GetName='{employee.GetBirthday()}'");
+            Debug.WriteLine($"Должно быть='{birthday}', employee.GetBirthday='{employee.GetBirthday()}'");
             Assert.AreEqual(birthday, employee.GetBirthday());
-            Debug.WriteLine($"Должно быть='{changes.Count}', position.GetName='{employee.GetChanges().Count}'");
+            Debug.WriteLine($"Должно быть='{changes.Count}', employee.GetChanges='{employee.GetChanges().Count}'");
             CollectionAssert.AreEqual(changes.ToList(), employee.GetChanges().ToList());
         }
     }

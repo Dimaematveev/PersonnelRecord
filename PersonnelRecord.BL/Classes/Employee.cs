@@ -78,10 +78,12 @@ namespace PersonnelRecord.BL.Classes
         /// </summary>
         /// <param name="numberOrder">Номер приказа</param>
         /// <param name="position">Должность</param>
-        public void Recruitment(int numberOrder, Position position)
+        /// <returns>Новая динамика</returns>
+        public Change Recruitment(int numberOrder, Position position)
         {
             var change = Change.Recruitment(numberOrder, this, position, false);
             changes.Add(change);
+            return change;
         }
 
         /// <summary>
@@ -90,10 +92,43 @@ namespace PersonnelRecord.BL.Classes
         /// </summary>
         /// <param name="numberOrder">Номер приказа</param>
         /// <param name="position">Должность</param>
-        public void AddPosition(int numberOrder, Position position)
+        /// <returns>Новая динамика</returns>
+        public Change AddPosition(int numberOrder, Position position)
         {
             var change = Change.Recruitment(numberOrder, this, position, true);
             changes.Add(change);
+            return change;
+        }
+
+
+
+        /// <summary>
+        /// Изменение должности (перевод)
+        /// </summary>
+        /// <param name="numberOrder">Номер приказа</param>
+        /// <param name="oldPosition">Старая должность</param>
+        /// <param name="newPosition">Новая должность</param>
+        /// <returns>Новая динамика</returns>
+        public Change ChangePosition(int numberOrder, Position oldPosition, Position newPosition)
+        {
+            var OldChange = changes.Where(x => x.GetStatus()).First(x => x.GetPosition() == oldPosition);
+            var change = Change.Transfer(numberOrder, this, OldChange, newPosition);
+            changes.Add(change);
+            return change;
+        }
+
+        /// <summary>
+        /// Увольнение с должности
+        /// </summary>
+        /// <param name="numberOrder">Номер приказа</param>
+        /// <param name="oldPosition">Старая должность</param>
+        /// <returns>Новая динамика</returns>
+        public Change Dismissal(int numberOrder, Position oldPosition)
+        {
+            var OldChange = changes.Where(x => x.GetStatus()).First(x => x.GetPosition() == oldPosition);
+            var change = Change.Dismissal(numberOrder, this, OldChange);
+            changes.Add(change);
+            return change;
         }
 
         /// <summary>
@@ -104,33 +139,6 @@ namespace PersonnelRecord.BL.Classes
         {
             fullName = newFullName;
         }
-
-        /// <summary>
-        /// Изменение должности (перевод)
-        /// </summary>
-        /// <param name="numberOrder">Номер приказа</param>
-        /// <param name="oldPosition">Старая должность</param>
-        /// <param name="newPosition">Новая должность</param>
-        public void ChangePosition(int numberOrder, Position oldPosition, Position newPosition)
-        {
-            var oldChange = changes.Where(x => x.GetStatus()).First(x => x.GetPosition() == oldPosition);
-            var change = Change.Transfer(numberOrder, this, oldChange, newPosition);
-            changes.Add(change);
-        }
-
-        /// <summary>
-        /// Увольнение с должности
-        /// </summary>
-        /// <param name="numberOrder">Номер приказа</param>
-        /// <param name="oldPosition">Старая должность</param>
-        public void Dismissal(int numberOrder, Position oldPosition)
-        {
-            var oldChange = changes.Where(x => x.GetStatus()).First(x => x.GetPosition() == oldPosition);
-            var change = Change.Dismissal(numberOrder, this, oldChange);
-            changes.Add(change);
-        }
-
-
         /// <summary>
         /// Получить список должностей сотрудника на которых он находится
         /// </summary>
