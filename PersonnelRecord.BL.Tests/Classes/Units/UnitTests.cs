@@ -533,7 +533,7 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
 
 
-        #region Функция AddSubordinateUnit (Добавить подчиненное подразделение) ---- ХЕРНЯ не придумал
+        #region Функция AddSubordinateUnit (Добавить подчиненное подразделение)
         [TestMethod()]
         public void AddSubordinateUnit_WithValidArguments_AddSubordinateUnitAndTrueReturned()
         {
@@ -571,20 +571,16 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             Debug.WriteLine("Начало теста Удаление подчиненных подразделений. Корректные параметры, возврат true.");
 
             // Arrange(настройка)
-            var DeletePositionName = "SubUnit1";
-            var DeletePosition = unit.GetSubordinateUnits().FirstOrDefault(x => x.GetName() == DeletePositionName);
-            var Positions = unit.GetSubordinateUnits().ToList();
-            Positions.Remove(DeletePosition);
-            Debug.WriteLine($"Удаляемая должность = '{DeletePosition}'.");
-
+            var sub = unit.GetSubordinateUnits().ToList();
             // Act — выполнение 
             Debug.WriteLine("Начал удалять");
-            var ret = unit.DeleteSubordinateUnit(DeletePosition);
+            var ret = unit.DeleteSubordinateUnit(subUnit1);
             Debug.WriteLine("Удалил");
+            sub.Remove(subUnit1);
 
             // Assert — проверка
-            Debug.WriteLine($"Должно быть = '{Positions.Count}', unit.GetPositions() = '{unit.GetPositions().Count}'.");
-            CollectionAssert.AreEqual(Positions, unit.GetPositions().ToList());
+            Debug.WriteLine($"Должно быть = '{sub.Count}', unit.GetPositions() = '{unit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(sub, unit.GetSubordinateUnits().ToList());
             Debug.WriteLine($"Должно быть = '{true}', unit.DeletePosition().return = '{ret}'.");
             Assert.IsTrue(ret);
 
@@ -593,14 +589,43 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         #endregion
 
 
-
-
-
         #region Функция Delete (Удалить подразделение)
         [TestMethod()]
-        public void Delete()
+        public void Delete_WithValidArguments_DeleteAndTrueReturned()
         {
-            Assert.Fail();
+            Debug.WriteLine("Начало теста Удаление. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            // Act — выполнение 
+            Debug.WriteLine("Начал удалять");
+            var ret = unit.Delete();
+            Debug.WriteLine("Удалил");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{true}', unit.GetIsDelete() = '{unit.GetIsDelete()}'.");
+            Assert.IsTrue(unit.GetIsDelete());
+            Debug.WriteLine($"Должно быть = '{0}', unit.GetHierarchyTier() = '{unit.GetHierarchyTier()}'.");
+            Assert.AreEqual(0,unit.GetHierarchyTier());
+            Debug.WriteLine($"Должно быть = '{null}', unit.GetMainUnit() = '{unit.GetMainUnit()}'.");
+            Assert.IsNull(unit.GetMainUnit());
+
+            foreach (var pos in unit.GetPositions())
+            {
+                Debug.WriteLine($"Должно быть = '{true}', unit.GetPositions().pos.GetIsDelete() = '{pos.GetIsDelete()}'.");
+                Assert.IsTrue(pos.GetIsDelete());
+            }
+
+            Debug.WriteLine($"Должно быть = '{0}', unit.GetSubordinateUnits() = '{unit.GetSubordinateUnits().Count}'.");
+            Assert.AreEqual(0, unit.GetSubordinateUnits().Count);
+            Debug.WriteLine($"Должно быть = '{mainUnit.GetName()}', subUnit1.GetMainUnit().GetName() = '{subUnit1.GetMainUnit().GetName()}'.");
+            Assert.AreEqual(mainUnit, subUnit1.GetMainUnit());
+            Debug.WriteLine($"Должно быть = '{mainUnit.GetName()}', subUnit2.GetMainUnit().GetName() = '{subUnit2.GetMainUnit().GetName()}'.");
+            Assert.AreEqual(mainUnit, subUnit2.GetMainUnit());
+
+            Debug.WriteLine($"Должно быть = '{true}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsTrue(ret);
+
+            Debug.WriteLine("Удаление Закончено. ");
         }
         #endregion
     }

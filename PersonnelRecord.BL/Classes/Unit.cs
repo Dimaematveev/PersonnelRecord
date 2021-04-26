@@ -186,7 +186,7 @@ namespace PersonnelRecord.BL.Classes
                 return "Должности нет в списке 'deletedPosition'";
             }
 
-            if (!deletedPosition.Delete())
+            if (!deletedPosition.IsPossibleDeletePosition())
             {
                 return "Нельзя удалить должность";
             }
@@ -206,8 +206,9 @@ namespace PersonnelRecord.BL.Classes
             {
                 return false;
             }
-           
+            deletedPosition.Delete();
             positions.Remove(deletedPosition);
+
             return true;
         }
 
@@ -271,37 +272,22 @@ namespace PersonnelRecord.BL.Classes
         /// <returns>True - Изменили главное подразделение, False - нет</returns>
         public bool ChangeMainUnit(Unit newMainUnit)
         {
-            if (newMainUnit == null)
+            if (IsPossibleChangeMainUnit(newMainUnit) != null)
             {
                 return false;
             }
-            if (newMainUnit.GetHierarchyTier() == 0)
-            {
-                return false;
-            }
-            if (newMainUnit.GetIsDelete())
-            {
-                return false;
-            }
-            if (newMainUnit == this)
-            {
-                return false;
-            }
-            if (newMainUnit.GetMainUnits().Contains(this))
-            {
-                return false;
-            }
+           
             mainUnit = newMainUnit;
             hierarchyTier = newMainUnit.GetHierarchyTier() + 1;
             return true;
         }
 
         /// <summary>
-        /// Добавить подчиненное подразделение
+        /// Возможно ли Добавить подчиненное подразделение
         /// </summary>
         /// <param name="addedSubordinateUnit">Добавляемое подчиненное подразделение</param>
-        /// <returns>True - Добавили подчиненное подразделение, False - нет</returns>
-        public bool AddSubordinateUnit(Unit addedSubordinateUnit)
+        /// <returns>True - возможно, False - нет</returns>
+        public bool IsPossibleAddSubordinateUnit(Unit addedSubordinateUnit)
         {
             if (addedSubordinateUnit == null)
             {
@@ -316,9 +302,42 @@ namespace PersonnelRecord.BL.Classes
                 return false;
             }
 
+            return true;
+        }
+
+        /// <summary>
+        /// Добавить подчиненное подразделение
+        /// </summary>
+        /// <param name="addedSubordinateUnit">Добавляемое подчиненное подразделение</param>
+        /// <returns>True - Добавили подчиненное подразделение, False - нет</returns>
+        public bool AddSubordinateUnit(Unit addedSubordinateUnit)
+        {
+            if (!IsPossibleAddSubordinateUnit(addedSubordinateUnit))
+            {
+                return false;
+            }
+          
             subordinateUnits.Add(addedSubordinateUnit);
             return true;
         }
+
+
+
+        /// <summary>
+        /// Возможно ли Удалить подчиненное подразделение
+        /// </summary>
+        /// <param name="deletedSubordinateUnit">Удаляемое подчиненное подразделение</param>
+        /// <returns>True - Возможно , False - нет</returns>
+        public bool IsPossibleDeleteSubordinateUnit(Unit deletedSubordinateUnit)
+        {
+            if (!subordinateUnits.Contains(deletedSubordinateUnit))
+            {
+                return false;
+            }
+           
+            return true;
+        }
+
         /// <summary>
         /// Удалить подчиненное подразделение
         /// </summary>
@@ -326,12 +345,49 @@ namespace PersonnelRecord.BL.Classes
         /// <returns>True - Удалили подчиненное подразделение, False - нет</returns>
         public bool DeleteSubordinateUnit(Unit deletedSubordinateUnit)
         {
-            if (!subordinateUnits.Contains(deletedSubordinateUnit))
+            if (!IsPossibleDeleteSubordinateUnit(deletedSubordinateUnit))
             {
                 return false;
             }
+
             subordinateUnits.Remove(deletedSubordinateUnit);
             return true;
+        }
+
+        /// <summary>
+        ///  Возможно ли Переподчинение подразделения
+        /// </summary>
+        /// <param name="newMainUnit">Новое главное подразделение</param>
+        /// <returns>True - возможно, False - нет</returns>
+        public bool IsPossibleReassignment(Unit newMainUnit)
+        {
+            if (newMainUnit == null)
+            {
+                return false;
+            }
+
+            //Возможно ли Удалить из главного
+            if (mainUnit != null && !this.mainUnit.IsPossibleDeleteSubordinateUnit(this))
+            {
+                return false;
+            }
+
+
+            //Возможно ли Добавить в главное
+            if (!newMainUnit.IsPossibleAddSubordinateUnit(this))
+            {
+                return false;
+            }
+
+
+            //Возможно ли Изменить главное
+            if (IsPossibleChangeMainUnit(newMainUnit) != null)
+            {
+                return false;
+            }
+
+            return true;
+
         }
 
         /// <summary>
@@ -341,32 +397,49 @@ namespace PersonnelRecord.BL.Classes
         /// <returns>True - переподчинили  подразделение, False - нет</returns>
         public bool Reassignment(Unit newMainUnit)
         {
-
+            if (!IsPossibleReassignment(newMainUnit))
+            {
+                return false;
+            }
             //Удалить из главного
-            if (this.mainUnit!=null && !this.mainUnit.DeleteSubordinateUnit(this))
+            if (mainUnit != null)
             {
-                return false;
+                mainUnit.DeleteSubordinateUnit(this);
             }
-
-
+           
             //Добавить в главное
-            if (!newMainUnit.AddSubordinateUnit(this))
-            {
-                this.mainUnit.AddSubordinateUnit(this);
-                return false;
-            }
-
+            newMainUnit.AddSubordinateUnit(this);
 
             // Изменить главное
-            if (!ChangeMainUnit(newMainUnit))
-            {
-                this.mainUnit.AddSubordinateUnit(this);
-                newMainUnit.DeleteSubordinateUnit(this);
-                return false;
-            }
+            ChangeMainUnit(newMainUnit);
 
             return true;
 
+        }
+
+        /// <summary>
+        /// Возможно ли Удалить подразделение
+        /// </summary>
+        /// <returns>True - Возможно, False - нет</returns>
+        public bool IsPossibleDelete()
+        {
+            foreach (var pos in positions)
+            {
+                if (IsPossibleDeletePosition(pos) != null)
+                {
+                    return false;
+                }
+            }
+            foreach (var subUnit in subordinateUnits)
+            {
+                if (!subUnit.IsPossibleReassignment(this.GetMainUnit()))
+                {
+                    return false;
+                }
+                
+            }
+           
+            return true;
         }
 
         /// <summary>
@@ -375,17 +448,23 @@ namespace PersonnelRecord.BL.Classes
         /// <returns>True - Удалили подразделение, False - нет</returns>
         public bool Delete()
         {
-            foreach (var pos in positions)
+            if(!IsPossibleDelete())
             {
-                if (!pos.IsPossibleDeletePosition())
-                {
-                    return false;
-                }
+                return false;
             }
-            foreach (var subUnit in subordinateUnits)
+
+            for (int i = positions.Count - 1; i >= 0; i--)
             {
+                var pos = positions[i];
+                DeletePosition(pos);
+            }
+
+            for (int i = subordinateUnits.Count - 1; i >= 0; i--)
+            {
+                var subUnit = subordinateUnits[i];
                 subUnit.Reassignment(this.GetMainUnit());
             }
+
             isDelete = true;
             mainUnit = null;
             hierarchyTier = 0;
