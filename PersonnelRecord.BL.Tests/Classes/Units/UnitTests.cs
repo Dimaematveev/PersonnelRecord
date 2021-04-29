@@ -128,6 +128,30 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
             Debug.WriteLine("Переименование Закончено. ");
         }
+
+        [TestMethod()]
+        public void Rename_WhenOldNameEqalNewName_NotRenameAndFalseReterned()
+        {
+            Debug.WriteLine("Начало теста Переименование. Некорректные параметры, возврат false.");
+
+            // Arrange(настройка)
+            var oldName = unit.GetName();
+            var newName = unit.GetName();
+            Debug.WriteLine($"Новое имя = '{newName}'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начали Переименовывать");
+            bool ret = unit.Rename(newName);
+            Debug.WriteLine("Переименовали");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{oldName}', unit.GetName() = '{unit.GetName()}'.");
+            Assert.AreEqual(oldName, unit.GetName());
+            Debug.WriteLine($"Должно быть = '{false}', unit.Rename().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Переименование Закончено. ");
+        }
         #endregion
 
 
@@ -273,6 +297,30 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         }
 
         [TestMethod()]
+        public void IsPossibleDeletePosition_WhenPositionNull_NotNullReturned()
+        {
+            Debug.WriteLine("Начало теста Удаление должности. Некорректные параметры должность = null, возврат false.");
+
+            // Arrange(настройка)
+            Position DeletePosition = null;
+            var Positions = unit.GetPositions().ToList();
+            Debug.WriteLine($"Удаляемая должность = '{DeletePosition}'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал удалять");
+            var ret = unit.IsPossibleDeletePosition(DeletePosition);
+            Debug.WriteLine("Удалил");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{Positions.Count}', unit.GetPositions() = '{unit.GetPositions().Count}'.");
+            CollectionAssert.AreEqual(Positions, unit.GetPositions().ToList());
+            Debug.WriteLine($"Должно быть = 'что-то написано', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsNotNull(ret);
+
+            Debug.WriteLine("Удаление Закончено. ");
+        }
+
+        [TestMethod()]
         public void IsPossibleDeletePosition_WhenPositionNotInList_NotNullReturned()
         {
             Debug.WriteLine("Начало теста Удаление должности. Некорректные параметры, нет такой должности, возврат false.");
@@ -298,13 +346,16 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             Debug.WriteLine("Удаление Закончено. ");
         }
 
+
         [TestMethod()]
-        public void IsPossibleDeletePosition_WhenPositionNull_NotNullReturned()
+        public void IsPossibleDeletePosition_WhenPositionCannotBeDeleted_NotNullReturned()
         {
             Debug.WriteLine("Начало теста Удаление должности. Некорректные параметры должность = null, возврат false.");
 
             // Arrange(настройка)
-            Position DeletePosition = null;
+            var DeletePositionName = "Pos1";
+            var DeletePosition = unit.GetPositions().FirstOrDefault(x => x.GetName() == DeletePositionName);
+            DeletePosition.BusyPosition();
             var Positions = unit.GetPositions().ToList();
             Debug.WriteLine($"Удаляемая должность = '{DeletePosition}'.");
 
@@ -399,6 +450,32 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
             Debug.WriteLine("Удаление Закончено. ");
         }
+
+        [TestMethod()]
+        public void DeletePosition_WhenPositionCannotBeDeleted_NotNullReturned()
+        {
+            Debug.WriteLine("Начало теста Удаление должности. Некорректные параметры должность = null, возврат false.");
+
+            // Arrange(настройка)
+            var DeletePositionName = "Pos1";
+            var DeletePosition = unit.GetPositions().FirstOrDefault(x => x.GetName() == DeletePositionName);
+            DeletePosition.BusyPosition();
+            var Positions = unit.GetPositions().ToList();
+            Debug.WriteLine($"Удаляемая должность = '{DeletePosition}'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал удалять");
+            var ret = unit.DeletePosition(DeletePosition);
+            Debug.WriteLine("Удалил");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{Positions.Count}', unit.GetPositions() = '{unit.GetPositions().Count}'.");
+            CollectionAssert.AreEqual(Positions, unit.GetPositions().ToList());
+            Debug.WriteLine($"Должно быть = 'что-то написано', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Удаление Закончено. ");
+        }
         #endregion
 
 
@@ -434,7 +511,77 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
             // Act — выполнение 
             Debug.WriteLine("Начал Изменять");
-            var ret = unit.ChangeMainUnit(unit2);
+            var ret = unit.IsPossibleChangeMainUnit(unit2);
+            Debug.WriteLine("Изменил");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{mainUnit.GetName()}', unit.GetMainUnit() = '{unit.GetMainUnit().GetName()}'.");
+            Assert.AreEqual(mainUnit, unit.GetMainUnit());
+            Debug.WriteLine($"Должно быть = 'Что-то должно быть написано', unit.ChangeMainUnit().return = '{ret}'.");
+            Assert.IsNotNull(ret);
+
+            Debug.WriteLine("Изменение Главного подразделения Закончено. ");
+        }
+        [TestMethod()]
+        public void IsPossibleChangeMainUnit_WhenMainUnitHierarchyTierEqual0_NotChangeMainUnitAndFalseReturned()
+        {
+            Debug.WriteLine("Начало теста Изменение Главного подразделения. Некорректные параметры, главное подразделение = null, возврат false.");
+
+            // Arrange(настройка)
+            Unit unit2 = new Unit("n1", new List<string>() { "n1" });
+
+            Debug.WriteLine($"Новое главное подразделение = 'null'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал Изменять");
+            var ret = unit.IsPossibleChangeMainUnit(unit2);
+            Debug.WriteLine("Изменил");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{mainUnit.GetName()}', unit.GetMainUnit() = '{unit.GetMainUnit().GetName()}'.");
+            Assert.AreEqual(mainUnit, unit.GetMainUnit());
+            Debug.WriteLine($"Должно быть = 'Что-то должно быть написано', unit.ChangeMainUnit().return = '{ret}'.");
+            Assert.IsNotNull(ret);
+
+            Debug.WriteLine("Изменение Главного подразделения Закончено. ");
+        }
+
+        [TestMethod()]
+        public void IsPossibleChangeMainUnit_WhenMainUnitIsDelete_NotChangeMainUnitAndFalseReturned()
+        {
+            Debug.WriteLine("Начало теста Изменение Главного подразделения. Некорректные параметры, главное подразделение = null, возврат false.");
+
+            // Arrange(настройка)
+            subUnit2.Delete();
+
+            Debug.WriteLine($"Новое главное подразделение = 'subUnit2'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал Изменять");
+            var ret = unit.IsPossibleChangeMainUnit(subUnit2);
+            Debug.WriteLine("Изменил");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{mainUnit.GetName()}', unit.GetMainUnit() = '{unit.GetMainUnit().GetName()}'.");
+            Assert.AreEqual(mainUnit, unit.GetMainUnit());
+            Debug.WriteLine($"Должно быть = 'Что-то должно быть написано', unit.ChangeMainUnit().return = '{ret}'.");
+            Assert.IsNotNull(ret);
+
+            Debug.WriteLine("Изменение Главного подразделения Закончено. ");
+        }
+
+        [TestMethod()]
+        public void IsPossibleChangeMainUnit_WhenMainUnitEqalOurUnit_NotChangeMainUnitAndFalseReturned()
+        {
+            Debug.WriteLine("Начало теста Изменение Главного подразделения. Некорректные параметры, главное подразделение = null, возврат false.");
+
+            // Arrange(настройка)
+
+            Debug.WriteLine($"Новое главное подразделение = 'subUnit2'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал Изменять");
+            var ret = unit.IsPossibleChangeMainUnit(unit);
             Debug.WriteLine("Изменил");
 
             // Assert — проверка
@@ -455,7 +602,7 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
             // Act — выполнение 
             Debug.WriteLine("Начал Изменять");
-            var ret = unit.ChangeMainUnit(subUnit1);
+            var ret = unit.IsPossibleChangeMainUnit(subUnit1);
             Debug.WriteLine("Изменил");
 
             // Assert — проверка
@@ -488,6 +635,7 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             Debug.WriteLine("Удаление Закончено. ");
         }
 
+       
         [TestMethod()]
         public void ChangeMainUnit_WhenMainUnitNull_NotChangeMainUnitAndFalseReturned()
         {
@@ -501,6 +649,76 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             // Act — выполнение 
             Debug.WriteLine("Начал Изменять");
             var ret = unit.ChangeMainUnit(unit2);
+            Debug.WriteLine("Изменил");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{mainUnit.GetName()}', unit.GetMainUnit() = '{unit.GetMainUnit().GetName()}'.");
+            Assert.AreEqual(mainUnit, unit.GetMainUnit());
+            Debug.WriteLine($"Должно быть = '{false}', unit.ChangeMainUnit().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Изменение Главного подразделения Закончено. ");
+        }
+        [TestMethod()]
+        public void ChangeMainUnit_WhenMainUnitHierarchyTierEqual0_NotChangeMainUnitAndFalseReturned()
+        {
+            Debug.WriteLine("Начало теста Изменение Главного подразделения. Некорректные параметры, главное подразделение = null, возврат false.");
+
+            // Arrange(настройка)
+            Unit unit2 = new Unit("n1", new List<string>() { "n1" });
+
+            Debug.WriteLine($"Новое главное подразделение = 'null'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал Изменять");
+            var ret = unit.ChangeMainUnit(unit2);
+            Debug.WriteLine("Изменил");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{mainUnit.GetName()}', unit.GetMainUnit() = '{unit.GetMainUnit().GetName()}'.");
+            Assert.AreEqual(mainUnit, unit.GetMainUnit());
+            Debug.WriteLine($"Должно быть = '{false}', unit.ChangeMainUnit().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Изменение Главного подразделения Закончено. ");
+        }
+
+        [TestMethod()]
+        public void ChangeMainUnit_WhenMainUnitIsDelete_NotChangeMainUnitAndFalseReturned()
+        {
+            Debug.WriteLine("Начало теста Изменение Главного подразделения. Некорректные параметры, главное подразделение = null, возврат false.");
+
+            // Arrange(настройка)
+            subUnit2.Delete();
+
+            Debug.WriteLine($"Новое главное подразделение = 'subUnit2'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал Изменять");
+            var ret = unit.ChangeMainUnit(subUnit2);
+            Debug.WriteLine("Изменил");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{mainUnit.GetName()}', unit.GetMainUnit() = '{unit.GetMainUnit().GetName()}'.");
+            Assert.AreEqual(mainUnit, unit.GetMainUnit());
+            Debug.WriteLine($"Должно быть = '{false}', unit.ChangeMainUnit().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Изменение Главного подразделения Закончено. ");
+        }
+
+        [TestMethod()]
+        public void ChangeMainUnit_WhenMainUnitEqalOurUnit_NotChangeMainUnitAndFalseReturned()
+        {
+            Debug.WriteLine("Начало теста Изменение Главного подразделения. Некорректные параметры, главное подразделение = null, возврат false.");
+
+            // Arrange(настройка)
+
+            Debug.WriteLine($"Новое главное подразделение = 'subUnit2'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал Изменять");
+            var ret = unit.ChangeMainUnit(unit);
             Debug.WriteLine("Изменил");
 
             // Assert — проверка
@@ -529,9 +747,11 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             Assert.AreEqual(mainUnit, unit.GetMainUnit());
             Debug.WriteLine($"Должно быть = '{false}', unit.ChangeMainUnit().return = '{ret}'.");
             Assert.IsFalse(ret);
+
             Debug.WriteLine("Изменение Главного подразделения Закончено. ");
         }
         #endregion
+
 
         #region Функция IsPossibleAddSubordinateUnit (Проверка на Добавить подчиненное подразделение)
         [TestMethod()]
@@ -562,8 +782,105 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             Debug.WriteLine("Добавление Закончено. ");
         }
 
-        #endregion
+        [TestMethod()]
+        public void IsPossibleAddSubordinateUnit_WhenSubIsNull_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Добавление подчиненных подразделений. Корректные параметры, возврат true.");
 
+            // Arrange(настройка)
+            Unit newUnit = null;
+
+            var SubUnits = unit.GetSubordinateUnits().ToList();
+            //SubUnits.Add(newUnit);
+            Debug.WriteLine($"Новое подчиненное подразделение = 'null'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал Добавлять");
+            var ret = unit.IsPossibleAddSubordinateUnit(newUnit);
+            Debug.WriteLine("Добавить");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{SubUnits.Count}', unit.GetPositions() = '{unit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(SubUnits, unit.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{false}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Добавление Закончено. ");
+        }
+
+        [TestMethod()]
+        public void IsPossibleAddSubordinateUnit_WhenSubIsOurUnit_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Добавление подчиненных подразделений. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            var SubUnits = unit.GetSubordinateUnits().ToList();
+            //SubUnits.Add(newUnit);
+            Debug.WriteLine($"Новое подчиненное подразделение = 'unit'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал Добавлять");
+            var ret = unit.IsPossibleAddSubordinateUnit(unit);
+            Debug.WriteLine("Добавить");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{SubUnits.Count}', unit.GetPositions() = '{unit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(SubUnits, unit.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{false}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Добавление Закончено. ");
+        }
+
+        [TestMethod()]
+        public void IsPossibleAddSubordinateUnit_WhenSubIsSubUnit_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Добавление подчиненных подразделений. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            var SubUnits = unit.GetSubordinateUnits().ToList();
+            //SubUnits.Add(newUnit);
+            Debug.WriteLine($"Новое подчиненное подразделение = 'null'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал Добавлять");
+            var ret = unit.IsPossibleAddSubordinateUnit(subUnit1);
+            Debug.WriteLine("Добавить");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{SubUnits.Count}', unit.GetPositions() = '{unit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(SubUnits, unit.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{false}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Добавление Закончено. ");
+        }
+
+        [TestMethod()]
+        public void IsPossibleAddSubordinateUnit_WhenSubIsMainOur_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Добавление подчиненных подразделений. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            var SubUnits = subUnit1.GetSubordinateUnits().ToList();
+            //SubUnits.Add(newUnit);
+            Debug.WriteLine($"Новое подчиненное подразделение = 'null'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал Добавлять");
+            var ret = subUnit1.IsPossibleAddSubordinateUnit(mainUnit);
+            Debug.WriteLine("Добавить");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{SubUnits.Count}', unit.GetPositions() = '{subUnit1.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(SubUnits, subUnit1.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{false}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Добавление Закончено. ");
+        }
+
+        #endregion
 
         #region Функция AddSubordinateUnit (Добавить подчиненное подразделение)
         [TestMethod()]
@@ -594,8 +911,105 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             Debug.WriteLine("Добавление Закончено. ");
         }
 
-        #endregion
+        [TestMethod()]
+        public void AddSubordinateUnit_WhenSubIsNull_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Добавление подчиненных подразделений. Корректные параметры, возврат true.");
 
+            // Arrange(настройка)
+            Unit newUnit = null;
+
+            var SubUnits = unit.GetSubordinateUnits().ToList();
+            //SubUnits.Add(newUnit);
+            Debug.WriteLine($"Новое подчиненное подразделение = 'null'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал Добавлять");
+            var ret = unit.AddSubordinateUnit(newUnit);
+            Debug.WriteLine("Добавить");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{SubUnits.Count}', unit.GetPositions() = '{unit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(SubUnits, unit.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{false}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Добавление Закончено. ");
+        }
+
+        [TestMethod()]
+        public void AddSubordinateUnit_WhenSubIsOurUnit_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Добавление подчиненных подразделений. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            var SubUnits = unit.GetSubordinateUnits().ToList();
+            //SubUnits.Add(newUnit);
+            Debug.WriteLine($"Новое подчиненное подразделение = 'unit'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал Добавлять");
+            var ret = unit.AddSubordinateUnit(unit);
+            Debug.WriteLine("Добавить");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{SubUnits.Count}', unit.GetPositions() = '{unit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(SubUnits, unit.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{false}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Добавление Закончено. ");
+        }
+
+        [TestMethod()]
+        public void AddSubordinateUnit_WhenSubIsSubUnit_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Добавление подчиненных подразделений. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            var SubUnits = unit.GetSubordinateUnits().ToList();
+            //SubUnits.Add(newUnit);
+            Debug.WriteLine($"Новое подчиненное подразделение = 'null'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал Добавлять");
+            var ret = unit.AddSubordinateUnit(subUnit1);
+            Debug.WriteLine("Добавить");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{SubUnits.Count}', unit.GetPositions() = '{unit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(SubUnits, unit.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{false}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Добавление Закончено. ");
+        }
+
+        [TestMethod()]
+        public void AddSubordinateUnit_WhenSubIsMainOur_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Добавление подчиненных подразделений. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            var SubUnits = subUnit1.GetSubordinateUnits().ToList();
+            //SubUnits.Add(newUnit);
+            Debug.WriteLine($"Новое подчиненное подразделение = 'null'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал Добавлять");
+            var ret = subUnit1.AddSubordinateUnit(mainUnit);
+            Debug.WriteLine("Добавить");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{SubUnits.Count}', unit.GetPositions() = '{subUnit1.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(SubUnits, subUnit1.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{false}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Добавление Закончено. ");
+        }
+
+        #endregion
 
 
         #region Функция IsPossibleDeleteSubordinateUnit (Проверка на Удалить подчиненное подразделение)
@@ -620,8 +1034,51 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
             Debug.WriteLine("Удаление Закончено. ");
         }
-        #endregion
 
+        [TestMethod()]
+        public void IsPossibleDeleteSubordinateUnit_WhenDeleteUnitIsNull_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Удаление подчиненных подразделений. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            var sub = unit.GetSubordinateUnits().ToList();
+            // Act — выполнение 
+            Debug.WriteLine("Начал удалять");
+            var ret = unit.IsPossibleDeleteSubordinateUnit(null);
+            Debug.WriteLine("Удалил");
+            //sub.Remove(subUnit1);
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{sub.Count}', unit.GetPositions() = '{unit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(sub, unit.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{false}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Удаление Закончено. ");
+        }
+
+        [TestMethod()]
+        public void IsPossibleDeleteSubordinateUnit_WhenDeleteUnitNotInSubUnit_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Удаление подчиненных подразделений. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            var sub = unit.GetSubordinateUnits().ToList();
+            // Act — выполнение 
+            Debug.WriteLine("Начал удалять");
+            var ret = unit.IsPossibleDeleteSubordinateUnit(mainUnit);
+            Debug.WriteLine("Удалил");
+            //sub.Remove(subUnit1);
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{sub.Count}', unit.GetPositions() = '{unit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(sub, unit.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{false}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Удаление Закончено. ");
+        }
+        #endregion
 
         #region Функция DeleteSubordinateUnit (Удалить подчиненное подразделение)
         [TestMethod()]
@@ -642,6 +1099,50 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             CollectionAssert.AreEqual(sub, unit.GetSubordinateUnits().ToList());
             Debug.WriteLine($"Должно быть = '{true}', unit.DeletePosition().return = '{ret}'.");
             Assert.IsTrue(ret);
+
+            Debug.WriteLine("Удаление Закончено. ");
+        }
+
+        [TestMethod()]
+        public void DeleteSubordinateUnit_WhenDeleteUnitIsNull_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Удаление подчиненных подразделений. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            var sub = unit.GetSubordinateUnits().ToList();
+            // Act — выполнение 
+            Debug.WriteLine("Начал удалять");
+            var ret = unit.DeleteSubordinateUnit(null);
+            Debug.WriteLine("Удалил");
+            //sub.Remove(subUnit1);
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{sub.Count}', unit.GetPositions() = '{unit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(sub, unit.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{false}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Удаление Закончено. ");
+        }
+
+        [TestMethod()]
+        public void DeleteSubordinateUnit_WhenDeleteUnitNotInSubUnit_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Удаление подчиненных подразделений. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            var sub = unit.GetSubordinateUnits().ToList();
+            // Act — выполнение 
+            Debug.WriteLine("Начал удалять");
+            var ret = unit.DeleteSubordinateUnit(mainUnit);
+            Debug.WriteLine("Удалил");
+            //sub.Remove(subUnit1);
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{sub.Count}', unit.GetPositions() = '{unit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(sub, unit.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{false}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsFalse(ret);
 
             Debug.WriteLine("Удаление Закончено. ");
         }

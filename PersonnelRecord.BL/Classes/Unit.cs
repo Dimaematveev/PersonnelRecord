@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PersonnelRecord.BL.Classes
@@ -113,6 +114,26 @@ namespace PersonnelRecord.BL.Classes
 
         public Unit(string nameUnit, List<string> positionsName, bool IsMain = false)
         {
+            if (string.IsNullOrWhiteSpace(nameUnit))
+            {
+                throw new ArgumentNullException("Название подразделения не должно быть пустым!!!");
+            }
+            if (positionsName == null)
+            {
+                throw new ArgumentNullException("Список должностей не должен быть null !!!");
+            }
+            if (positionsName.Count == 0)
+            {
+                throw new ArgumentNullException("Список должностей не должен быть пустым !!!");
+            }
+            foreach (var item in positionsName)
+            {
+                if (string.IsNullOrWhiteSpace(item))
+                {
+                    throw new ArgumentNullException("Название должности не должно быть пустым!!!");
+                }
+            }
+
             name = nameUnit;
             if (IsMain)
             {
@@ -143,11 +164,15 @@ namespace PersonnelRecord.BL.Classes
         /// <returns>True - Удалось переименовать, False - нет</returns>
         public bool Rename(string newName)
         {
+            
             if (string.IsNullOrWhiteSpace(newName))
             {
                 return false;
             }
-
+            if (name == newName)
+            {
+                return false;
+            }
             name = newName;
             return true;
         }
@@ -300,7 +325,13 @@ namespace PersonnelRecord.BL.Classes
             {
                 return false;
             }
-            if (addedSubordinateUnit.GetMainUnit() == this)
+            if (this.GetSubordinateUnits().Contains(addedSubordinateUnit))
+            {
+                return false;
+            }
+
+            
+            if (this.GetMainUnits().Contains(addedSubordinateUnit))
             {
                 return false;
             }
@@ -333,6 +364,10 @@ namespace PersonnelRecord.BL.Classes
         /// <returns>True - Возможно , False - нет</returns>
         public bool IsPossibleDeleteSubordinateUnit(Unit deletedSubordinateUnit)
         {
+            if (subordinateUnits == null)
+            {
+                return false;
+            }
             if (!subordinateUnits.Contains(deletedSubordinateUnit))
             {
                 return false;
