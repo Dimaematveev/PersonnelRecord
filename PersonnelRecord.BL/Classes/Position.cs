@@ -52,6 +52,7 @@ namespace PersonnelRecord.BL.Classes
         /// </summary>
         private bool isDelete;
 
+        //TODO:не проверял на удаленную должность(
         /// <summary>
         /// Удалена ли должность
         /// </summary>

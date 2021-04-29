@@ -1,5 +1,6 @@
 ﻿using PersonnelRecord.BL.Enums;
 using System;
+using System.Linq;
 
 namespace PersonnelRecord.BL.Classes
 {
@@ -189,6 +190,8 @@ namespace PersonnelRecord.BL.Classes
             return true;
         }
 
+
+        #region Статические методы создания класса
         /// <summary>
         /// Нанять на должность
         /// </summary>
@@ -202,6 +205,25 @@ namespace PersonnelRecord.BL.Classes
                                           Position position,
                                           bool combinationOfPosition)
         {
+            if (numberOrder <= 0)
+            {
+                throw new ArgumentException("Номер приказа должен быть положительным числом!", nameof(numberOrder));
+            }
+            if (position == null)
+            {
+                throw new ArgumentNullException(nameof(position), "Должность не может быть пустой");
+            }
+            if (employee == null)
+            {
+                throw new ArgumentNullException(nameof(employee), "Сотрудник не может быть пустым");
+            }
+
+            if (position.GetIsPositionBusy())
+            {
+                throw new ArgumentNullException(nameof(position), "Должность не может быть занята!");
+            }
+
+           
             var change = new Change(null,
                                     numberOrder,
                                     employee,
@@ -212,7 +234,7 @@ namespace PersonnelRecord.BL.Classes
             return change;
         }
 
-
+        //TODO:Надо наверное проверить что в старой динамике не null должность
         /// <summary>
         /// Изменить должность
         /// </summary>
@@ -226,6 +248,38 @@ namespace PersonnelRecord.BL.Classes
                                           Change prevpreviousChange,
                                           Position position)
         {
+            if (numberOrder <= 0)
+            {
+                throw new ArgumentException("Номер приказа должен быть положительным числом!", nameof(numberOrder));
+            }
+
+            if (employee == null)
+            {
+                throw new ArgumentNullException(nameof(employee), "Сотрудник не может быть пустой");
+            }
+            if (prevpreviousChange == null)
+            {
+                throw new ArgumentNullException(nameof(prevpreviousChange), "Старая динамика не может быть пустой");
+            }
+            if (position == null)
+            {
+                throw new ArgumentNullException(nameof(position), "Новая должность не может быть пустой");
+            }
+
+            if (prevpreviousChange.GetEmployee() != employee)
+            {
+                throw new ArgumentException("Предыдущая динамика не от этого сотрудника!", nameof(prevpreviousChange));
+            }
+            if (prevpreviousChange.GetPosition() == position)
+            {
+                throw new ArgumentException("Ставим сотрудника на туже должность!", nameof(prevpreviousChange));
+            }
+
+            if (position.GetIsPositionBusy())
+            {
+                throw new ArgumentException(nameof(position), "Новая Должность не может быть занята!");
+            }
+
             var change = new Change(prevpreviousChange,
                                     numberOrder,
                                     employee,
@@ -236,6 +290,8 @@ namespace PersonnelRecord.BL.Classes
 
             return change;
         }
+
+        //TODO:Надо наверное проверить что в старой динамике не null должность
         /// <summary>
         /// Уволить с должности
         /// </summary>
@@ -247,6 +303,26 @@ namespace PersonnelRecord.BL.Classes
                                           Employee employee,
                                           Change prevpreviousChange)
         {
+            if (numberOrder <= 0)
+            {
+                throw new ArgumentException("Номер приказа должен быть положительным числом!", nameof(numberOrder));
+            }
+
+            if (employee == null)
+            {
+                throw new ArgumentNullException(nameof(employee), "Сотрудник не может быть пустой");
+            }
+            if (prevpreviousChange == null)
+            {
+                throw new ArgumentNullException(nameof(prevpreviousChange), "Старая динамика не может быть пустой");
+            }
+
+            if (prevpreviousChange.GetEmployee() != employee)
+            {
+                throw new ArgumentException("Предыдущая динамика не от этого сотрудника!", nameof(prevpreviousChange));
+            }
+          
+
             var change = new Change(prevpreviousChange,
                                     numberOrder,
                                     employee,
@@ -257,6 +333,6 @@ namespace PersonnelRecord.BL.Classes
 
             return change;
         }
-
+        #endregion
     }
 }

@@ -182,9 +182,14 @@ namespace PersonnelRecord.BL.Classes
                 throw new ArgumentNullException(nameof(oldPosition), "Старая Должность не может быть пустой");
             }
 
+            if (oldPosition == newPosition)
+            {
+                throw new ArgumentException("Ставим сотрудника на туже должность!", nameof(newPosition));
+            }
+
             if (newPosition.GetIsPositionBusy())
             {
-                throw new ArgumentNullException(nameof(newPosition), "Новая Должность не может быть занята!");
+                throw new ArgumentException( "Новая Должность не может быть занята!", nameof(newPosition));
             }
 
             var OldChange = changes.Where(x => x.GetStatus()).FirstOrDefault(x => x.GetPosition() == oldPosition);
@@ -198,6 +203,7 @@ namespace PersonnelRecord.BL.Classes
             return change;
         }
 
+        //TODO: не знаю как сделать проверку на то что удаляем главную должность)
         /// <summary>
         /// Увольнение с должности
         /// </summary>

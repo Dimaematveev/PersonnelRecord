@@ -334,7 +334,21 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
             //Asser
         }
 
-        [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу в новую должность занятой должности, не было вызвано.")]
+        [ExpectedException(typeof(ArgumentException), "Исключение на передачу в новую должность старой должности, не было вызвано.")]
+        [TestMethod()]
+        public void ChangePosition_WhenNewPositionEqualOldPosition_ExceptionReterned()
+        {
+            //Arrange
+            Change NewChange, OldChange;
+            int NumOrd = 1;
+            OldChange = employee.Recruitment(NumOrd, N1Pos1);
+            NumOrd = 2;
+            //ACT
+            NewChange = employee.ChangePosition(NumOrd, N1Pos1, N1Pos1);
+            //Assert
+        }
+
+        [ExpectedException(typeof(ArgumentException), "Исключение на передачу в новую должность занятой должности, не было вызвано.")]
         [TestMethod()]
         public void ChangePosition_WhenNewPositionIsBusy_ExceptionReterned()
         {
