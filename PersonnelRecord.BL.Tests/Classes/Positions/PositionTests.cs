@@ -35,31 +35,7 @@ namespace PersonnelRecord.BL.Classes.Positions.Tests
         #endregion
 
 
-        [TestMethod()]
-        public void Delete_WithValidArguments_DeletedAndTrueReterned()
-        {
-            //ACT
-            bool ret = position.Delete();
-
-            //Assert
-            Assert.IsTrue(ret);
-            Assert.IsTrue(position.GetIsDelete());
-            Assert.IsFalse(position.GetIsPositionBusy());
-        }
-        [TestMethod()]
-        public void Delete_WithNotValidArguments_NotDeletedAndFalseReterned()
-        {
-            position.BusyPosition();
-            //ACT
-            bool ret = position.Delete();
-
-            //Assert
-            Assert.IsFalse(ret);
-            Assert.IsFalse(position.GetIsDelete());
-            Assert.IsTrue(position.GetIsPositionBusy());
-        }
-
-
+        #region IsPossibleDeletePosition (Возможно ли удалить должность)
         [TestMethod()]
         public void IsPossibleDeletePosition_WithValidArguments_TrueReterned()
         {
@@ -71,8 +47,12 @@ namespace PersonnelRecord.BL.Classes.Positions.Tests
             Assert.IsFalse(position.GetIsDelete());
             Assert.IsFalse(position.GetIsPositionBusy());
         }
+
+        /// <summary>
+        /// Когда должность занята
+        /// </summary>
         [TestMethod()]
-        public void IsPossibleDeletePosition_WithNotValidArguments_FalseReterned()
+        public void IsPossibleDeletePosition_WhenPositionIsBusy_FalseReterned()
         {
             position.BusyPosition();
             //ACT
@@ -84,6 +64,72 @@ namespace PersonnelRecord.BL.Classes.Positions.Tests
             Assert.IsTrue(position.GetIsPositionBusy());
         }
 
+        /// <summary>
+        /// Когда Уже удалено
+        /// </summary>
+        [TestMethod()]
+        public void IsPossibleDeletePosition_WhenPositionIsDelete_FalseReterned()
+        {
+            position.Delete();
+            //ACT
+
+            bool ret = position.IsPossibleDeletePosition();
+
+            //Assert
+            Assert.IsFalse(ret);
+            Assert.IsTrue(position.GetIsDelete());
+            Assert.IsFalse(position.GetIsPositionBusy());
+        }
+        #endregion
+        
+        #region Delete (Удаление должности)
+        [TestMethod()]
+        public void Delete_WithValidArguments_DeletedAndTrueReterned()
+        {
+            //ACT
+            bool ret = position.Delete();
+
+            //Assert
+            Assert.IsTrue(ret);
+            Assert.IsTrue(position.GetIsDelete());
+            Assert.IsFalse(position.GetIsPositionBusy());
+        }
+
+        /// <summary>
+        /// Когда должность занята
+        /// </summary>
+        [TestMethod()]
+        public void Delete_WhenPositionIsBusy_FalseReterned()
+        {
+            position.BusyPosition();
+            //ACT
+            bool ret = position.Delete();
+
+            //Assert
+            Assert.IsFalse(ret);
+            Assert.IsFalse(position.GetIsDelete());
+            Assert.IsTrue(position.GetIsPositionBusy());
+        }
+
+        /// <summary>
+        /// Когда Уже удалено
+        /// </summary>
+        [TestMethod()]
+        public void Delete_WhenPositionIsDelete_FalseReterned()
+        {
+            position.Delete();
+            //ACT
+
+            bool ret = position.IsPossibleDeletePosition();
+
+            //Assert
+            Assert.IsFalse(ret);
+            Assert.IsTrue(position.GetIsDelete());
+            Assert.IsFalse(position.GetIsPositionBusy());
+        }
+        #endregion
+
+        #region BusyPosition (Занять должность)
         [TestMethod()]
         public void BusyPosition_WithValidArguments_BusyAndTrueReterned()
         {
@@ -94,18 +140,44 @@ namespace PersonnelRecord.BL.Classes.Positions.Tests
             Assert.IsTrue(ret);
             Assert.IsTrue(position.GetIsPositionBusy());
         }
+        
+        /// <summary>
+        /// Когда должность занята
+        /// </summary>
         [TestMethod()]
-        public void BusyPosition_WithNotValidArguments_FalseReterned()
+        public void BusyPosition_WhenPositionIsBusy_FalseReterned()
         {
             position.BusyPosition();
             //ACT
-            var ret = position.BusyPosition();
+            bool ret = position.BusyPosition();
+
             //Assert
             Assert.IsFalse(ret);
+            Assert.IsFalse(position.GetIsDelete());
             Assert.IsTrue(position.GetIsPositionBusy());
         }
+
+        /// <summary>
+        /// Когда Уже удалено
+        /// </summary>
         [TestMethod()]
-        public void NotBusyPosition_WithValidArguments_NotBusyAndTrueReterned()
+        public void BusyPosition_WhenPositionIsDelete_FalseReterned()
+        {
+            position.Delete();
+            //ACT
+
+            bool ret = position.BusyPosition();
+
+            //Assert
+            Assert.IsFalse(ret);
+            Assert.IsTrue(position.GetIsDelete());
+            Assert.IsFalse(position.GetIsPositionBusy());
+        }
+        #endregion
+
+        #region RemoveFromPosition (Снять с должности)
+        [TestMethod()]
+        public void RemoveFromPosition_WithValidArguments_NotBusyAndTrueReterned()
         {
             position.BusyPosition();
 
@@ -115,17 +187,44 @@ namespace PersonnelRecord.BL.Classes.Positions.Tests
             Assert.IsTrue(ret);
             Assert.IsFalse(position.GetIsPositionBusy());
         }
+        
+
+        /// <summary>
+        /// Когда должность Снята
+        /// </summary>
         [TestMethod()]
-        public void NotBusyPosition_WithNotValidArguments_FalseReterned()
+        public void RemoveFromPosition_WhenPositionIsBusy_FalseReterned()
         {
             position.BusyPosition();
             position.RemoveFromPosition();
             //ACT
-            var ret = position.RemoveFromPosition();
+            bool ret = position.RemoveFromPosition();
+
             //Assert
             Assert.IsFalse(ret);
+            Assert.IsFalse(position.GetIsDelete());
             Assert.IsFalse(position.GetIsPositionBusy());
         }
+
+        /// <summary>
+        /// Когда Уже удалено
+        /// </summary>
+        [TestMethod()]
+        public void RemoveFromPosition_WhenPositionIsDelete_FalseReterned()
+        {
+            position.BusyPosition();
+            position.RemoveFromPosition();
+            position.Delete();
+            //ACT
+
+            bool ret = position.RemoveFromPosition();
+
+            //Assert
+            Assert.IsFalse(ret);
+            Assert.IsTrue(position.GetIsDelete());
+            Assert.IsFalse(position.GetIsPositionBusy());
+        }
+        #endregion
 
     }
 }

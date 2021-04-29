@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace PersonnelRecord.BL.Classes.Positions.Tests
     public class PositionConstructorTests
     {
         [TestMethod()]
-        public void ConstructorTest_Pos1AndUnit1_CreateClass()
+        public void ConstructorTest_WithValidArguments_CreateClass()
         {
             //Arrange (настройка) — в этом блоке кода мы настраиваем 
             //тестовое окружение тестируемого юнита;
@@ -39,6 +40,29 @@ namespace PersonnelRecord.BL.Classes.Positions.Tests
 
             Debug.WriteLine($"Должно быть='False' position.GetIsDelete='{position.GetIsDelete()}'");
             Assert.IsFalse(position.GetIsDelete());
+        }
+
+        [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу в Название должности null или пустой строки, не было вызвано.")]
+        [DataTestMethod()]
+        [DataRow(null)]
+        [DataRow("")]
+        [DataRow(" ")]
+        [DataRow("  ")]
+        [DataRow("\n")]
+        [DataRow("\t")]
+        public void ConstructorTest_WhenNamePositionIsNull_NotCreateClassAndExceptionReterned(string positionName)
+        {
+            //Arrange (настройка) — в этом блоке кода мы настраиваем 
+            //тестовое окружение тестируемого юнита;
+            Debug.WriteLine("Начало теста. Некорректные параметры!");
+            var nameUnit = "Unit1";
+            Debug.WriteLine("nameUnit = 'Unit1'");
+            //ACT
+            var positionsName = new List<string>() { positionName };
+            Debug.WriteLine($"positionsName = '{positionName}'");
+            var unit = new Unit(nameUnit, positionsName);
+            Debug.WriteLine("Создали класс unit");
+
         }
 
     }

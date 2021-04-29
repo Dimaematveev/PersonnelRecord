@@ -63,12 +63,14 @@ namespace PersonnelRecord.BL.Classes
         }
         #endregion
 
+        //TODO:Возможно надо еще конструктор
         internal Position(string namePosition, Unit unit)
         {
             if (string.IsNullOrWhiteSpace(namePosition))
             {
                 throw new ArgumentNullException("Название должности не должно быть пустым!!!");
             }
+            //TODO:Как протестить хз
             if (unit == null)
             {
                 throw new ArgumentNullException("Подразделение не должно быть null!!!");
@@ -88,6 +90,11 @@ namespace PersonnelRecord.BL.Classes
         /// <returns>True -возможно удалить должность, False - нет</returns>
         public bool IsPossibleDeletePosition()
         {
+            if (GetIsDelete())
+            {
+                return false;
+            }
+
             if (isPositionBusy)
             {
                 return false;
@@ -118,6 +125,10 @@ namespace PersonnelRecord.BL.Classes
         /// <returns>True -занял должность, False - нет</returns>
         public bool BusyPosition()
         {
+            if (isDelete)
+            {
+                return false;
+            }
             if (isPositionBusy)
             {
                 return false;
@@ -133,6 +144,10 @@ namespace PersonnelRecord.BL.Classes
         /// <returns>True - Сняли с должности, False - нет</returns>
         public bool RemoveFromPosition()
         {
+            if (isDelete)
+            {
+                return false;
+            }
             if (!isPositionBusy)
             {
                 return false;
