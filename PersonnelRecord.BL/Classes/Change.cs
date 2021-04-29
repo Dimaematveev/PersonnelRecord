@@ -107,7 +107,7 @@ namespace PersonnelRecord.BL.Classes
         /// Статус сотрудника. 
         /// Занимает эту должность или нет
         /// </summary>
-        private bool isWork;
+        private bool status;
         /// <summary>
         /// Получить статус сотрудника. 
         /// Занимает эту должность или нет
@@ -115,20 +115,20 @@ namespace PersonnelRecord.BL.Classes
         /// <returns>True - Занимает должность, false - нет</returns>
         public bool GetStatus()
         {
-            return isWork;
+            return status;
         }
 
         /// <summary>
         /// Тип изменения
         /// </summary>
-        private RecordType status;
+        private RecordType recordType;
         /// <summary>
         /// Получить тип изменения
         /// </summary>
         /// <returns>Тип записи</returns>
         public RecordType GetRecordType()
         {
-            return status;
+            return recordType;
         }
         #endregion
 
@@ -140,8 +140,8 @@ namespace PersonnelRecord.BL.Classes
                              Employee employee,
                              Position position,
                              bool combinationOfPosition,
-                             bool isWork,
-                             RecordType status)
+                             bool status,
+                             RecordType recordType)
         {
 
             this.prevpreviousChange = prevpreviousChange;
@@ -149,8 +149,8 @@ namespace PersonnelRecord.BL.Classes
             this.employee = employee;
             this.position = position;
             this.combinationOfPosition = combinationOfPosition;
-            this.isWork = isWork;
             this.status = status;
+            this.recordType = recordType;
             this.dateOfChange = DateTime.Now;
 
             if (prevpreviousChange != null)
@@ -168,7 +168,7 @@ namespace PersonnelRecord.BL.Classes
         /// <returns>true - Возможно изменить, false- нет</returns>
         public bool IsPossibleChangeStatusToFalse()
         {
-            if (isWork == false)
+            if (status == false)
             {
                 return false;
             }
@@ -185,7 +185,7 @@ namespace PersonnelRecord.BL.Classes
             {
                 return false;
             }
-            isWork = false;
+            status = false;
             return true;
         }
 

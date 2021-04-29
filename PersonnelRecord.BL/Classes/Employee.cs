@@ -61,14 +61,36 @@ namespace PersonnelRecord.BL.Classes
         {
             return changes.AsReadOnly();
         }
-
         #endregion
+
+        /// <summary>
+        /// Получить список должностей сотрудника на которых он находится
+        /// </summary>
+        /// <returns>Список должностей</returns>
+        public IReadOnlyList<Position> GetListCurrentPositions()
+        {
+            return changes.Where(x => x.GetStatus()).Select(x => x.GetPosition()).ToList().AsReadOnly();
+        }
+
+
 
         public Employee(int id, string fullName, DateTime birthday)
         {
+            if (string.IsNullOrWhiteSpace(fullName))
+            {
+                throw new ArgumentNullException(nameof(fullName), "Имя человека не может быть пустым!!");
+            }
+            if (birthday.Date > DateTime.Today.AddYears(-18))
+            {
+                throw new ArgumentException("Возраст человека должен быть больше 18 лет!!", nameof(birthday));
+            }
+            if (birthday.Date <= DateTime.Today.AddYears(-100))
+            {
+                throw new ArgumentException("Возраст человека должен быть меньше 100 лет!!", nameof(birthday));
+            }
             this.id = id;
             this.fullName = fullName;
-            this.birthday = birthday;
+            this.birthday = birthday.Date;
             changes = new List<Change>();
         }
 
@@ -81,6 +103,23 @@ namespace PersonnelRecord.BL.Classes
         /// <returns>Новая динамика</returns>
         public Change Recruitment(int numberOrder, Position position)
         {
+           
+            if (numberOrder <= 0) 
+            {
+                throw new ArgumentException("Номер приказа должен быть положительным числом!", nameof(numberOrder));
+            }
+            if (position == null)
+            {
+                throw new ArgumentNullException(nameof(position), "Должность не может быть пустой");
+            }
+            if (GetChanges().Where(x => x.GetStatus() && !x.GetIsCombination()).Count() == 1)
+            {
+                throw new ArgumentException("Нельзя добавить основную должность если уже есть основная!", nameof(position));
+            }
+            if (position.GetIsPositionBusy())
+            {
+                throw new ArgumentNullException(nameof(position), "Должность не может быть занята!");
+            }
             var change = Change.Recruitment(numberOrder, this, position, false);
             changes.Add(change);
             return change;
@@ -95,6 +134,25 @@ namespace PersonnelRecord.BL.Classes
         /// <returns>Новая динамика</returns>
         public Change AddPosition(int numberOrder, Position position)
         {
+            
+            if (numberOrder <= 0)
+            {
+                throw new ArgumentException("Номер приказа должен быть положительным числом!", nameof(numberOrder));
+            }
+            if (position == null)
+            {
+                throw new ArgumentNullException(nameof(position), "Должность не может быть пустой");
+            }
+
+            if (GetChanges().Where(x => x.GetStatus() && !x.GetIsCombination()).Count() == 0)
+            {
+                throw new ArgumentException("Нельзя добавить доп должность если нет основной!", nameof(position));
+            }
+            if (position.GetIsPositionBusy())
+            {
+                throw new ArgumentNullException(nameof(position), "Должность не может быть занята!");
+            }
+
             var change = Change.Recruitment(numberOrder, this, position, true);
             changes.Add(change);
             return change;
@@ -111,7 +169,30 @@ namespace PersonnelRecord.BL.Classes
         /// <returns>Новая динамика</returns>
         public Change ChangePosition(int numberOrder, Position oldPosition, Position newPosition)
         {
-            var OldChange = changes.Where(x => x.GetStatus()).First(x => x.GetPosition() == oldPosition);
+            if (numberOrder <= 0)
+            {
+                throw new ArgumentException("Номер приказа должен быть положительным числом!", nameof(numberOrder));
+            }
+            if (newPosition == null)
+            {
+                throw new ArgumentNullException(nameof(newPosition), "Новая Должность не может быть пустой");
+            }
+            if (oldPosition == null)
+            {
+                throw new ArgumentNullException(nameof(oldPosition), "Старая Должность не может быть пустой");
+            }
+
+            if (newPosition.GetIsPositionBusy())
+            {
+                throw new ArgumentNullException(nameof(newPosition), "Новая Должность не может быть занята!");
+            }
+
+            var OldChange = changes.Where(x => x.GetStatus()).FirstOrDefault(x => x.GetPosition() == oldPosition);
+            if (OldChange == null)
+            {
+                throw new ArgumentException("Такой должности нет у этого сотрудника!", nameof(oldPosition));
+            }
+            
             var change = Change.Transfer(numberOrder, this, OldChange, newPosition);
             changes.Add(change);
             return change;
@@ -125,28 +206,52 @@ namespace PersonnelRecord.BL.Classes
         /// <returns>Новая динамика</returns>
         public Change Dismissal(int numberOrder, Position oldPosition)
         {
-            var OldChange = changes.Where(x => x.GetStatus()).First(x => x.GetPosition() == oldPosition);
+            if (numberOrder <= 0)
+            {
+                throw new ArgumentException("Номер приказа должен быть положительным числом!", nameof(numberOrder));
+            }
+            if (oldPosition == null)
+            {
+                throw new ArgumentNullException(nameof(oldPosition), "Должность не может быть пустой");
+            }
+            var OldChange = changes.Where(x => x.GetStatus()).FirstOrDefault(x => x.GetPosition() == oldPosition);
+            if (OldChange == null)
+            {
+                throw new ArgumentException("Такой должности нет у этого сотрудника!", nameof(oldPosition));
+            }
+
+
+           
             var change = Change.Dismissal(numberOrder, this, OldChange);
             changes.Add(change);
             return change;
         }
 
+
+        //TODO:Только буквы???
         /// <summary>
         /// Изменение ФИО
         /// </summary>
         /// <param name="newFullName">Новое ФИО</param>
-        public void ChangeFullName(string newFullName)
+        /// <returns>True - изменили, false - нет</returns>
+        public bool ChangeFullName(string newFullName)
         {
+            if (newFullName == fullName)
+            {
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(newFullName))
+            {
+                return false;
+            }
+
             fullName = newFullName;
+
+            return true;
         }
-        /// <summary>
-        /// Получить список должностей сотрудника на которых он находится
-        /// </summary>
-        /// <returns>Список должностей</returns>
-        public IReadOnlyList<Position> GetListCurrentPositions()
-        {
-            return changes.Where(x => x.GetStatus()).Select(x => x.GetPosition()).ToList().AsReadOnly();
-        }
+
+
+        
 
 
     }

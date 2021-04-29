@@ -91,6 +91,26 @@ namespace PersonnelRecord.BL.Classes
         }
         #endregion
 
+
+
+        /// <summary>
+        /// Получить список всех главных подразделений
+        /// </summary>
+        /// <returns>Список подразделений</returns>
+        public IReadOnlyList<Unit> GetMainUnits()
+        {
+            List<Unit> units = new List<Unit>() { };
+
+            Unit lastMainUnit = mainUnit;
+            while (lastMainUnit != null)
+            {
+                units.Add(lastMainUnit);
+                lastMainUnit = lastMainUnit.GetMainUnit();
+            }
+            return units;
+        }
+
+
         public Unit(string nameUnit, List<string> positionsName, bool IsMain = false)
         {
             name = nameUnit;
@@ -213,23 +233,6 @@ namespace PersonnelRecord.BL.Classes
         }
 
 
-
-        /// <summary>
-        /// Получить список всех главных подразделений
-        /// </summary>
-        /// <returns>Список подразделений</returns>
-        public IReadOnlyList<Unit> GetMainUnits()
-        {
-            List<Unit> units = new List<Unit>() { };
-
-            Unit lastMainUnit = mainUnit;
-            while (lastMainUnit != null)
-            {
-                units.Add(lastMainUnit);
-                lastMainUnit = lastMainUnit.GetMainUnit();
-            }
-            return units;
-        }
 
         /// <summary>
         /// Возможно-ли Изменить Главное подразделение
@@ -472,51 +475,6 @@ namespace PersonnelRecord.BL.Classes
         }
 
 
-
-
-
-
-
-        //public void Rename(string newName)
-        //{
-        //    Name = newName;
-        //}
-
-        //public void DeletePosition(IPosition deletePosition)
-        //{
-        //    Positions.Remove(deletePosition);
-        //}
-
-        //public void AddPosition(string newPosition)
-        //{
-        //    Positions.Add(new SimplePosition(newPosition, this));
-        //}
-
-        //public void ChangeMainSubdivision(IUnit newMainSubdivision)
-        //{
-        //    MainSubdivision = newMainSubdivision;
-        //    HierarchyTier = MainSubdivision.HierarchyTier + 1;
-        //}
-
-        //public void AddSubordinateSubdivision(IUnit newSubordinateSubdivision)
-        //{
-        //    SubordinateSubdivisions.Add(newSubordinateSubdivision);
-        //}
-
-        //public void DeleteSubordinateSubdivision(IUnit deleteSubordinateSubdivision)
-        //{
-        //    SubordinateSubdivisions.Remove(deleteSubordinateSubdivision);
-        //}
-
-        //public void Delete()
-        //{
-        //    MainSubdivision.DeleteSubordinateSubdivision(this);
-        //    SubordinateSubdivisions.ForEach(x => x.ChangeMainSubdivision(MainSubdivision));
-        //    MainSubdivision = null;
-        //    SubordinateSubdivisions = new List<IUnit>();
-
-        //    HierarchyTier = 0;
-        //}
 
 
     }

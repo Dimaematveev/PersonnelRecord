@@ -62,12 +62,6 @@ namespace PersonnelRecord.BL.Classes
         }
         #endregion
 
-        //internal SimplePosition(string namePosition)
-        //{
-        //   name = namePosition;
-        //}
-        ////Setsubbdiv;
-
         internal Position(string namePosition, Unit unit)
         {
             if (string.IsNullOrWhiteSpace(namePosition))
@@ -87,12 +81,24 @@ namespace PersonnelRecord.BL.Classes
 
         }
 
+        /// <summary>
+        /// Проверка, можно ли удалить должность
+        /// </summary>
+        /// <returns>True -возможно удалить должность, False - нет</returns>
+        public bool IsPossibleDeletePosition()
+        {
+            if (isPositionBusy)
+            {
+                return false;
+            }
 
+            return true;
+        }
 
         /// <summary>
         /// Удалить должность
         /// </summary>
-        /// <returns>True -Удалил должность, False - нет</returns>
+        /// <returns>True - Удалил должность, False - нет</returns>
         public bool Delete()
         {
             if (!IsPossibleDeletePosition())
@@ -103,6 +109,7 @@ namespace PersonnelRecord.BL.Classes
             isDelete = true;
             return true;
         }
+
 
         /// <summary>
         /// Занять должность
@@ -118,6 +125,7 @@ namespace PersonnelRecord.BL.Classes
             return true;
         }
 
+
         /// <summary>
         /// Снять с должности
         /// </summary>
@@ -132,18 +140,6 @@ namespace PersonnelRecord.BL.Classes
             return true;
         }
 
-        /// <summary>
-        /// Проверка, можно ли удалить должность
-        /// </summary>
-        /// <returns>True -возможно удалить должность, False - нет</returns>
-        public bool IsPossibleDeletePosition()
-        {
-            if (isPositionBusy)
-            {
-                return false;
-            }
-
-            return true;
-        }
+        
     }
 }

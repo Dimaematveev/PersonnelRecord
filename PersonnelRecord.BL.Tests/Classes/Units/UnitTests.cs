@@ -47,6 +47,35 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         }
         #endregion
 
+
+        #region Функция GetMainUnits (Получить все главные подразделения)
+        [TestMethod()]
+        public void GetMainUnits_WithValidArguments_ListIUnitReturned()
+        {
+            Debug.WriteLine("Начало теста Получить все главные подразделения. Корректные параметры, возврат список подразделений.");
+
+            // Arrange(настройка)
+            Unit MainUnit1 = new Unit("1", new List<string>() { "2" }, true);
+            Unit unit1 = new Unit("2", new List<string>() { "2" });
+            Unit Subunit1 = new Unit("3", new List<string>() { "2" });
+
+            unit1.Reassignment(MainUnit1);
+            Subunit1.Reassignment(unit1);
+            List<Unit> MainUnits = new List<Unit>() { unit1, MainUnit1 };
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал Изменять");
+            var ret = Subunit1.GetMainUnits();
+            Debug.WriteLine("Изменил");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{MainUnits.Count}', unit.GetMainUnit() = '{ret.Count}'.");
+            CollectionAssert.AreEqual(MainUnits, ret.ToList());
+            Debug.WriteLine("Удаление Закончено. ");
+        }
+        #endregion
+
+
         #region Функция Rename (Переименование)
         [TestMethod()]
         public void Rename_WithValidArguments_RenameAndTrueReterned()
@@ -100,6 +129,7 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             Debug.WriteLine("Переименование Закончено. ");
         }
         #endregion
+
 
         #region Функция IsPossibleAddPosition (Проверка на Добавить должность)
         [TestMethod()]
@@ -214,7 +244,8 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         }
         #endregion
 
-        #region Функция IsPossibleDeletePosition (Удалить должность)
+
+        #region Функция IsPossibleDeletePosition (проверка на Удалить должность)
         [TestMethod()]
         public void IsPossibleDeletePosition_WithValidArguments_NullReturned()
         {
@@ -371,36 +402,7 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         #endregion
 
 
-
-        #region Функция GetMainUnits (Получить все главные подразделения)
-        [TestMethod()]
-        public void GetMainUnits_WithValidArguments_ListIUnitReturned()
-        {
-            Debug.WriteLine("Начало теста Получить все главные подразделения. Корректные параметры, возврат список подразделений.");
-
-            // Arrange(настройка)
-            Unit MainUnit1 = new Unit("1", new List<string>() { "2" }, true);
-            Unit unit1 = new Unit("2", new List<string>() { "2" });
-            Unit Subunit1 = new Unit("3", new List<string>() { "2" });
-
-            unit1.Reassignment(MainUnit1);
-            Subunit1.Reassignment(unit1);
-            List<Unit> MainUnits = new List<Unit>() { unit1, MainUnit1 };
-
-            // Act — выполнение 
-            Debug.WriteLine("Начал Изменять");
-            var ret = Subunit1.GetMainUnits();
-            Debug.WriteLine("Изменил");
-
-            // Assert — проверка
-            Debug.WriteLine($"Должно быть = '{MainUnits.Count}', unit.GetMainUnit() = '{ret.Count}'.");
-            CollectionAssert.AreEqual(MainUnits, ret.ToList());
-            Debug.WriteLine("Удаление Закончено. ");
-        }
-        #endregion
-
-
-        #region Функция IsPossibleChangeMainUnit (Изменить главное подразделение)
+        #region Функция IsPossibleChangeMainUnit (Проверка на Изменить главное подразделение)
         [TestMethod()]
         public void IsPossibleChangeMainUnit_WithValidArguments_NullReturned()
         {
@@ -531,6 +533,36 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         }
         #endregion
 
+        #region Функция IsPossibleAddSubordinateUnit (Проверка на Добавить подчиненное подразделение)
+        [TestMethod()]
+        public void IsPossibleAddSubordinateUnit_WithValidArguments_TrueReturned()
+        {
+            Debug.WriteLine("Начало теста Добавление подчиненных подразделений. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            var NewSubName = "NewSubUnit1";
+            var NewListPositions = new List<string>() { "1" };
+            var newUnit = new Unit(NewSubName, NewListPositions);
+
+            var SubUnits = unit.GetSubordinateUnits().ToList();
+            //SubUnits.Add(newUnit);
+            Debug.WriteLine($"Новое подчиненное подразделение = '{NewSubName}'.");
+
+            // Act — выполнение 
+            Debug.WriteLine("Начал Добавлять");
+            var ret = unit.IsPossibleAddSubordinateUnit(newUnit);
+            Debug.WriteLine("Добавить");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{SubUnits.Count}', unit.GetPositions() = '{unit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(SubUnits, unit.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{true}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsTrue(ret);
+
+            Debug.WriteLine("Добавление Закончено. ");
+        }
+
+        #endregion
 
 
         #region Функция AddSubordinateUnit (Добавить подчиненное подразделение)
@@ -564,6 +596,33 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
         #endregion
 
+
+
+        #region Функция IsPossibleDeleteSubordinateUnit (Проверка на Удалить подчиненное подразделение)
+        [TestMethod()]
+        public void IsPossibleDeleteSubordinateUnit_WithValidArguments_TrueReturned()
+        {
+            Debug.WriteLine("Начало теста Удаление подчиненных подразделений. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            var sub = unit.GetSubordinateUnits().ToList();
+            // Act — выполнение 
+            Debug.WriteLine("Начал удалять");
+            var ret = unit.IsPossibleDeleteSubordinateUnit(subUnit1);
+            Debug.WriteLine("Удалил");
+            //sub.Remove(subUnit1);
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{sub.Count}', unit.GetPositions() = '{unit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(sub, unit.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{true}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsTrue(ret);
+
+            Debug.WriteLine("Удаление Закончено. ");
+        }
+        #endregion
+
+
         #region Функция DeleteSubordinateUnit (Удалить подчиненное подразделение)
         [TestMethod()]
         public void DeleteSubordinateUnit_WithValidArguments_DeletePositionAndTrueReturned()
@@ -588,6 +647,50 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         }
         #endregion
 
+
+        #region Функция IsPossibleDelete (Проверка на Удалить подразделение)
+        [TestMethod()]
+        public void IsPossibleDelete_WithValidArguments_TrueReturned()
+        {
+            Debug.WriteLine("Начало теста Удаление. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            var hier = unit.GetHierarchyTier();
+            var main = unit.GetMainUnit();
+            var sub = unit.GetSubordinateUnits();
+            // Act — выполнение 
+            Debug.WriteLine("Начал удалять");
+            var ret = unit.IsPossibleDelete();
+            Debug.WriteLine("Удалил");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{true}', unit.GetIsDelete() = '{unit.GetIsDelete()}'.");
+            Assert.IsFalse(unit.GetIsDelete());
+
+            Debug.WriteLine($"Должно быть = '{hier}', unit.GetHierarchyTier() = '{unit.GetHierarchyTier()}'.");
+            Assert.AreEqual(hier, unit.GetHierarchyTier());
+            Debug.WriteLine($"Должно быть = '{main}', unit.GetMainUnit() = '{unit.GetMainUnit()}'.");
+            Assert.AreEqual(main,unit.GetMainUnit());
+
+            foreach (var pos in unit.GetPositions())
+            {
+                Debug.WriteLine($"Должно быть = '{true}', unit.GetPositions().pos.GetIsDelete() = '{pos.GetIsDelete()}'.");
+                Assert.IsFalse(pos.GetIsDelete());
+            }
+
+            Debug.WriteLine($"Должно быть = '{sub.Count}', unit.GetSubordinateUnits() = '{unit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(sub.ToList(), unit.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{unit.GetName()}', subUnit1.GetMainUnit().GetName() = '{subUnit1.GetMainUnit().GetName()}'.");
+            Assert.AreEqual(unit, subUnit1.GetMainUnit());
+            Debug.WriteLine($"Должно быть = '{unit.GetName()}', subUnit2.GetMainUnit().GetName() = '{subUnit2.GetMainUnit().GetName()}'.");
+            Assert.AreEqual(unit, subUnit2.GetMainUnit());
+
+            Debug.WriteLine($"Должно быть = '{true}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsTrue(ret);
+
+            Debug.WriteLine("Удаление Закончено. ");
+        }
+        #endregion
 
         #region Функция Delete (Удалить подразделение)
         [TestMethod()]
