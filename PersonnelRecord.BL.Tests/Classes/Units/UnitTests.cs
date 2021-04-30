@@ -1165,7 +1165,7 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             Debug.WriteLine("Удалил");
 
             // Assert — проверка
-            Debug.WriteLine($"Должно быть = '{true}', unit.GetIsDelete() = '{unit.GetIsDelete()}'.");
+            Debug.WriteLine($"Должно быть = '{false}', unit.GetIsDelete() = '{unit.GetIsDelete()}'.");
             Assert.IsFalse(unit.GetIsDelete());
 
             Debug.WriteLine($"Должно быть = '{hier}', unit.GetHierarchyTier() = '{unit.GetHierarchyTier()}'.");
@@ -1188,6 +1188,90 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
             Debug.WriteLine($"Должно быть = '{true}', unit.DeletePosition().return = '{ret}'.");
             Assert.IsTrue(ret);
+
+            Debug.WriteLine("Удаление Закончено. ");
+        }
+
+
+        [TestMethod()]
+        public void IsPossibleDelete_WhenPosCannotBeDeleted_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Удаление. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            var hier = unit.GetHierarchyTier();
+            var main = unit.GetMainUnit();
+            var sub = unit.GetSubordinateUnits();
+            unit.GetPositions()[0].BusyPosition();
+            // Act — выполнение 
+            Debug.WriteLine("Начал удалять");
+            var ret = unit.IsPossibleDelete();
+            Debug.WriteLine("Удалил");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{false}', unit.GetIsDelete() = '{unit.GetIsDelete()}'.");
+            Assert.IsFalse(unit.GetIsDelete());
+
+            Debug.WriteLine($"Должно быть = '{hier}', unit.GetHierarchyTier() = '{unit.GetHierarchyTier()}'.");
+            Assert.AreEqual(hier, unit.GetHierarchyTier());
+            Debug.WriteLine($"Должно быть = '{main}', unit.GetMainUnit() = '{unit.GetMainUnit()}'.");
+            Assert.AreEqual(main, unit.GetMainUnit());
+
+            foreach (var pos in unit.GetPositions())
+            {
+                Debug.WriteLine($"Должно быть = '{false}', unit.GetPositions().pos.GetIsDelete() = '{pos.GetIsDelete()}'.");
+                Assert.IsFalse(pos.GetIsDelete());
+            }
+
+            Debug.WriteLine($"Должно быть = '{sub.Count}', unit.GetSubordinateUnits() = '{unit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(sub.ToList(), unit.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{unit.GetName()}', subUnit1.GetMainUnit().GetName() = '{subUnit1.GetMainUnit().GetName()}'.");
+            Assert.AreEqual(unit, subUnit1.GetMainUnit());
+            Debug.WriteLine($"Должно быть = '{unit.GetName()}', subUnit2.GetMainUnit().GetName() = '{subUnit2.GetMainUnit().GetName()}'.");
+            Assert.AreEqual(unit, subUnit2.GetMainUnit());
+
+            Debug.WriteLine($"Должно быть = '{false}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Удаление Закончено. ");
+        }
+
+        [TestMethod()]
+        public void IsPossibleDelete_WhenPosCannotBeReassignmentSub_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Удаление. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            var hier = mainUnit.GetHierarchyTier();
+            var main = mainUnit.GetMainUnit();
+            var sub = mainUnit.GetSubordinateUnits();
+            // Act — выполнение 
+            Debug.WriteLine("Начал удалять");
+            var ret = mainUnit.IsPossibleDelete();
+            Debug.WriteLine("Удалил");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{false}', unit.GetIsDelete() = '{mainUnit.GetIsDelete()}'.");
+            Assert.IsFalse(mainUnit.GetIsDelete());
+
+            Debug.WriteLine($"Должно быть = '{hier}', unit.GetHierarchyTier() = '{mainUnit.GetHierarchyTier()}'.");
+            Assert.AreEqual(hier, mainUnit.GetHierarchyTier());
+            Debug.WriteLine($"Должно быть = '{main}', unit.GetMainUnit() = '{mainUnit.GetMainUnit()}'.");
+            Assert.AreEqual(main, mainUnit.GetMainUnit());
+
+            foreach (var pos in mainUnit.GetPositions())
+            {
+                Debug.WriteLine($"Должно быть = '{false}', unit.GetPositions().pos.GetIsDelete() = '{pos.GetIsDelete()}'.");
+                Assert.IsFalse(pos.GetIsDelete());
+            }
+
+            Debug.WriteLine($"Должно быть = '{sub.Count}', unit.GetSubordinateUnits() = '{mainUnit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(sub.ToList(), mainUnit.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{mainUnit.GetName()}', subUnit1.GetMainUnit().GetName() = '{unit.GetMainUnit().GetName()}'.");
+            Assert.AreEqual(mainUnit, unit.GetMainUnit());
+
+            Debug.WriteLine($"Должно быть = '{false}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsFalse(ret);
 
             Debug.WriteLine("Удаление Закончено. ");
         }
@@ -1229,6 +1313,205 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             Debug.WriteLine($"Должно быть = '{true}', unit.DeletePosition().return = '{ret}'.");
             Assert.IsTrue(ret);
 
+            Debug.WriteLine("Удаление Закончено. ");
+        }
+
+
+        [TestMethod()]
+        public void Delete_WhenPosCannotBeDeleted_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Удаление. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            var hier = unit.GetHierarchyTier();
+            var main = unit.GetMainUnit();
+            var sub = unit.GetSubordinateUnits();
+            unit.GetPositions()[0].BusyPosition();
+            // Act — выполнение 
+            Debug.WriteLine("Начал удалять");
+            var ret = unit.Delete();
+            Debug.WriteLine("Удалил");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{false}', unit.GetIsDelete() = '{unit.GetIsDelete()}'.");
+            Assert.IsFalse(unit.GetIsDelete());
+
+            Debug.WriteLine($"Должно быть = '{hier}', unit.GetHierarchyTier() = '{unit.GetHierarchyTier()}'.");
+            Assert.AreEqual(hier, unit.GetHierarchyTier());
+            Debug.WriteLine($"Должно быть = '{main}', unit.GetMainUnit() = '{unit.GetMainUnit()}'.");
+            Assert.AreEqual(main, unit.GetMainUnit());
+
+            foreach (var pos in unit.GetPositions())
+            {
+                Debug.WriteLine($"Должно быть = '{false}', unit.GetPositions().pos.GetIsDelete() = '{pos.GetIsDelete()}'.");
+                Assert.IsFalse(pos.GetIsDelete());
+            }
+
+            Debug.WriteLine($"Должно быть = '{sub.Count}', unit.GetSubordinateUnits() = '{unit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(sub.ToList(), unit.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{unit.GetName()}', subUnit1.GetMainUnit().GetName() = '{subUnit1.GetMainUnit().GetName()}'.");
+            Assert.AreEqual(unit, subUnit1.GetMainUnit());
+            Debug.WriteLine($"Должно быть = '{unit.GetName()}', subUnit2.GetMainUnit().GetName() = '{subUnit2.GetMainUnit().GetName()}'.");
+            Assert.AreEqual(unit, subUnit2.GetMainUnit());
+
+            Debug.WriteLine($"Должно быть = '{false}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Удаление Закончено. ");
+        }
+
+        [TestMethod()]
+        public void Delete_WhenPosCannotBeReassignmentSub_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Удаление. Корректные параметры, возврат true.");
+
+            // Arrange(настройка)
+            var hier = mainUnit.GetHierarchyTier();
+            var main = mainUnit.GetMainUnit();
+            var sub = mainUnit.GetSubordinateUnits();
+            // Act — выполнение 
+            Debug.WriteLine("Начал удалять");
+            var ret = mainUnit.Delete();
+            Debug.WriteLine("Удалил");
+
+            // Assert — проверка
+            Debug.WriteLine($"Должно быть = '{false}', unit.GetIsDelete() = '{mainUnit.GetIsDelete()}'.");
+            Assert.IsFalse(mainUnit.GetIsDelete());
+
+            Debug.WriteLine($"Должно быть = '{hier}', unit.GetHierarchyTier() = '{mainUnit.GetHierarchyTier()}'.");
+            Assert.AreEqual(hier, mainUnit.GetHierarchyTier());
+            Debug.WriteLine($"Должно быть = '{main}', unit.GetMainUnit() = '{mainUnit.GetMainUnit()}'.");
+            Assert.AreEqual(main, mainUnit.GetMainUnit());
+
+            foreach (var pos in mainUnit.GetPositions())
+            {
+                Debug.WriteLine($"Должно быть = '{false}', unit.GetPositions().pos.GetIsDelete() = '{pos.GetIsDelete()}'.");
+                Assert.IsFalse(pos.GetIsDelete());
+            }
+
+            Debug.WriteLine($"Должно быть = '{sub.Count}', unit.GetSubordinateUnits() = '{mainUnit.GetSubordinateUnits().Count}'.");
+            CollectionAssert.AreEqual(sub.ToList(), mainUnit.GetSubordinateUnits().ToList());
+            Debug.WriteLine($"Должно быть = '{mainUnit.GetName()}', subUnit1.GetMainUnit().GetName() = '{unit.GetMainUnit().GetName()}'.");
+            Assert.AreEqual(mainUnit, unit.GetMainUnit());
+
+            Debug.WriteLine($"Должно быть = '{false}', unit.DeletePosition().return = '{ret}'.");
+            Assert.IsFalse(ret);
+
+            Debug.WriteLine("Удаление Закончено. ");
+        }
+        #endregion
+
+
+
+        //TODO:Неверно( надо проверять всех подчиненных и главное что в них тоже все изменилось
+        #region IsPossibleReassignment (Возможно ли переподчинить подразделение)
+        [TestMethod()]
+        public void IsPossibleReassignment_WithValidArguments_TrueReturned()
+        {
+            Debug.WriteLine("Начало теста Удаление. Корректные параметры, возврат true.");
+            var subMainUnit = mainUnit.GetSubordinateUnits();
+            var subSubUnit = subUnit1.GetSubordinateUnits();
+            var unitSubUnit = unit.GetSubordinateUnits();
+            // Arrange(настройка)
+            // Act — выполнение 
+            Debug.WriteLine("Начал удалять");
+            var ret = subUnit1.IsPossibleReassignment(mainUnit);
+            Debug.WriteLine("Удалил");
+
+            // Assert — проверка
+            //Проверяем что у главного ничего не поменялось
+            CollectionAssert.AreEqual(subMainUnit.ToList(), mainUnit.GetSubordinateUnits().ToList());
+            //Проверяем что у подчиненных главное не поменялось
+            CollectionAssert.AreEqual(subSubUnit.ToList(), subUnit1.GetSubordinateUnits().ToList());
+            //ПРоверяем что у нашего главное не поменялось
+            Assert.AreEqual(unit, subUnit1.GetMainUnit());
+            CollectionAssert.AreEqual(unitSubUnit.ToList(), unit.GetSubordinateUnits().ToList());
+            //ПРоверяем что возможно это сделать
+            Assert.IsTrue(ret);
+            Debug.WriteLine("Удаление Закончено. ");
+        }
+
+        [TestMethod()]
+        public void IsPossibleReassignment_WhenNewMainisNull_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Удаление. Корректные параметры, возврат true.");
+            var subMainUnit = mainUnit.GetSubordinateUnits();
+            var subSubUnit = subUnit1.GetSubordinateUnits();
+            var unitSubUnit = unit.GetSubordinateUnits();
+            // Arrange(настройка)
+            // Act — выполнение 
+            Debug.WriteLine("Начал удалять");
+            var ret = subUnit1.IsPossibleReassignment(null);
+            Debug.WriteLine("Удалил");
+
+            // Assert — проверка
+            //Проверяем что у главного ничего не поменялось
+            CollectionAssert.AreEqual(subMainUnit.ToList(), mainUnit.GetSubordinateUnits().ToList());
+            //Проверяем что у подчиненных главное не поменялось
+            CollectionAssert.AreEqual(subSubUnit.ToList(), subUnit1.GetSubordinateUnits().ToList());
+            //ПРоверяем что у нашего главное не поменялось
+            Assert.AreEqual(unit, subUnit1.GetMainUnit());
+            CollectionAssert.AreEqual(unitSubUnit.ToList(), unit.GetSubordinateUnits().ToList());
+            //ПРоверяем что возможно это сделать
+            Assert.IsFalse(ret);
+            Debug.WriteLine("Удаление Закончено. ");
+        }
+
+
+        #endregion
+
+        #region Reassignment (Переподчинение подразделения)
+        [TestMethod()]
+        public void Reassignment_WithValidArguments_TrueReturned()
+        {
+            Debug.WriteLine("Начало теста Удаление. Корректные параметры, возврат true.");
+            var subMainUnit = mainUnit.GetSubordinateUnits().ToList();
+            var subSubUnit = subUnit1.GetSubordinateUnits().ToList();
+            var unitSubUnit = unit.GetSubordinateUnits().ToList();
+            // Arrange(настройка)
+            // Act — выполнение 
+            Debug.WriteLine("Начал удалять");
+            var ret = subUnit1.Reassignment(mainUnit);
+            Debug.WriteLine("Удалил");
+            subMainUnit.Add(subUnit1);
+            unitSubUnit.Remove(subUnit1);
+
+            // Assert — проверка
+            //Проверяем что у главного ничего не поменялось
+            CollectionAssert.AreEqual(subMainUnit, mainUnit.GetSubordinateUnits().ToList());
+            //Проверяем что у подчиненных главное не поменялось
+            CollectionAssert.AreEqual(subSubUnit, subUnit1.GetSubordinateUnits().ToList());
+            //ПРоверяем что у нашего главное не поменялось
+            Assert.AreEqual(mainUnit, subUnit1.GetMainUnit());
+            CollectionAssert.AreEqual(unitSubUnit, unit.GetSubordinateUnits().ToList());
+            //ПРоверяем что возможно это сделать
+            Assert.IsTrue(ret);
+            Debug.WriteLine("Удаление Закончено. ");
+        }
+
+        [TestMethod()]
+        public void Reassignment_WhenNewMainisNull_FalseReturned()
+        {
+            Debug.WriteLine("Начало теста Удаление. Корректные параметры, возврат true.");
+            var subMainUnit = mainUnit.GetSubordinateUnits();
+            var subSubUnit = subUnit1.GetSubordinateUnits();
+            var unitSubUnit = unit.GetSubordinateUnits();
+            // Arrange(настройка)
+            // Act — выполнение 
+            Debug.WriteLine("Начал удалять");
+            var ret = subUnit1.Reassignment(null);
+            Debug.WriteLine("Удалил");
+
+            // Assert — проверка
+            //Проверяем что у главного ничего не поменялось
+            CollectionAssert.AreEqual(subMainUnit.ToList(), mainUnit.GetSubordinateUnits().ToList());
+            //Проверяем что у подчиненных главное не поменялось
+            CollectionAssert.AreEqual(subSubUnit.ToList(), subUnit1.GetSubordinateUnits().ToList());
+            //ПРоверяем что у нашего главное не поменялось
+            Assert.AreEqual(unit, subUnit1.GetMainUnit());
+            CollectionAssert.AreEqual(unitSubUnit.ToList(), unit.GetSubordinateUnits().ToList());
+            //ПРоверяем что возможно это сделать
+            Assert.IsFalse(ret);
             Debug.WriteLine("Удаление Закончено. ");
         }
         #endregion
