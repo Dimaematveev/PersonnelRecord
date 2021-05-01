@@ -1,14 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PersonnelRecord.BL.Enums;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Changes.Tests
 {
     [TestClass()]
-    public class ChangeTests
+    public class Change_ChangeStatusFalse_Tests
     {
         private Employee employee1, employee2;
 

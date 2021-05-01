@@ -50,14 +50,30 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Changes\ChangeConstructorTests.cs" />
-    <Compile Include="Classes\Employes\EmployeeConstructorTests.cs" />
-    <Compile Include="Classes\Positions\PositionConstructorTests.cs" />
-    <Compile Include="Classes\Positions\PositionTests.cs" />
-    <Compile Include="Classes\Employes\EmployeeTests.cs" />
-    <Compile Include="Classes\Changes\ChangeTests.cs" />
-    <Compile Include="Classes\Units\UnitTests.cs" />
-    <Compile Include="Classes\Units\UnitConstructorTests.cs" />
+    <Compile Include="Classes\Changes\Change_Transfert_Tests.cs" />
+    <Compile Include="Classes\Changes\Change_Dismissal_Tests.cs" />
+    <Compile Include="Classes\Changes\Change_Recruitment_Tests.cs" />
+    <Compile Include="Classes\Employes\Employee_Constructor_Tests.cs" />
+    <Compile Include="Classes\Employes\Employee_Recruitment_Tests.cs" />
+    <Compile Include="Classes\Employes\Employee_AddPosition_Tests.cs" />
+    <Compile Include="Classes\Employes\Employee_ChangePosition_Tests.cs" />
+    <Compile Include="Classes\Employes\Employee_Dismissal_Tests.cs" />
+    <Compile Include="Classes\Positions\Position_Constructor_Tests.cs" />
+    <Compile Include="Classes\Positions\Position_Delete_Tests.cs" />
+    <Compile Include="Classes\Positions\Position_BusyPosition_Tests.cs" />
+    <Compile Include="Classes\Positions\Position_RemoveFromPosition_Tests.cs" />
+    <Compile Include="Classes\Employes\Employee_ChangeFullName_Tests.cs" />
+    <Compile Include="Classes\Changes\Change_ChangeStatusFalse_Tests.cs" />
+    <Compile Include="Classes\Units\Unit_GetMainUnits_Tests.cs" />
+    <Compile Include="Classes\Units\Unit_Rename_Tests.cs" />
+    <Compile Include="Classes\Units\Unit_AddPosition_Tests.cs" />
+    <Compile Include="Classes\Units\Unit_DeletePosition_Tests.cs" />
+    <Compile Include="Classes\Units\Unit_ChangeMainUnit_Tests.cs" />
+    <Compile Include="Classes\Units\Unit_AddSubordinateUnit_Tests.cs" />
+    <Compile Include="Classes\Units\Unit_DeleteSubordinateUnit_Tests.cs" />
+    <Compile Include="Classes\Units\Unit_Delete_Tests.cs" />
+    <Compile Include="Classes\Units\Unit_Reassignment_Tests.cs" />
+    <Compile Include="Classes\Units\Unit_Constructor_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
