@@ -5,7 +5,7 @@ using System.Linq;
 namespace PersonnelRecord.BL.Classes
 {
     /// <summary>
-    /// Класс простая Динамика
+    /// Класс Динамика
     /// </summary>
     public class Change
     {

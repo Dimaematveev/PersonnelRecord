@@ -5,7 +5,7 @@ using System.Linq;
 namespace PersonnelRecord.BL.Classes
 {
     /// <summary>
-    /// Класс простое Подразделение
+    /// Класс Подразделение
     /// </summary>
     public class Unit
     {

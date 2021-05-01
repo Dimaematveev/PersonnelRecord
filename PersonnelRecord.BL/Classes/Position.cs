@@ -3,7 +3,7 @@
 namespace PersonnelRecord.BL.Classes
 {
     /// <summary>
-    /// Класс простая Должность
+    /// Класс Должность
     /// </summary>
     public class Position
     {
