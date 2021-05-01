@@ -13,7 +13,7 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         ///  ID Сотрудника или таб. номер
         /// </summary>
-        private int id;
+        private readonly int id;
         /// <summary>
         /// Получить ID сотрудника или таб.номер
         /// </summary>
@@ -39,7 +39,7 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Дата рождения
         /// </summary>
-        private DateTime birthday;
+        private readonly DateTime birthday;
         /// <summary>
         /// Получить Дату рождения
         /// </summary>

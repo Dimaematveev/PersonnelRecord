@@ -76,7 +76,7 @@ namespace PersonnelRecord.BL.Classes
             return employee;
         }
 
-        // <summary>
+        /// <summary>
         /// Совмещает должность?
         /// </summary>
         private readonly bool combinationOfPosition;
