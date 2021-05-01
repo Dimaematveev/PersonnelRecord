@@ -50,10 +50,6 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassesOLD\SimpleChangeTests.cs" />
-    <None Include="ClassesOLD\SimpleEmployeeTests.cs" />
-    <None Include="ClassesOLD\SimplePositionTests.cs" />
-    <None Include="ClassesOLD\SimpleUnitTests.cs" />
     <Compile Include="Classes\Changes\ChangeConstructorTests.cs" />
     <Compile Include="Classes\Employes\EmployeeConstructorTests.cs" />
     <Compile Include="Classes\Positions\PositionConstructorTests.cs" />
