@@ -12,7 +12,7 @@ namespace PersonnelRecord.BL.Classes
 
         #region Поля
         /// <summary>
-        /// предыдущую динамику
+        /// Предыдущая динамика
         /// </summary>
         private readonly Change prevpreviousChange;
         /// <summary>
@@ -29,7 +29,7 @@ namespace PersonnelRecord.BL.Classes
         /// </summary>
         private readonly int numberOrder;
         /// <summary>
-        /// Получить Номер приказа
+        /// Получить номер приказа
         /// </summary>
         /// <returns>Номер приказа</returns>
         public int GetNumberOrder()
@@ -38,13 +38,13 @@ namespace PersonnelRecord.BL.Classes
         }
 
         /// <summary>
-        /// Дату внесения данных
+        /// Дата внесения данных
         /// </summary>
         private readonly DateTime dateOfChange;
         /// <summary>
         /// Получить дату внесения данных
         /// </summary>
-        /// <returns>Дата изменения</returns>
+        /// <returns>Дата внесения изменения</returns>
         public DateTime GetDateChange()
         {
             return dateOfChange;
@@ -83,7 +83,10 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Совмещает должность?
         /// </summary>
-        /// <returns>True - Совмещает, false - нет</returns>
+        /// <returns>
+        /// <para><c>True</c> - Совмещает</para>
+        /// <para><c>False</c> - нет</para>
+        /// </returns>
         public bool GetIsCombination()
         {
             return combinationOfPosition;
@@ -91,27 +94,34 @@ namespace PersonnelRecord.BL.Classes
 
         /// <summary>
         /// Статус сотрудника. 
-        /// Занимает эту должность или нет
         /// </summary>
+        /// <remarks>
+        /// Занимает эту должность или нет
+        /// </remarks>
         private bool status;
         /// <summary>
         /// Получить статус сотрудника. 
-        /// Занимает эту должность или нет
         /// </summary>
-        /// <returns>True - Занимает должность, false - нет</returns>
+        /// <returns>
+        /// <para><c>True</c> - Занимает должность</para>
+        /// <para><c>False</c> - нет</para>
+        /// </returns>
         public bool GetStatus()
         {
             return status;
         }
 
         /// <summary>
-        /// Тип изменения
+        /// Тип записи
         /// </summary>
         private readonly RecordType recordType;
         /// <summary>
         /// Получить тип изменения
         /// </summary>
         /// <returns>Тип записи</returns>
+        /// <remarks>
+        /// Смотреть <see cref="RecordType"/>.
+        /// </remarks>
         public RecordType GetRecordType()
         {
             return recordType;
@@ -120,7 +130,16 @@ namespace PersonnelRecord.BL.Classes
 
 
 
-
+        /// <summary>
+        /// Приватный конструктор Динамики
+        /// </summary>
+        /// <param name="prevpreviousChange">Предыдущая динамика</param>
+        /// <param name="numberOrder">Номер приказа</param>
+        /// <param name="employee">Сотрудник</param>
+        /// <param name="position">Должность</param>
+        /// <param name="combinationOfPosition">Совмещенная должность?</param>
+        /// <param name="status">Статус сотрудника</param>
+        /// <param name="recordType">Тип записи</param>
         private Change(Change prevpreviousChange,
                              int numberOrder,
                              Employee employee,
@@ -148,7 +167,10 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Проверить возможно ли изменить статус на false
         /// </summary>
-        /// <returns>true - Возможно изменить, false- нет</returns>
+        /// <returns>
+        /// <para><c>True</c> - Возможно изменить</para>
+        /// <para><c>False</c> - нет</para>
+        /// </returns>
         public bool IsPossibleChangeStatusToFalse()
         {
             if (status == false)
@@ -161,7 +183,10 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Изменить статус сотрудника на False
         /// </summary>
-        /// <returns>true - удалили флаг работающего человека, false- нет получилось</returns>
+        /// <returns>
+        /// <para><c>True</c> -  удалили флаг работающего человека,</para>
+        /// <para><c>False</c> - нет получилось</para>
+        /// </returns>
         public bool ChangeStatusFalse()
         {
             if (!IsPossibleChangeStatusToFalse())

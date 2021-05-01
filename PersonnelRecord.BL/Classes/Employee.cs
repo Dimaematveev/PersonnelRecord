@@ -73,7 +73,12 @@ namespace PersonnelRecord.BL.Classes
         }
 
 
-
+        /// <summary>
+        /// Конструктор Сотрудника
+        /// </summary>
+        /// <param name="id">ID или таб номер</param>
+        /// <param name="fullName">ФИО</param>
+        /// <param name="birthday">Дата рождения</param>
         public Employee(int id, string fullName, DateTime birthday)
         {
             if (string.IsNullOrWhiteSpace(fullName))

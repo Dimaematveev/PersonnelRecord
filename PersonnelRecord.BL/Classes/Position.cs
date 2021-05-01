@@ -41,7 +41,10 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Занята ли должность
         /// </summary>
-        /// <returns> True - Занята, False - нет</returns>
+        /// <returns>
+        /// <para><c>True</c> - Занята</para>
+        /// <para><c>False</c> - нет</para>
+        /// </returns>
         public bool GetIsPositionBusy()
         {
             return isPositionBusy;
@@ -56,7 +59,10 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Удалена ли должность
         /// </summary>
-        /// <returns> True - Удалена, False - нет</returns>
+        /// <returns>
+        /// <para><c>True</c> - Удалена</para>
+        /// <para><c>False</c> - нет</para>
+        /// </returns>
         public bool GetIsDelete()
         {
             return isDelete;
@@ -64,6 +70,11 @@ namespace PersonnelRecord.BL.Classes
         #endregion
 
         //TODO:Возможно надо еще конструктор
+        /// <summary>
+        /// Конструктор Должности можно вызвать только из проекта)
+        /// </summary>
+        /// <param name="namePosition">Название должности</param>
+        /// <param name="unit">Подразделение</param>
         internal Position(string namePosition, Unit unit)
         {
             if (string.IsNullOrWhiteSpace(namePosition))
@@ -87,7 +98,10 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Проверка, можно ли удалить должность
         /// </summary>
-        /// <returns>True -возможно удалить должность, False - нет</returns>
+        /// <returns>
+        /// <para><c>True</c> - возможно удалить должность</para>
+        /// <para><c>False</c> - нет</para>
+        /// </returns>
         public bool IsPossibleDeletePosition()
         {
             if (GetIsDelete())
@@ -106,7 +120,10 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Удалить должность
         /// </summary>
-        /// <returns>True - Удалил должность, False - нет</returns>
+        /// <returns>
+        /// <para><c>True</c> - Удалил должность</para>
+        /// <para><c>False</c> - нет</para>
+        /// </returns>
         public bool Delete()
         {
             if (!IsPossibleDeletePosition())
@@ -122,7 +139,10 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Занять должность
         /// </summary>
-        /// <returns>True -занял должность, False - нет</returns>
+        /// <returns>
+        /// <para><c>True</c> - занял должность</para>
+        /// <para><c>False</c> - нет</para>
+        /// </returns>
         public bool BusyPosition()
         {
             if (isDelete)
@@ -141,7 +161,10 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Снять с должности
         /// </summary>
-        /// <returns>True - Сняли с должности, False - нет</returns>
+        /// <returns>
+        /// <para><c>True</c> -  Сняли с должности</para>
+        /// <para><c>False</c> - нет</para>
+        /// </returns>
         public bool RemoveFromPosition()
         {
             if (isDelete)
