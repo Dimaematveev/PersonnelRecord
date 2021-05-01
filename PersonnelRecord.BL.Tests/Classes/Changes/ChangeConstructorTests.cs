@@ -146,7 +146,6 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             NewChange = Change.Transfer(NumOrd, employee1, OldChange, N1Pos2);
 
             //Assert
-            Assert.AreEqual(OldChange.GetID() + 1, NewChange.GetID());
             Assert.IsTrue(Math.Abs(DateTime.Now.Ticks - NewChange.GetDateChange().Ticks) < 10000000);
 
             Assert.AreEqual(OldChange, NewChange.GetPreviousChange());
@@ -174,7 +173,6 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             NewChange = Change.Transfer(NumOrd, employee1, OldChange, N1Pos2);
 
             //Assert
-            Assert.AreEqual(OldChange.GetID() + 1, NewChange.GetID());
             Assert.IsTrue(Math.Abs(DateTime.Now.Ticks - NewChange.GetDateChange().Ticks) < 10000000);
 
             Assert.AreEqual(OldChange, NewChange.GetPreviousChange());
@@ -321,7 +319,6 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             NewChange = Change.Dismissal(NumOrd, employee1, OldChange);
 
             //Assert
-            Assert.AreEqual(OldChange.GetID() + 1, NewChange.GetID());
             Assert.IsTrue(Math.Abs(DateTime.Now.Ticks - NewChange.GetDateChange().Ticks) < 10000000);
 
             Assert.AreEqual(OldChange, NewChange.GetPreviousChange());
@@ -350,7 +347,6 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             NewChange = Change.Dismissal(NumOrd, employee1, OldChange);
 
             //Assert
-            Assert.AreEqual(OldChange.GetID() + 1, NewChange.GetID());
             Assert.IsTrue(Math.Abs(DateTime.Now.Ticks - NewChange.GetDateChange().Ticks) < 10000000);
 
             Assert.AreEqual(OldChange, NewChange.GetPreviousChange());

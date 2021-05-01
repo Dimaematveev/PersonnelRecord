@@ -9,13 +9,12 @@ namespace PersonnelRecord.BL.Classes
     /// </summary>
     public class Change
     {
-        private static int maxID = 0;
 
         #region Поля
         /// <summary>
         /// предыдущую динамику
         /// </summary>
-        private Change prevpreviousChange;
+        private readonly Change prevpreviousChange;
         /// <summary>
         /// Получить предыдущее изменение должности (предыдущую динамику)
         /// </summary>
@@ -25,24 +24,10 @@ namespace PersonnelRecord.BL.Classes
             return prevpreviousChange;
         }
 
-        //TODO:Что делать с ID
-        /// <summary>
-        /// ID Динамики
-        /// </summary>
-        private int id;
-        /// <summary>
-        /// Получить ID Динамики
-        /// </summary>
-        /// <returns>ID Динамики</returns>
-        public int GetID()
-        {
-            return id;
-        }
-
         /// <summary>
         /// Номер приказа
         /// </summary>
-        private int numberOrder;
+        private readonly int numberOrder;
         /// <summary>
         /// Получить Номер приказа
         /// </summary>
@@ -55,7 +40,7 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Дату внесения данных
         /// </summary>
-        private DateTime dateOfChange;
+        private readonly DateTime dateOfChange;
         /// <summary>
         /// Получить дату внесения данных
         /// </summary>
@@ -68,7 +53,7 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Занимаемая должность
         /// </summary>
-        private Position position;
+        private readonly Position position;
         /// <summary>
         /// Получить занимаемую должность
         /// </summary>
@@ -81,7 +66,7 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Сотрудник
         /// </summary>
-        private Employee employee;
+        private readonly Employee employee;
         /// <summary>
         /// Получить сотрудника
         /// </summary>
@@ -94,7 +79,7 @@ namespace PersonnelRecord.BL.Classes
         // <summary>
         /// Совмещает должность?
         /// </summary>
-        private bool combinationOfPosition;
+        private readonly bool combinationOfPosition;
         /// <summary>
         /// Совмещает должность?
         /// </summary>
@@ -122,7 +107,7 @@ namespace PersonnelRecord.BL.Classes
         /// <summary>
         /// Тип изменения
         /// </summary>
-        private RecordType recordType;
+        private readonly RecordType recordType;
         /// <summary>
         /// Получить тип изменения
         /// </summary>
@@ -158,9 +143,6 @@ namespace PersonnelRecord.BL.Classes
             {
                 prevpreviousChange.ChangeStatusFalse();
             }
-            maxID++;
-            this.id = maxID;
-
         }
 
         /// <summary>
