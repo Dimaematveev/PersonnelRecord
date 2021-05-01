@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Units.Tests
 {
+    /// <summary>
+    /// Тестирование "Удалить подчиненное подразделение"
+    /// </summary>
     [TestClass()]
     public class Unit_DeleteSubordinateUnit_Tests
     {
@@ -13,6 +16,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         private Unit unit, mainUnit, subUnit1, subUnit2;
 
         #region Первоначальная настройка
+        /// <summary>
+        /// Вызывается перед каждым методом теста
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
@@ -42,6 +48,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
 
         #region Функция IsPossibleDeleteSubordinateUnit (Проверка на Удалить подчиненное подразделение)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void IsPossibleDeleteSubordinateUnit_WithValidArguments_TrueReturned()
         {
@@ -64,6 +73,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Нельзя удалить подчиненное подразделение если оно null
+        /// </summary>
         [TestMethod()]
         public void IsPossibleDeleteSubordinateUnit_WhenDeleteUnitIsNull_FalseReturned()
         {
@@ -86,6 +98,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Нельзя удалить подчиненное подразделение если его нет в списке подчиненных
+        /// </summary>
         [TestMethod()]
         public void IsPossibleDeleteSubordinateUnit_WhenDeleteUnitNotInSubUnit_FalseReturned()
         {
@@ -100,9 +115,7 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             //sub.Remove(subUnit1);
 
             // Assert — проверка
-            
             CollectionAssert.AreEqual(sub, unit.GetSubordinateUnits().ToList());
-            
             Assert.IsFalse(ret);
 
             
@@ -110,6 +123,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         #endregion
 
         #region Функция DeleteSubordinateUnit (Удалить подчиненное подразделение)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void DeleteSubordinateUnit_WithValidArguments_DeletePositionAndTrueReturned()
         {
@@ -132,6 +148,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Нельзя удалить подчиненное подразделение если оно null
+        /// </summary>
         [TestMethod()]
         public void DeleteSubordinateUnit_WhenDeleteUnitIsNull_FalseReturned()
         {
@@ -154,6 +173,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Нельзя удалить подчиненное подразделение если его нет в списке подчиненных
+        /// </summary>
         [TestMethod()]
         public void DeleteSubordinateUnit_WhenDeleteUnitNotInSubUnit_FalseReturned()
         {

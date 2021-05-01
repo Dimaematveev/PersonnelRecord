@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Employes.Tests
 {
+    /// <summary>
+    /// Тестирование "Принять на основную должность"
+    /// </summary>
     [TestClass()]
     public class Employee_Recruitment_Tests
     {
@@ -17,6 +20,9 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
         private Position N1Pos1, N1Pos2, N2Pos1, N2Pos2;
 
         #region Первоначальная настройка
+        /// <summary>
+        /// Вызывается перед каждым методом теста
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
@@ -35,8 +41,11 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
         }
         #endregion
 
-        
+
         #region Recruitment (Принятие на работу)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void Recruitment_WithValidArguments_NewChangeAddChangesReterned()
         {
@@ -65,6 +74,10 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
             
         }
 
+        /// <summary>
+        /// Исключение на передачу в номер приказа 0 или меньше
+        /// </summary>
+        /// <param name="NumOrd">Номер приказа</param>
         [ExpectedException(typeof(ArgumentException), "Исключение на передачу в номер приказа 0 или меньше, не было вызвано.")]
         [DataTestMethod()]
         [DataRow(-1)]
@@ -80,6 +93,9 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
             //Assert
         }
 
+        /// <summary>
+        /// Исключение на передачу в должность null
+        /// </summary>
         [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу в должность null, не было вызвано.")]
         [TestMethod()]
         public void Recruitment_WhenPositionIsNull_ExceptionReterned()
@@ -93,6 +109,9 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
             //Assert
         }
 
+        /// <summary>
+        /// Исключение на передачу должности в основную если уже есть основная
+        /// </summary>
         [ExpectedException(typeof(ArgumentException), "Исключение на передачу должности в основную если уже есть основная, не было вызвано.")]
         [TestMethod()]
         public void Recruitment_WhenMainPositionBusy_ExceptionReterned()
@@ -108,6 +127,9 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
             //Assert
         }
 
+        /// <summary>
+        /// Исключение на передачу в должность занятой должности
+        /// </summary>
         [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу в должность занятой должности, не было вызвано.")]
         [TestMethod()]
         public void Recruitment_WhenPositionIsBusy_ExceptionReterned()

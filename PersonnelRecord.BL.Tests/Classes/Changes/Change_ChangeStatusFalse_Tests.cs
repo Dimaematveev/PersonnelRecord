@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Changes.Tests
 {
+    /// <summary>
+    /// Тестирование "Изменить статус на false"
+    /// </summary>
     [TestClass()]
     public class Change_ChangeStatusFalse_Tests
     {
@@ -13,6 +16,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
         private Position N1Pos1, N1Pos2, N2Pos1, N2Pos2;
 
         #region Первоначальная настройка
+        /// <summary>
+        /// Вызывается перед каждым методом теста
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
@@ -31,6 +37,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
         #endregion
 
         #region IsPossibleChangeStatusToFalse (Проверка возможно ли изменить статус на false)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void IsPossibleChangeStatusToFalse_WithValidArguments_TrueReterned()
         {
@@ -43,13 +52,14 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             var ret = NewChange.IsPossibleChangeStatusToFalse();
 
             //Assert
-            //TODO:Что делать с ID
-            // Assert.AreEqual(1,NewChange.GetID());
             Assert.IsTrue(ret);
             Assert.IsTrue(OldStatus);
             Assert.IsTrue(NewChange.GetStatus());
         }
 
+        /// <summary>
+        /// Нельзя поменять статус когда он уже False
+        /// </summary>
         [TestMethod()]
         public void IsPossibleChangeStatusToFalse_WhenStatusFalse_FalseReterned()
         {
@@ -63,8 +73,6 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             var ret = NewChange.IsPossibleChangeStatusToFalse();
 
             //Assert
-            //TODO:Что делать с ID
-            // Assert.AreEqual(1,NewChange.GetID());
             Assert.IsFalse(ret);
             Assert.IsFalse(OldStatus);
             Assert.IsFalse(NewChange.GetStatus());
@@ -73,6 +81,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
         #endregion
 
         #region ChangeStatusFalse (Изменить статус на false)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void ChangeStatusFalse_WithValidArguments_TrueReterned()
         {
@@ -85,13 +96,14 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             var ret = NewChange.ChangeStatusFalse();
 
             //Assert
-            //TODO:Что делать с ID
-            // Assert.AreEqual(1,NewChange.GetID());
             Assert.IsTrue(ret);
             Assert.IsTrue(OldStatus);
             Assert.IsFalse(NewChange.GetStatus());
         }
 
+        /// <summary>
+        /// Нельзя поменять статус когда он и так False
+        /// </summary>
         [TestMethod()]
         public void ChangeStatusFalse_WhenStatusFalse_FalseReterned()
         {
@@ -105,8 +117,6 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             var ret = NewChange.ChangeStatusFalse();
 
             //Assert
-            //TODO:Что делать с ID
-            // Assert.AreEqual(1,NewChange.GetID());
             Assert.IsFalse(ret);
             Assert.IsFalse(OldStatus);
             Assert.IsFalse(NewChange.GetStatus());

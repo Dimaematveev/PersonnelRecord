@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Changes.Tests
 {
+    /// <summary>
+    /// Тестирование "Нанять на должность"
+    /// </summary>
     [TestClass()]
     public class Change_Recruitment_Tests
     {
@@ -15,6 +18,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
         private Position N1Pos1, N1Pos2, N2Pos1, N2Pos2;
 
         #region Первоначальная настройка
+        /// <summary>
+        /// Вызывается перед каждым методом теста
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
@@ -34,6 +40,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
 
 
         #region Recruitment (Нанять на должность)
+        /// <summary>
+        /// Правильные параметры на основную должность
+        /// </summary>
         [TestMethod()]
         public void Recruitment_WithValidArgumentsMainPos_NewChangeReterned()
         {
@@ -44,8 +53,6 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             NewChange = Change.Recruitment(NumOrd, employee1, N1Pos1, false);
 
             //Assert
-            //TODO:Что делать с ID
-            // Assert.AreEqual(1,NewChange.GetID());
             Assert.IsTrue(Math.Abs(DateTime.Now.Ticks - NewChange.GetDateChange().Ticks)< 10000000);
 
             Assert.IsNull(NewChange.GetPreviousChange());
@@ -57,6 +64,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             Assert.AreEqual(RecordType.Найм, NewChange.GetRecordType());
 
         }
+        /// <summary>
+        /// Правильные параметры на совмещенную должность
+        /// </summary>
         [TestMethod()]
         public void Recruitment_WithValidArgumentsComPos_NewChangeReterned()
         {
@@ -67,8 +77,6 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             NewChange = Change.Recruitment(NumOrd, employee1, N1Pos1, true);
 
             //Assert 
-            //TODO:Что делать с ID
-            // Assert.AreEqual(1, NewChange.GetID());
             Assert.IsTrue(Math.Abs(DateTime.Now.Ticks - NewChange.GetDateChange().Ticks) < 10000000);
 
             Assert.IsNull(NewChange.GetPreviousChange());
@@ -80,7 +88,10 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             Assert.AreEqual(RecordType.Найм, NewChange.GetRecordType());
 
         }
-
+        /// <summary>
+        /// Исключение на передачу в номер приказа 0 или меньше
+        /// </summary>
+        /// <param name="NumOrd">Номер приказа</param>
         [ExpectedException(typeof(ArgumentException), "Исключение на передачу в номер приказа 0 или меньше, не было вызвано.")]
         [DataTestMethod()]
         [DataRow(-1)]
@@ -92,6 +103,10 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             Change.Recruitment(NumOrd, employee1, N1Pos1, false);
 
         }
+
+        /// <summary>
+        /// Исключение на передачу в сотрудника null
+        /// </summary>
         [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу в сотрудника null, не было вызвано.")]
         [TestMethod()]
         public void Recruitment_WhenEmployeeIsNullMainPos_ExceptionReterned()
@@ -103,6 +118,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
 
             //Assert
         }
+        /// <summary>
+        /// Исключение на передачу в должность null
+        /// </summary>
         [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу в должность null, не было вызвано.")]
         [TestMethod()]
         public void Recruitment_WhenPositionIsNull_ExceptionReterned()
@@ -115,7 +133,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             //Assert
         }
 
-       
+        /// <summary>
+        /// Исключение на передачу в должность занятой должности
+        /// </summary>
         [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу в должность занятой должности, не было вызвано.")]
         [TestMethod()]
         public void Recruitment_WhenPositionIsBusy_ExceptionReterned()

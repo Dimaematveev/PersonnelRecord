@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Units.Tests
 {
+    /// <summary>
+    /// Тестирование "Получить все главные подразделения"
+    /// </summary>
     [TestClass()]
     public class Unit_GetMainUnits_Tests
     {
@@ -13,6 +16,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         private Unit unit, mainUnit, subUnit1, subUnit2;
 
         #region Первоначальная настройка
+        /// <summary>
+        /// Вызывается перед каждым методом теста
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
@@ -41,6 +47,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
 
         #region Функция GetMainUnits (Получить все главные подразделения)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void GetMainUnits_WithValidArguments_ListIUnitReturned()
         {

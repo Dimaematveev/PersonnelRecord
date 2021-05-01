@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Units.Tests
 {
+    /// <summary>
+    /// Тестирование "Добавить подчиненное подразделение"
+    /// </summary>
     [TestClass()]
     public class Unit_AddSubordinateUnit_Tests
     {
@@ -13,6 +16,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         private Unit unit, mainUnit, subUnit1, subUnit2;
 
         #region Первоначальная настройка
+        /// <summary>
+        /// Вызывается перед каждым методом теста
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
@@ -41,6 +47,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
 
         #region Функция IsPossibleAddSubordinateUnit (Проверка на Добавить подчиненное подразделение)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void IsPossibleAddSubordinateUnit_WithValidArguments_TrueReturned()
         {
@@ -69,6 +78,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Когда Подчиненное подразделение Null
+        /// </summary>
         [TestMethod()]
         public void IsPossibleAddSubordinateUnit_WhenSubIsNull_FalseReturned()
         {
@@ -95,6 +107,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Когда подчиненное подразделение и есть мы
+        /// </summary>
         [TestMethod()]
         public void IsPossibleAddSubordinateUnit_WhenSubIsOurUnit_FalseReturned()
         {
@@ -119,6 +134,10 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+
+        /// <summary>
+        /// Если подразделение уже есть в подчиненном
+        /// </summary>
         [TestMethod()]
         public void IsPossibleAddSubordinateUnit_WhenSubIsSubUnit_FalseReturned()
         {
@@ -143,6 +162,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Когда Подчиненное есть одно из главных
+        /// </summary>
         [TestMethod()]
         public void IsPossibleAddSubordinateUnit_WhenSubIsMainOur_FalseReturned()
         {
@@ -170,6 +192,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         #endregion
 
         #region Функция AddSubordinateUnit (Добавить подчиненное подразделение)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void AddSubordinateUnit_WithValidArguments_AddSubordinateUnitAndTrueReturned()
         {
@@ -198,6 +223,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Когда Подчиненное подразделение Null
+        /// </summary>
         [TestMethod()]
         public void AddSubordinateUnit_WhenSubIsNull_FalseReturned()
         {
@@ -224,6 +252,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Когда подчиненное подразделение и есть мы
+        /// </summary>
         [TestMethod()]
         public void AddSubordinateUnit_WhenSubIsOurUnit_FalseReturned()
         {
@@ -248,6 +279,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Если подразделение уже есть в подчиненном
+        /// </summary>
         [TestMethod()]
         public void AddSubordinateUnit_WhenSubIsSubUnit_FalseReturned()
         {
@@ -272,6 +306,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Когда Подчиненное есть одно из главных
+        /// </summary>
         [TestMethod()]
         public void AddSubordinateUnit_WhenSubIsMainOur_FalseReturned()
         {

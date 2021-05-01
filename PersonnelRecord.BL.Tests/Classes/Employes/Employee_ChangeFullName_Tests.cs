@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Employes.Tests
 {
+    /// <summary>
+    /// Тестирование "Изменить ФИО"
+    /// </summary>
     [TestClass()]
     public class Employee_ChangeFullName_Tests
     {
@@ -17,6 +20,9 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
         private Position N1Pos1, N1Pos2, N2Pos1, N2Pos2;
 
         #region Первоначальная настройка
+        /// <summary>
+        /// Вызывается перед каждым методом теста
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
@@ -35,8 +41,11 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
         }
         #endregion
 
-        
+
         #region ChangeFullName (Изменить имя)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void ChangeFullName_WithValidArguments_NewFullNameAndTrueReterned()
         {
@@ -50,7 +59,10 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
             
         }
 
-
+        /// <summary>
+        /// Ошибка при передачи в ФИО null или пустой строки или строки состоящей только из пробелов ...
+        /// </summary>
+        /// <param name="NewName">ФИО</param>
         [DataTestMethod()]
         [DataRow(null)]
         [DataRow("")]
@@ -69,7 +81,9 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
             Assert.AreEqual(oldName, employee.GetFullName());
         }
 
-
+        /// <summary>
+        /// Ошибка! Новое имя равно старому
+        /// </summary>
         [TestMethod()]
         public void ChangeFullName_WhenNewNameIsOldName_OldFullNameAndFalseReterned()
         {

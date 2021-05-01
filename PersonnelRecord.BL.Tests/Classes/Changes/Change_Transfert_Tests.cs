@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Changes.Tests
 {
+    /// <summary>
+    /// Тестирование "Изменить должность"
+    /// </summary>
     [TestClass()]
     public class Change_Transfer_Tests
     {
@@ -15,6 +18,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
         private Position N1Pos1, N1Pos2, N2Pos1, N2Pos2;
 
         #region Первоначальная настройка
+        /// <summary>
+        /// Вызывается перед каждым методом теста
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
@@ -34,6 +40,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
 
 
         #region Transfer (Изменить должность)
+        /// <summary>
+        /// Правильные параметры на совмещенной должности
+        /// </summary>
         [TestMethod()]
         public void Transfer_WithValidArgumentsComPosition_NewChangeReterned()
         {
@@ -61,6 +70,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
 
         }
 
+        /// <summary>
+        /// Правильные параметры на основной должности
+        /// </summary>
         [TestMethod()]
         public void Transfer_WithValidArgumentsMainPosition_NewChangeReterned()
         {
@@ -88,6 +100,10 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
 
         }
 
+        /// <summary>
+        /// Исключение на передачу в номер приказа 0 или меньше
+        /// </summary>
+        /// <param name="NumOrd">Номер приказа</param>
         [ExpectedException(typeof(ArgumentException), "Исключение на передачу в номер приказа 0 или меньше, не было вызвано.")]
         [DataTestMethod()]
         [DataRow(-1)]
@@ -105,6 +121,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             //Assert
         }
 
+        /// <summary>
+        /// Исключение на передачу сотрудник не может быть null
+        /// </summary>
         [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу сотрудник не может быть null, не было вызвано.")]
         [TestMethod()]
         public void ChangePosition_WhenEmployeeIsNull_ExceptionReterned()
@@ -121,6 +140,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             //Assert
         }
 
+        /// <summary>
+        /// Исключение на передачу старая динамика не может быть null
+        /// </summary>
         [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу старая динамика не может быть null, не было вызвано.")]
         [TestMethod()]
         public void ChangePosition_WhenOldChangeIsNull_ExceptionReterned()
@@ -137,7 +159,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             //Assert
         }
 
-
+        /// <summary>
+        /// Исключение на передачу в новую должность null
+        /// </summary>
         [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу в новую должность null, не было вызвано.")]
         [TestMethod()]
         public void ChangePosition_WhenNewPositionIsNull_ExceptionReterned()
@@ -153,6 +177,10 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
 
             //Assert
         }
+
+        /// <summary>
+        /// Исключение на передачу в старую динамику динамики другого сотрудника
+        /// </summary>
         [ExpectedException(typeof(ArgumentException), "Исключение на передачу в старую динамику динамики другого сотрудника, не было вызвано.")]
         [TestMethod()]
         public void ChangePosition_WhenOldChangeNoEmployee_ExceptionReterned()
@@ -169,7 +197,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             //Assert
         }
 
-
+        /// <summary>
+        /// Исключение на передачу в новую должность старой должности
+        /// </summary>
         [ExpectedException(typeof(ArgumentException), "Исключение на передачу в новую должность старой должности, не было вызвано.")]
         [TestMethod()]
         public void ChangePosition_WhenNewPositionEqualOldPosition_ExceptionReterned()
@@ -186,6 +216,10 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             //Assert
         }
 
+
+        /// <summary>
+        /// Исключение на передачу в новую должность занятой должности
+        /// </summary>
         [ExpectedException(typeof(ArgumentException), "Исключение на передачу в новую должность занятой должности, не было вызвано.")]
         [TestMethod()]
         public void ChangePosition_WhenNewPositionIsBusy_ExceptionReterned()

@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Positions.Tests
 {
+    /// <summary>
+    /// Тестирование "Снять с должности"
+    /// </summary>
     [TestClass()]
     public class Position_RemoveFromPosition_Tests
     {
@@ -11,6 +14,9 @@ namespace PersonnelRecord.BL.Classes.Positions.Tests
         private Position position;
         private Unit unit;
         #region Первоначальная настройка
+        /// <summary>
+        /// Вызывается перед каждым методом теста
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
@@ -29,6 +35,9 @@ namespace PersonnelRecord.BL.Classes.Positions.Tests
 
 
         #region RemoveFromPosition (Снять с должности)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void RemoveFromPosition_WithValidArguments_NotBusyAndTrueReterned()
         {
@@ -60,7 +69,7 @@ namespace PersonnelRecord.BL.Classes.Positions.Tests
         }
 
         /// <summary>
-        /// Когда Уже удалено
+        /// Когда  удалено
         /// </summary>
         [TestMethod()]
         public void RemoveFromPosition_WhenPositionIsDelete_FalseReterned()

@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Units.Tests
 {
+    /// <summary>
+    /// Тестирование "Переподчинить подразделение"
+    /// </summary>
     [TestClass()]
     public class Unit_Reassignment_Tests
     {
@@ -13,6 +16,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         private Unit unit, mainUnit, subUnit1, subUnit2;
 
         #region Первоначальная настройка
+        /// <summary>
+        /// Вызывается перед каждым методом теста
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
@@ -42,6 +48,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
 
         #region IsPossibleReassignment (Возможно ли переподчинить подразделение)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void IsPossibleReassignment_WithValidArguments_TrueReturned()
         {
@@ -68,6 +77,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Нельзя Переподчинить подразделение если главное null
+        /// </summary>
         [TestMethod()]
         public void IsPossibleReassignment_WhenNewMainisNull_FalseReturned()
         {
@@ -94,6 +106,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Нельзя Переподчинить подразделение если главное Есть в подчиненных
+        /// </summary>
         [TestMethod()]
         public void IsPossibleReassignment_WhenNewMainIsSub_FalseReturned()
         {
@@ -120,6 +135,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Нельзя Переподчинить подразделение если главное есть ты
+        /// </summary>
         [TestMethod()]
         public void IsPossibleReassignment_WhenNewMainIsYou_FalseReturned()
         {
@@ -146,7 +164,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
-
+        /// <summary>
+        /// Нельзя Переподчинить подразделение если главное Удалено
+        /// </summary>
         [TestMethod()]
         public void IsPossibleReassignment_WhenNewMainIsDelete_FalseReturned()
         {
@@ -178,6 +198,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         #endregion
 
         #region Reassignment (Переподчинение подразделения)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void Reassignment_WithValidArguments_TrueReturned()
         {
@@ -206,6 +229,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Нельзя Переподчинить подразделение если главное null
+        /// </summary>
         [TestMethod()]
         public void Reassignment_WhenNewMainisNull_FalseReturned()
         {
@@ -232,6 +258,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Нельзя Переподчинить подразделение если главное  есть в подчиненных
+        /// </summary>
         [TestMethod()]
         public void Reassignment_WhenNewMainIsSub_FalseReturned()
         {
@@ -258,6 +287,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Нельзя Переподчинить подразделение если главное есть ты
+        /// </summary>
         [TestMethod()]
         public void Reassignment_WhenNewMainIsYou_FalseReturned()
         {
@@ -282,6 +314,37 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             //ПРоверяем что возможно это сделать
             Assert.IsFalse(ret);
             
+        }
+
+        /// <summary>
+        /// Нельзя Переподчинить подразделение если главное Удалено
+        /// </summary>
+        [TestMethod()]
+        public void Reassignment_WhenNewMainIsDelete_FalseReturned()
+        {
+
+            Unit u1 = new Unit("ss", new List<string>() { "ss" });
+            subUnit1.Delete();
+            var subMainUnit = subUnit1.GetSubordinateUnits();
+            var unitSubUnit = u1.GetSubordinateUnits();
+
+
+            // Arrange(настройка)
+            // Act — выполнение 
+
+            var ret = u1.Reassignment(subUnit1);
+
+
+            // Assert — проверка
+            //Проверяем что у главного ничего не поменялось
+            CollectionAssert.AreEqual(subMainUnit.ToList(), subUnit1.GetSubordinateUnits().ToList());
+            //Проверяем что у подчиненных главное не поменялось
+            //ПРоверяем что у нашего главное не поменялось
+            CollectionAssert.AreEqual(unitSubUnit.ToList(), u1.GetSubordinateUnits().ToList());
+            Assert.AreEqual(null, u1.GetMainUnit());
+            //ПРоверяем что возможно это сделать
+            Assert.IsFalse(ret);
+
         }
         #endregion
     }

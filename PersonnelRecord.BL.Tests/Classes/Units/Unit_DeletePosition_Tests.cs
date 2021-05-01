@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Units.Tests
 {
+    /// <summary>
+    /// Тестирование "Удалить должность подразделение"
+    /// </summary>
     [TestClass()]
     public class Unit_DeletePosition_Tests
     {
@@ -13,6 +16,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         private Unit unit, mainUnit, subUnit1, subUnit2;
 
         #region Первоначальная настройка
+        /// <summary>
+        /// Вызывается перед каждым методом теста
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
@@ -43,6 +49,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
 
         #region Функция IsPossibleDeletePosition (проверка на Удалить должность)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void IsPossibleDeletePosition_WithValidArguments_NullReturned()
         {
@@ -62,6 +71,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
         }
 
+        /// <summary>
+        /// нельзя удалить должность равную null
+        /// </summary>
         [TestMethod()]
         public void IsPossibleDeletePosition_WhenPositionNull_NotNullReturned()
         {
@@ -79,6 +91,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
         }
 
+        /// <summary>
+        /// Нельзя удалить должность которой нет в списке
+        /// </summary>
         [TestMethod()]
         public void IsPossibleDeletePosition_WhenPositionNotInList_NotNullReturned()
         {
@@ -98,7 +113,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
         }
 
-
+        /// <summary>
+        /// Нельзя удалить должность из списка если ее просто нельзя удалить
+        /// </summary>
         [TestMethod()]
         public void IsPossibleDeletePosition_WhenPositionCannotBeDeleted_NotNullReturned()
         {
@@ -121,6 +138,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         #endregion
 
         #region Функция DeletePosition (Удалить должность)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void DeletePosition_WithValidArguments_DeletePositionAndTrueReturned()
         {
@@ -147,6 +167,36 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// нельзя удалить должность равную null
+        /// </summary>
+        [TestMethod()]
+        public void DeletePosition_WhenPositionNull_NotDeletePositionAndFalseReturned()
+        {
+
+
+            // Arrange(настройка)
+            Position DeletePosition = null;
+            var Positions = unit.GetPositions().ToList();
+
+
+            // Act — выполнение 
+
+            var ret = unit.DeletePosition(DeletePosition);
+
+
+            // Assert — проверка
+
+            CollectionAssert.AreEqual(Positions, unit.GetPositions().ToList());
+
+            Assert.IsFalse(ret);
+
+
+        }
+
+        /// <summary>
+        /// Нельзя удалить должность которой нет в списке
+        /// </summary>
         [TestMethod()]
         public void DeletePosition_WhenPositionNotInList_NotDeletePositionAndFalseReturned()
         {
@@ -173,30 +223,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
-        [TestMethod()]
-        public void DeletePosition_WhenPositionNull_NotDeletePositionAndFalseReturned()
-        {
-            
-
-            // Arrange(настройка)
-            Position DeletePosition = null;
-            var Positions = unit.GetPositions().ToList();
-            
-
-            // Act — выполнение 
-            
-            var ret = unit.DeletePosition(DeletePosition);
-            
-
-            // Assert — проверка
-            
-            CollectionAssert.AreEqual(Positions, unit.GetPositions().ToList());
-            
-            Assert.IsFalse(ret);
-
-            
-        }
-
+        /// <summary>
+        /// Нельзя удалить должность из списка если ее просто нельзя удалить
+        /// </summary>
         [TestMethod()]
         public void DeletePosition_WhenPositionCannotBeDeleted_NotNullReturned()
         {

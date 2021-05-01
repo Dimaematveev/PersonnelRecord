@@ -5,9 +5,15 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Units.Tests
 {
+    /// <summary>
+    /// Тестирование "Конструктор подразделения"
+    /// </summary>
     [TestClass()]
     public class Unit_Constructor_Tests
     {
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void ConstructorTest_WithValidArguments_CreateClass()
         {
@@ -29,7 +35,10 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             Assert.IsFalse(unit.GetIsDelete());
         }
 
-
+        /// <summary>
+        /// Исключение на передачу в Название подразделения null или пустой строки
+        /// </summary>
+        /// <param name="unitName">Название подразделения</param>
         [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу в Название подразделения null или пустой строки, не было вызвано.")]
         [DataTestMethod()]
         [DataRow(null)]
@@ -48,7 +57,11 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
         }
 
-
+        /// <summary>
+        /// Исключение на передачу в Название должностей null или пустой строки 
+        /// Первая должность
+        /// </summary>
+        /// <param name="pos1">Название должности</param>
         [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу в Название должностей null или пустой строки, не было вызвано.")]
         [DataTestMethod()]
         [DataRow(null)]
@@ -71,6 +84,11 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
         }
 
+        /// <summary>
+        /// Исключение на передачу в Название должностей null или пустой строки
+        /// Вторая должность
+        /// </summary>
+        /// <param name="pos2">Название должности</param>
         [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу в Название должностей null или пустой строки, не было вызвано.")]
         [DataTestMethod()]
         [DataRow(null)]
@@ -93,6 +111,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
         }
 
+        /// <summary>
+        /// Исключение на передачу в список должностей null
+        /// </summary>
         [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу в список должностей null, не было вызвано.")]
         [TestMethod()]
         public void ConstructorTest_WhenListPosIsNull_NotCreateClassAndExceptionReterned()
@@ -107,6 +128,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
         }
 
+        /// <summary>
+        /// Исключение на передачу в список должностей пустого списка
+        /// </summary>
         [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу в список должностей пустого списка, не было вызвано.")]
         [TestMethod()]
         public void ConstructorTest_WhenListPosIsEmpty_NotCreateClassAndExceptionReterned()

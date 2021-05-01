@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Employes.Tests
 {
+    /// <summary>
+    /// Тестирование "Уволить с должности"
+    /// </summary>
     [TestClass()]
     public class Employee_Dismissal_Tests
     {
@@ -17,6 +20,9 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
         private Position N1Pos1, N1Pos2, N2Pos1, N2Pos2;
 
         #region Первоначальная настройка
+        /// <summary>
+        /// Вызывается перед каждым методом теста
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
@@ -35,9 +41,12 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
         }
         #endregion
 
-        
+
 
         #region Dismissal (Увольнение)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void Dismissal_WithValidArguments_NewChangeAddChangesReterned()
         {
@@ -68,6 +77,11 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
 
             Assert.IsFalse(OldChange.GetStatus());
         }
+
+        /// <summary>
+        /// Исключение на передачу в номер приказа 0 или меньше
+        /// </summary>
+        /// <param name="NumOrd">Номер приказа</param>
         [ExpectedException(typeof(ArgumentException), "Исключение на передачу в номер приказа 0 или меньше, не было вызвано.")]
         [DataTestMethod()]
         [DataRow(-1)]
@@ -83,6 +97,9 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
             //Assert
         }
 
+        /// <summary>
+        /// Исключение на передачу в должность null
+        /// </summary>
         [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу в должность null, не было вызвано.")]
         [TestMethod()]
         public void Dismissal_WhenPositionIsNull_ExceptionReterned()
@@ -98,6 +115,9 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
             //Asser
         }
 
+        /// <summary>
+        /// Исключение на передачу в должность должности которой нет
+        /// </summary>
         [ExpectedException(typeof(ArgumentException), "Исключение на передачу в должность должности которой нет, не было вызвано.")]
         [TestMethod()]
         public void Dismissal_WhenPositionIsBusy_ExceptionReterned()
@@ -114,54 +134,6 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
         }
         #endregion
 
-
-        #region ChangeFullName (Изменить имя)
-        [TestMethod()]
-        public void ChangeFullName_WithValidArguments_NewFullNameAndTrueReterned()
-        {
-            //ACT
-            string NewName = "Name2";
-            var ret = employee.ChangeFullName(NewName);
-
-            //Assert
-            Assert.IsTrue(ret);
-            Assert.AreEqual(NewName, employee.GetFullName());
-            
-        }
-
-
-        [DataTestMethod()]
-        [DataRow(null)]
-        [DataRow("")]
-        [DataRow(" ")]
-        [DataRow("  ")]
-        [DataRow("\n")]
-        [DataRow("\t")]
-        public void ChangeFullName_WhenNameIsEmpty_OldFullNameAndFalseReterned(string NewName)
-        {
-            var oldName = employee.GetFullName();
-            //ACT
-            var ret = employee.ChangeFullName(NewName);
-
-            //Assert
-            Assert.IsFalse(ret);
-            Assert.AreEqual(oldName, employee.GetFullName());
-        }
-
-
-        [TestMethod()]
-        public void ChangeFullName_WhenNewNameIsOldName_OldFullNameAndFalseReterned()
-        {
-            var oldName = employee.GetFullName();
-            //ACT
-            string NewName = "Name1";
-            var ret = employee.ChangeFullName(NewName);
-
-            //Assert
-            Assert.IsFalse(ret);
-            Assert.AreEqual(oldName, employee.GetFullName());
-        }
-        #endregion
 
     }
 }

@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Units.Tests
 {
+    /// <summary>
+    /// Тестирование "Добавить должность"
+    /// </summary>
     [TestClass()]
     public class Unit_AddPosition_Tests
     {
@@ -13,6 +16,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         private Unit unit, mainUnit, subUnit1, subUnit2;
 
         #region Первоначальная настройка
+        /// <summary>
+        /// Вызывается перед каждым методом теста
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
@@ -42,6 +48,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
 
         #region Функция IsPossibleAddPosition (Проверка на Добавить должность)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void IsPossibleAddPosition_WithValidArguments_NullReturned()
         {
@@ -60,6 +69,10 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
         }
 
+        /// <summary>
+        /// Ошибка! Когда Название новой должности пусто или null!
+        /// </summary>
+        /// <param name="NewPosition">Новая должность</param>
         [DataTestMethod()]
         [DataRow(null)]
         [DataRow("")]
@@ -86,6 +99,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         #endregion
 
         #region Функция AddPosition (Добавить должность)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void AddPosition_WithValidArguments_AddPositionAndTrueReturned()
         {
@@ -109,6 +125,10 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Ошибка! Когда Название новой должности пусто или null!
+        /// </summary>
+        /// <param name="NewPosition">Новая должность</param>
         [DataTestMethod()]
         [DataRow(null)]
         [DataRow("")]

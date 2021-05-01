@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Units.Tests
 {
+    /// <summary>
+    /// Тестирование "Переименовать подразделение"
+    /// </summary>
     [TestClass()]
     public class Unit_Rename_Tests
     {
@@ -13,6 +16,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         private Unit unit, mainUnit, subUnit1, subUnit2;
 
         #region Первоначальная настройка
+        /// <summary>
+        /// Вызывается перед каждым методом теста
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
@@ -42,6 +48,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
 
         #region Функция Rename (Переименование)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void Rename_WithValidArguments_RenameAndTrueReterned()
         {
@@ -58,6 +67,10 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
         }
 
+        /// <summary>
+        /// Нельзя переименовать подразделение на пустую строку или null
+        /// </summary>
+        /// <param name="newName">Новое название</param>
         [DataTestMethod()]
         [DataRow(null)]
         [DataRow("")]
@@ -80,6 +93,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
         }
 
+        /// <summary>
+        /// Нельзя переименовать на тоже название
+        /// </summary>
         [TestMethod()]
         public void Rename_WhenOldNameEqalNewName_NotRenameAndFalseReterned()
         {

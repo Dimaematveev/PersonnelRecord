@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Changes.Tests
 {
+    /// <summary>
+    /// Тестирование "Уволить с должности"
+    /// </summary>
     [TestClass()]
     public class Change_Dismissal_Tests
     {
@@ -15,6 +18,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
         private Position N1Pos1, N1Pos2, N2Pos1, N2Pos2;
 
         #region Первоначальная настройка
+        /// <summary>
+        /// Вызывается перед каждым методом теста
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
@@ -33,6 +39,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
         #endregion
 
         #region Dismissal (Уволить с должности)
+        /// <summary>
+        /// Правильные параметры увольнение с основной должности
+        /// </summary>
         [TestMethod()]
         public void Dismissal_WithValidArgumentsMainPosition_NewChangeReterned()
         {
@@ -60,7 +69,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
 
         }
 
-
+        /// <summary>
+        /// Правильные параметры увольнение с дополнительной должности
+        /// </summary>
         [TestMethod()]
         public void Dismissal_WithValidArgumentsSubPosition_NewChangeReterned()
         {
@@ -88,9 +99,10 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
 
         }
 
-
-
-
+        /// <summary>
+        /// Исключение на передачу в номер приказа 0 или меньше
+        /// </summary>
+        /// <param name="NumOrd">Номер приказа</param>
         [ExpectedException(typeof(ArgumentException), "Исключение на передачу в номер приказа 0 или меньше, не было вызвано.")]
         [DataTestMethod()]
         [DataRow(-1)]
@@ -108,6 +120,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             //Assert
         }
 
+        /// <summary>
+        /// Исключение на передачу сотрудник не может быть null
+        /// </summary>
         [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу сотрудник не может быть null, не было вызвано.")]
         [TestMethod()]
         public void Dismissal_WhenEmployeeIsNull_ExceptionReterned()
@@ -124,6 +139,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             //Assert
         }
 
+        /// <summary>
+        /// Исключение на передачу старая динамика не может быть null
+        /// </summary>
         [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу старая динамика не может быть null, не было вызвано.")]
         [TestMethod()]
         public void Dismissal_WhenOldChangeIsNull_ExceptionReterned()
@@ -140,6 +158,9 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
             //Assert
         }
 
+        /// <summary>
+        /// Исключение на передачу в старую динамику динамики другого сотрудника
+        /// </summary>
         [ExpectedException(typeof(ArgumentException), "Исключение на передачу в старую динамику динамики другого сотрудника, не было вызвано.")]
         [TestMethod()]
         public void Dismissal_WhenOldChangeNoEmployee_ExceptionReterned()

@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Units.Tests
 {
+    /// <summary>
+    /// Тестирование "Удалить подразделение"
+    /// </summary>
     [TestClass()]
     public class Unit_Delete_Tests
     {
@@ -13,6 +16,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         private Unit unit, mainUnit, subUnit1, subUnit2;
 
         #region Первоначальная настройка
+        /// <summary>
+        /// Вызывается перед каждым методом теста
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
@@ -42,92 +48,71 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
 
         #region Функция IsPossibleDelete (Проверка на Удалить подразделение)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void IsPossibleDelete_WithValidArguments_TrueReturned()
         {
-            
 
             // Arrange(настройка)
             var hier = unit.GetHierarchyTier();
             var main = unit.GetMainUnit();
             var sub = unit.GetSubordinateUnits();
+
             // Act — выполнение 
-            
             var ret = unit.IsPossibleDelete();
             
-
             // Assert — проверка
-            
             Assert.IsFalse(unit.GetIsDelete());
-
-            
             Assert.AreEqual(hier, unit.GetHierarchyTier());
-            
             Assert.AreEqual(main,unit.GetMainUnit());
-
             foreach (var pos in unit.GetPositions())
             {
-                
                 Assert.IsFalse(pos.GetIsDelete());
             }
-
-            
             CollectionAssert.AreEqual(sub.ToList(), unit.GetSubordinateUnits().ToList());
-            
             Assert.AreEqual(unit, subUnit1.GetMainUnit());
-            
-            Assert.AreEqual(unit, subUnit2.GetMainUnit());
-
-            
-            Assert.IsTrue(ret);
-
-            
+            Assert.AreEqual(unit, subUnit2.GetMainUnit());           
+            Assert.IsTrue(ret);           
         }
 
-
+        /// <summary>
+        /// Нельзя удалить подразделение из списка пока нельзя реально удалить все должности)
+        /// </summary>
         [TestMethod()]
         public void IsPossibleDelete_WhenPosCannotBeDeleted_FalseReturned()
         {
-            
-
             // Arrange(настройка)
             var hier = unit.GetHierarchyTier();
             var main = unit.GetMainUnit();
             var sub = unit.GetSubordinateUnits();
             unit.GetPositions()[0].BusyPosition();
+
             // Act — выполнение 
-            
             var ret = unit.IsPossibleDelete();
-            
 
             // Assert — проверка
-            
             Assert.IsFalse(unit.GetIsDelete());
-
-            
-            Assert.AreEqual(hier, unit.GetHierarchyTier());
-            
+            Assert.AreEqual(hier, unit.GetHierarchyTier());           
             Assert.AreEqual(main, unit.GetMainUnit());
-
             foreach (var pos in unit.GetPositions())
-            {
-                
+            {               
                 Assert.IsFalse(pos.GetIsDelete());
-            }
-
-            
-            CollectionAssert.AreEqual(sub.ToList(), unit.GetSubordinateUnits().ToList());
-            
-            Assert.AreEqual(unit, subUnit1.GetMainUnit());
-            
-            Assert.AreEqual(unit, subUnit2.GetMainUnit());
-
-            
-            Assert.IsFalse(ret);
-
-            
+            }            
+            CollectionAssert.AreEqual(sub.ToList(), unit.GetSubordinateUnits().ToList());            
+            Assert.AreEqual(unit, subUnit1.GetMainUnit());            
+            Assert.AreEqual(unit, subUnit2.GetMainUnit());            
+            Assert.IsFalse(ret);           
         }
 
+        /// <summary>
+        /// Нельзя удалить должность когда подчиненные подразделения нельзя переподчинить
+        /// </summary>
+        /// <remarks>
+        /// Здесь пытаюсь удалить главное подразделение но так как у главного у единственного null в главном, 
+        /// и соответственно мы не можем переподчинить дочерние из-за этого
+        /// </remarks>
         [TestMethod()]
         public void IsPossibleDelete_WhenPosCannotBeReassignmentSub_FalseReturned()
         {
@@ -170,6 +155,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         #endregion
 
         #region Функция Delete (Удалить подразделение)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void Delete_WithValidArguments_DeleteAndTrueReturned()
         {
@@ -208,7 +196,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
-
+        /// <summary>
+        /// Нельзя удалить подразделение из списка пока нельзя реально удалить все должности)
+        /// </summary>
         [TestMethod()]
         public void Delete_WhenPosCannotBeDeleted_FalseReturned()
         {
@@ -252,6 +242,13 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Нельзя удалить должность когда подчиненные подразделения нельзя переподчинить
+        /// </summary>
+        /// <remarks>
+        /// Здесь пытаюсь удалить главное подразделение но так как у главного у единственного null в главном, 
+        /// и соответственно мы не можем переподчинить дочерние из-за этого
+        /// </remarks>
         [TestMethod()]
         public void Delete_WhenPosCannotBeReassignmentSub_FalseReturned()
         {
@@ -261,35 +258,21 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             var hier = mainUnit.GetHierarchyTier();
             var main = mainUnit.GetMainUnit();
             var sub = mainUnit.GetSubordinateUnits();
+
             // Act — выполнение 
-            
             var ret = mainUnit.Delete();
-            
 
             // Assert — проверка
-            
             Assert.IsFalse(mainUnit.GetIsDelete());
-
-            
             Assert.AreEqual(hier, mainUnit.GetHierarchyTier());
-            
             Assert.AreEqual(main, mainUnit.GetMainUnit());
-
             foreach (var pos in mainUnit.GetPositions())
             {
-                
                 Assert.IsFalse(pos.GetIsDelete());
             }
-
-            
             CollectionAssert.AreEqual(sub.ToList(), mainUnit.GetSubordinateUnits().ToList());
-            
             Assert.AreEqual(mainUnit, unit.GetMainUnit());
-
-            
             Assert.IsFalse(ret);
-
-            
         }
         #endregion
 

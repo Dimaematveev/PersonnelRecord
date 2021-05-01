@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Units.Tests
 {
+    /// <summary>
+    /// Тестирование "Изменить главное подразделение"
+    /// </summary>
     [TestClass()]
     public class Unit_ChangeMainUnit_Tests
     {
@@ -13,6 +16,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         private Unit unit, mainUnit, subUnit1, subUnit2;
 
         #region Первоначальная настройка
+        /// <summary>
+        /// Вызывается перед каждым методом теста
+        /// </summary>
         [TestInitialize]
         public void TestInitialize()
         {
@@ -42,6 +48,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
 
         #region Функция IsPossibleChangeMainUnit (Проверка на Изменить главное подразделение)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void IsPossibleChangeMainUnit_WithValidArguments_NullReturned()
         {
@@ -61,6 +70,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Главное подразделение Null
+        /// </summary>
         [TestMethod()]
         public void IsPossibleChangeMainUnit_WhenMainUnitNull_NotChangeMainUnitAndFalseReturned()
         {
@@ -84,6 +96,10 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
             
         }
+
+        /// <summary>
+        /// Главное подразделение никуда не прикреплено(Ярус иерархии =0)
+        /// </summary>
         [TestMethod()]
         public void IsPossibleChangeMainUnit_WhenMainUnitHierarchyTierEqual0_NotChangeMainUnitAndFalseReturned()
         {
@@ -108,6 +124,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Главное подразделение удалено
+        /// </summary>
         [TestMethod()]
         public void IsPossibleChangeMainUnit_WhenMainUnitIsDelete_NotChangeMainUnitAndFalseReturned()
         {
@@ -120,18 +139,21 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
             // Act — выполнение 
             
-            var ret = unit.IsPossibleChangeMainUnit(subUnit2);
+            var ret = subUnit1.IsPossibleChangeMainUnit(subUnit2);
             
 
             // Assert — проверка
             
-            Assert.AreEqual(mainUnit, unit.GetMainUnit());
+            Assert.AreEqual(unit, subUnit1.GetMainUnit());
             
             Assert.IsNotNull(ret);
 
             
         }
 
+        /// <summary>
+        /// Главное подразделение мы
+        /// </summary>
         [TestMethod()]
         public void IsPossibleChangeMainUnit_WhenMainUnitEqalOurUnit_NotChangeMainUnitAndFalseReturned()
         {
@@ -155,6 +177,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Когда главное подразделение одно из наших подчиненных
+        /// </summary>
         [TestMethod()]
         public void IsPossibleChangeMainUnit_WhenMainUnitIsSub_NotChangeMainUnitAndFalseReturned()
         {
@@ -178,6 +203,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
         #endregion
 
         #region Функция ChangeMainUnit (Изменить главное подразделение)
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void ChangeMainUnit_WithValidArguments_NewMainUnitAndTrueReturned()
         {
@@ -197,7 +225,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
-       
+        /// <summary>
+        /// Главное подразделение Null
+        /// </summary>
         [TestMethod()]
         public void ChangeMainUnit_WhenMainUnitNull_NotChangeMainUnitAndFalseReturned()
         {
@@ -221,6 +251,10 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
             
         }
+
+        /// <summary>
+        /// Главное подразделение никуда не прикреплено(Ярус иерархии =0)
+        /// </summary>
         [TestMethod()]
         public void ChangeMainUnit_WhenMainUnitHierarchyTierEqual0_NotChangeMainUnitAndFalseReturned()
         {
@@ -245,6 +279,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Главное подразделение удалено
+        /// </summary>
         [TestMethod()]
         public void ChangeMainUnit_WhenMainUnitIsDelete_NotChangeMainUnitAndFalseReturned()
         {
@@ -257,18 +294,21 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
 
             // Act — выполнение 
             
-            var ret = unit.ChangeMainUnit(subUnit2);
+            var ret = subUnit1.ChangeMainUnit(subUnit2);
             
 
             // Assert — проверка
             
-            Assert.AreEqual(mainUnit, unit.GetMainUnit());
+            Assert.AreEqual(unit, subUnit1.GetMainUnit());
             
             Assert.IsFalse(ret);
 
             
         }
 
+        /// <summary>
+        /// Главное подразделение мы
+        /// </summary>
         [TestMethod()]
         public void ChangeMainUnit_WhenMainUnitEqalOurUnit_NotChangeMainUnitAndFalseReturned()
         {
@@ -292,6 +332,9 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             
         }
 
+        /// <summary>
+        /// Когда главное подразделение одно из наших подчиненных
+        /// </summary>
         [TestMethod()]
         public void ChangeMainUnit_WhenMainUnitIsSub_NotChangeMainUnitAndFalseReturned()
         {

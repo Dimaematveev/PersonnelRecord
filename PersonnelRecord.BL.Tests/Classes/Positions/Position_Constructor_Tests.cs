@@ -5,9 +5,15 @@ using System.Linq;
 
 namespace PersonnelRecord.BL.Classes.Positions.Tests
 {
+    /// <summary>
+    /// Тестирование "Конструктора Должности"
+    /// </summary>
     [TestClass()]
     public class Position_Constructor_Tests
     {
+        /// <summary>
+        /// Правильные параметры
+        /// </summary>
         [TestMethod()]
         public void ConstructorTest_WithValidArguments_CreateClass()
         {
@@ -31,6 +37,10 @@ namespace PersonnelRecord.BL.Classes.Positions.Tests
             Assert.IsFalse(position.GetIsDelete());
         }
 
+        /// <summary>
+        /// Исключение на передачу в Название должности null или пустой строки
+        /// </summary>
+        /// <param name="positionName">Название должности</param>
         [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу в Название должности null или пустой строки, не было вызвано.")]
         [DataTestMethod()]
         [DataRow(null)]
