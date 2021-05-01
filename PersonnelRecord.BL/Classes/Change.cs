@@ -206,6 +206,14 @@ namespace PersonnelRecord.BL.Classes
         /// <param name="employee">Сотрудник</param>
         /// <param name="position">Должность</param>
         /// <param name="combinationOfPosition">Совмещенная должность?</param>
+        /// <exception cref="ArgumentException">
+        ///   <para>Если номер приказа <paramref name="numberOrder"/> ноль или меньше.</para>
+        ///   <para>Если должность <paramref name="position"/> занята.</para>
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///   <para>Если должность <paramref name="position"/> - <c>null</c>.</para>
+        ///   <para>Если сотрудник <paramref name="employee"/> - <c>null</c>.</para>
+        /// </exception>
         /// <returns>Новая динамика</returns>
         public static Change Recruitment(int numberOrder,
                                           Employee employee,
@@ -227,7 +235,7 @@ namespace PersonnelRecord.BL.Classes
 
             if (position.GetIsPositionBusy())
             {
-                throw new ArgumentNullException(nameof(position), "Должность не может быть занята!");
+                throw new ArgumentException("Должность не может быть занята!",nameof(position));
             }
 
            
@@ -248,12 +256,23 @@ namespace PersonnelRecord.BL.Classes
         /// <param name="numberOrder">Номер приказа</param>
         /// <param name="employee">Сотрудник</param>
         /// <param name="prevpreviousChange">Предыдущая динамика</param>
-        /// <param name="position">Должность</param>
+        /// <param name="newPosition">Должность</param>
+        /// <exception cref="ArgumentException">
+        ///   <para>Если номер приказа <paramref name="numberOrder"/> ноль или меньше.</para>
+        ///   <para>Если предыдущая динамика <paramref name="prevpreviousChange"/> не от этого сотрудника.</para>
+        ///   <para>Если новая должность <paramref name="newPosition"/> равна должности из старой динамики <paramref name="prevpreviousChange"/>.</para>
+        ///   <para>Если новая должность <paramref name="newPosition"/> занята.</para>
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///   <para>Если сотрудник <paramref name="employee"/> - <c>null</c>.</para>
+        ///   <para>Если предыдущая динамика <paramref name="prevpreviousChange"/> - <c>null</c>.</para>
+        ///   <para>Если должность <paramref name="newPosition"/> - <c>null</c>.</para>
+        /// </exception>
         /// <returns>Новая динамика</returns>
         public static Change Transfer(int numberOrder,
                                           Employee employee,
                                           Change prevpreviousChange,
-                                          Position position)
+                                          Position newPosition)
         {
             if (numberOrder <= 0)
             {
@@ -268,29 +287,29 @@ namespace PersonnelRecord.BL.Classes
             {
                 throw new ArgumentNullException(nameof(prevpreviousChange), "Старая динамика не может быть пустой");
             }
-            if (position == null)
+            if (newPosition == null)
             {
-                throw new ArgumentNullException(nameof(position), "Новая должность не может быть пустой");
+                throw new ArgumentNullException(nameof(newPosition), "Новая должность не может быть пустой");
             }
 
             if (prevpreviousChange.GetEmployee() != employee)
             {
                 throw new ArgumentException("Предыдущая динамика не от этого сотрудника!", nameof(prevpreviousChange));
             }
-            if (prevpreviousChange.GetPosition() == position)
+            if (prevpreviousChange.GetPosition() == newPosition)
             {
-                throw new ArgumentException("Ставим сотрудника на туже должность!", nameof(prevpreviousChange));
+                throw new ArgumentException("Ставим сотрудника на туже должность!", nameof(newPosition));
             }
 
-            if (position.GetIsPositionBusy())
+            if (newPosition.GetIsPositionBusy())
             {
-                throw new ArgumentException(nameof(position), "Новая Должность не может быть занята!");
+                throw new ArgumentException(nameof(newPosition), "Новая Должность не может быть занята!");
             }
 
             var change = new Change(prevpreviousChange,
                                     numberOrder,
                                     employee,
-                                    position,
+                                    newPosition,
                                     prevpreviousChange.GetIsCombination(),
                                     true,
                                     RecordType.Изменение);
@@ -305,6 +324,14 @@ namespace PersonnelRecord.BL.Classes
         /// <param name="numberOrder">Номер приказа</param>
         /// <param name="employee">Сотрудник</param>
         /// <param name="prevpreviousChange">Предыдущая динамика</param>
+        /// <exception cref="ArgumentException">
+        ///   <para>Если номер приказа <paramref name="numberOrder"/> ноль или меньше.</para>
+        ///   <para>Если предыдущая динамика <paramref name="prevpreviousChange"/> не от этого сотрудника.</para>
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///   <para>Если сотрудник <paramref name="employee"/> - <c>null</c>.</para>
+        ///   <para>Если предыдущая динамика <paramref name="prevpreviousChange"/> - <c>null</c>.</para>
+        /// </exception>
         /// <returns>Новая динамика</returns>
         public static Change Dismissal(int numberOrder,
                                           Employee employee,

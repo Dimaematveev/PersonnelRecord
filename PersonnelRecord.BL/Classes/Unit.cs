@@ -122,6 +122,12 @@ namespace PersonnelRecord.BL.Classes
         /// <para><c>True</c> - Самое главное подразделение(только одно)</para>
         /// <para><c>False</c> - Обычное подразделение</para>
         /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///   <para>Если название подразделения <paramref name="nameUnit"/> - <c>null</c>.</para>
+        ///   <para>Если список должностей  <paramref name="positionsName"/> - <c>null</c>.</para>
+        ///   <para>Если список должностей  <paramref name="positionsName"/> - пуст.</para>
+        ///   <para>Если в списке должностей  <paramref name="positionsName"/> имеются  <c>null</c> или пусто.</para>
+        /// </exception>
         public Unit(string nameUnit, List<string> positionsName, bool IsMain = false)
         {
             if (string.IsNullOrWhiteSpace(nameUnit))

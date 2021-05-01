@@ -79,6 +79,12 @@ namespace PersonnelRecord.BL.Classes
         /// <param name="id">ID или таб номер</param>
         /// <param name="fullName">ФИО</param>
         /// <param name="birthday">Дата рождения</param>
+        /// <exception cref="ArgumentException">
+        ///   <para>Если дата рождения <paramref name="birthday"/> меньше 18 и больше 100.</para>
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///   <para>Если ФИО <paramref name="fullName"/> - <c>null</c> или пустое.</para>
+        /// </exception>
         public Employee(int id, string fullName, DateTime birthday)
         {
             if (string.IsNullOrWhiteSpace(fullName))
@@ -105,6 +111,14 @@ namespace PersonnelRecord.BL.Classes
         /// </summary>
         /// <param name="numberOrder">Номер приказа</param>
         /// <param name="position">Должность</param>
+        /// <exception cref="ArgumentException">
+        ///   <para>Если номер приказа <paramref name="numberOrder"/> ноль или меньше.</para>
+        ///   <para>Нельзя добавить основную должность если уже есть основная.</para>
+        ///   <para>Если должность <paramref name="position"/> занята.</para>
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///   <para>Если должность <paramref name="position"/> - <c>null</c>.</para>
+        /// </exception>
         /// <returns>Новая динамика</returns>
         public Change Recruitment(int numberOrder, Position position)
         {
@@ -117,13 +131,14 @@ namespace PersonnelRecord.BL.Classes
             {
                 throw new ArgumentNullException(nameof(position), "Должность не может быть пустой");
             }
+
             if (GetChanges().Where(x => x.GetStatus() && !x.GetIsCombination()).Count() == 1)
             {
                 throw new ArgumentException("Нельзя добавить основную должность если уже есть основная!", nameof(position));
             }
             if (position.GetIsPositionBusy())
             {
-                throw new ArgumentNullException(nameof(position), "Должность не может быть занята!");
+                throw new ArgumentException("Должность не может быть занята!", nameof(position));
             }
             var change = Change.Recruitment(numberOrder, this, position, false);
             changes.Add(change);
@@ -136,6 +151,14 @@ namespace PersonnelRecord.BL.Classes
         /// </summary>
         /// <param name="numberOrder">Номер приказа</param>
         /// <param name="position">Должность</param>
+        /// <exception cref="ArgumentException">
+        ///   <para>Если номер приказа <paramref name="numberOrder"/> ноль или меньше.</para>
+        ///   <para>Нельзя добавить доп должность если нет основной.</para>
+        ///   <para>Если должность <paramref name="position"/> занята.</para>
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///   <para>Если должность <paramref name="position"/> - <c>null</c>.</para>
+        /// </exception>
         /// <returns>Новая динамика</returns>
         public Change AddPosition(int numberOrder, Position position)
         {
@@ -155,7 +178,7 @@ namespace PersonnelRecord.BL.Classes
             }
             if (position.GetIsPositionBusy())
             {
-                throw new ArgumentNullException(nameof(position), "Должность не может быть занята!");
+                throw new ArgumentException("Должность не может быть занята!", nameof(position));
             }
 
             var change = Change.Recruitment(numberOrder, this, position, true);
@@ -171,6 +194,16 @@ namespace PersonnelRecord.BL.Classes
         /// <param name="numberOrder">Номер приказа</param>
         /// <param name="oldPosition">Старая должность</param>
         /// <param name="newPosition">Новая должность</param>
+        /// <exception cref="ArgumentException">
+        ///   <para>Если номер приказа <paramref name="numberOrder"/> ноль или меньше.</para>
+        ///   <para>Если новая должность <paramref name="newPosition"/> равна старой должности <paramref name="newPosition"/>.</para>
+        ///   <para>Если новая должность <paramref name="newPosition"/> занята.</para>
+        ///   <para>Если старой должности <paramref name="oldPosition"/> нет у сотрудника.</para>
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///   <para>Если должность <paramref name="newPosition"/> - <c>null</c>.</para>
+        ///   <para>Если старая должность <paramref name="oldPosition"/> - <c>null</c>.</para>
+        /// </exception>
         /// <returns>Новая динамика</returns>
         public Change ChangePosition(int numberOrder, Position oldPosition, Position newPosition)
         {
@@ -214,6 +247,13 @@ namespace PersonnelRecord.BL.Classes
         /// </summary>
         /// <param name="numberOrder">Номер приказа</param>
         /// <param name="oldPosition">Старая должность</param>
+        /// <exception cref="ArgumentException">
+        ///   <para>Если номер приказа <paramref name="numberOrder"/> ноль или меньше.</para>
+        ///   <para>Если старой должности <paramref name="oldPosition"/> нет у сотрудника.</para>
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///   <para>Если старая должность <paramref name="oldPosition"/> - <c>null</c>.</para>
+        /// </exception>
         /// <returns>Новая динамика</returns>
         public Change Dismissal(int numberOrder, Position oldPosition)
         {

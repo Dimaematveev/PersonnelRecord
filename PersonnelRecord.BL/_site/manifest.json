@@ -1,0 +1,210 @@
+{
+  "homepages": [],
+  "source_base_path": "D:/source/GitLab/PersonnelRecord/PersonnelRecord.BL",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "STSJ453YjNo/CXfGCCCk/FqL0sMsAJ6FlTDrJMf8IV4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html",
+          "hash": "QUf5m0CuR2d+g5opIn6vXxStUU3L5FJWhe9388PkhAA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "BlPxk5mtl2kgfcZUgkEguqiSAR/EUyUTT4EdebwkQvs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "xVNCM1/cAGv0iOsv+VyQVffjaouX/6ifgOGp4QGQ3iw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Change.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Change.html",
+          "hash": "LuAQigf3hsEg5JP0FLfWo47IETmh+qs0G3u9z7j9roE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Employee.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Employee.html",
+          "hash": "MBIyyRNcdSY6ZgNtSJhh9JY60AO7XzdwLoGlPxqcePk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Position.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Position.html",
+          "hash": "py5Oc3F+WM9iS9+RlgpBpndH7s/66JeVO0123gzdFnY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Unit.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Unit.html",
+          "hash": "93aPWwPxpHSayPSEe4mvVTNlWZ3ddQMJazuoRPKiGMw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.html",
+          "hash": "APvWxOb/N84sTOjvyaKCtdJhHcFU+VsVDX7bmZNrY0g="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Enums.RecordType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Enums.RecordType.html",
+          "hash": "z2xizkv49MuzEQ0/JajHVpJ9SE22cvL9BfwMpEx13OU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Enums.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Enums.html",
+          "hash": "616H+yN/IFs8kFwia00DmlM4dhBFvNikJ98rn7wnQng="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "obj/api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "o3bn5frsZ3SYZnIYDnJTJBm9AtKzimOuHRrqCfemqJM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "Oa9PuD4E1hvZnCkVjUgzNBX6S00Zo5YilamTERTZo54="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": true,
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 3,
+          "skipped_file_count": 3
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 7,
+          "skipped_file_count": 5
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": true,
+        "details": "Can support incremental post processing.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

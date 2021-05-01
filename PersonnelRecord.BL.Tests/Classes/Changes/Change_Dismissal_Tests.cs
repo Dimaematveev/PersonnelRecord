@@ -110,11 +110,11 @@ namespace PersonnelRecord.BL.Classes.Changes.Tests
         public void Dismissal_WhenNumberOrder0OrLess_ExceptionReterned(int NumOrd)
         {
             //Arrange
-            Change OldChange, NewChange;
+            Change OldChange;
             OldChange = Change.Recruitment(1, employee1, N1Pos1, false);
 
             //ACT
-            NewChange = Change.Dismissal(NumOrd, employee1, OldChange);
+            Change.Dismissal(NumOrd, employee1, OldChange);
 
 
             //Assert

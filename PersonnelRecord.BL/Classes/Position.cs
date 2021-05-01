@@ -75,6 +75,10 @@ namespace PersonnelRecord.BL.Classes
         /// </summary>
         /// <param name="namePosition">Название должности</param>
         /// <param name="unit">Подразделение</param>
+        /// <exception cref="ArgumentNullException">
+        ///   <para>Если название должности <paramref name="namePosition"/> - <c>null</c> или пусто.</para>
+        ///   <para>Если Подразделение <paramref name="unit"/> - <c>null</c>.</para>
+        /// </exception>
         internal Position(string namePosition, Unit unit)
         {
             if (string.IsNullOrWhiteSpace(namePosition))

@@ -1,0 +1,462 @@
+{
+  "homepages": [],
+  "source_base_path": "D:/source/GitLab/PersonnelRecord/PersonnelRecord.BL.Tests",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "HmUS9N6IOQleeWs6cUio3W/VIxA/BHnoIjU6IhTWxjo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html",
+          "hash": "1Bv+Z+Q0wYKWzwbvsNZOGxllf2vlSt3mEQdlcmLMVd0="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "BlPxk5mtl2kgfcZUgkEguqiSAR/EUyUTT4EdebwkQvs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "DiuoQIJ5ApWowexCw4x6Bcg4q7nlgnkk/552Qh0VBX4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Changes.Tests.Change_ChangeStatusFalse_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Changes.Tests.Change_ChangeStatusFalse_Tests.html",
+          "hash": "0nM2zqu8boUnkKlFtMYB4LlWgiedD9JXO5iPNFNNP78="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Changes.Tests.Change_Dismissal_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Changes.Tests.Change_Dismissal_Tests.html",
+          "hash": "pwdNPJZE/yWHyQ67v/rG8mMExSSq5HoQsrNRzSRfC1A="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Changes.Tests.Change_Recruitment_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Changes.Tests.Change_Recruitment_Tests.html",
+          "hash": "GLq2jRHL6dDFKzYmzIOq0R0/Oi8SgtbPdTkYtgk5dlQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Changes.Tests.Change_Transfer_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Changes.Tests.Change_Transfer_Tests.html",
+          "hash": "CIs8wA3JjRPRqPX7Ya+uXaBbkmbZhKJ57U+YIM+RI3U="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Changes.Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Changes.Tests.html",
+          "hash": "z8MilTDwGodbRAKAD6DPRqNyKwbEhfW3wq9xtruoedw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Employes.Tests.Employee_AddPosition_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Employes.Tests.Employee_AddPosition_Tests.html",
+          "hash": "hKKbRgoBjDAWltDjp/1KcWbfL1SlxFkIO0rtO1n6vqw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Employes.Tests.Employee_ChangeFullName_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Employes.Tests.Employee_ChangeFullName_Tests.html",
+          "hash": "/leFwLcgj1kKEpmt0fNEL8CEUSsEqhK7xW97IElpltc="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Employes.Tests.Employee_ChangePosition_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Employes.Tests.Employee_ChangePosition_Tests.html",
+          "hash": "hoPFS33jw2brdP/RrPqVXj5dCdVjrw8qB1YIRC5FpYo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Employes.Tests.Employee_Constructor_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Employes.Tests.Employee_Constructor_Tests.html",
+          "hash": "tuippt7bDVDtyOKRX54pnIZc8sJ8K8wCiWnuo2TApzQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Employes.Tests.Employee_Dismissal_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Employes.Tests.Employee_Dismissal_Tests.html",
+          "hash": "jlmHLsmf9qon9x+EeElAhcWmmS7hwNj+Pox0WlDWRsI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Employes.Tests.Employee_Recruitment_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Employes.Tests.Employee_Recruitment_Tests.html",
+          "hash": "6cR+9vSZMv3ZmPP+maQBH9X5UhYoJqb/LuME080EC64="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Employes.Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Employes.Tests.html",
+          "hash": "CzxRZzXztxgkd3vkLJwgmmkh0TOCSCJxkDcjAIdUqLI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Positions.Tests.Position_BusyPosition_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Positions.Tests.Position_BusyPosition_Tests.html",
+          "hash": "eHBNp6q01yoEJKb2jHxAUxNIfkeZAyx6hSbrn1SWoRM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Positions.Tests.Position_Constructor_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Positions.Tests.Position_Constructor_Tests.html",
+          "hash": "ZYvwtaHpY4a7Qlq8ZmoSlcB4CE8VWlZNIk4SaYW40h4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Positions.Tests.Position_Delete_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Positions.Tests.Position_Delete_Tests.html",
+          "hash": "tPtswLiHY7xgTFppPpEvv1bSwCw3I4FbZ9yOikFmzWA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Positions.Tests.Position_RemoveFromPosition_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Positions.Tests.Position_RemoveFromPosition_Tests.html",
+          "hash": "ElKcwaSsgqvESD3VSzJ0+2rGXw0ksc4WxbLpWiFAYwo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Positions.Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Positions.Tests.html",
+          "hash": "RKLkIE9fCv4nLzcXlYioAcySgHcyXTV58nzAUPN3BqM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Units.Tests.Unit_AddPosition_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Units.Tests.Unit_AddPosition_Tests.html",
+          "hash": "EdoIAkDh66FFYc4pbNV2ZWMZImHEmi60horA1aLRewM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Units.Tests.Unit_AddSubordinateUnit_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Units.Tests.Unit_AddSubordinateUnit_Tests.html",
+          "hash": "fDMqFxDxILD0hiy9wzA0hH7Bnr58/0CmGrioFTfwMZI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Units.Tests.Unit_ChangeMainUnit_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Units.Tests.Unit_ChangeMainUnit_Tests.html",
+          "hash": "X4/qTKs17w/Xe5jTD2tgXtydly50jma9g2lGSNel+ks="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Units.Tests.Unit_Constructor_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Units.Tests.Unit_Constructor_Tests.html",
+          "hash": "ssw3uiwLH7Pc94UDb+cnWMxjPYYvViUCpfx1ywekjnw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Units.Tests.Unit_DeletePosition_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Units.Tests.Unit_DeletePosition_Tests.html",
+          "hash": "GeSvlK3wFs832fBq0Nsl+r4KSyhSQEoHKY4q2xzI9iI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Units.Tests.Unit_DeleteSubordinateUnit_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Units.Tests.Unit_DeleteSubordinateUnit_Tests.html",
+          "hash": "M7giAV8HD+iguSYCBCYmt2bYA5bTni4PzSDmnLleg+c="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Units.Tests.Unit_Delete_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Units.Tests.Unit_Delete_Tests.html",
+          "hash": "HeZe1qDbOBhYeVktiaqPbwyCAIKgpzzIwnwttE7eDxg="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Units.Tests.Unit_GetMainUnits_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Units.Tests.Unit_GetMainUnits_Tests.html",
+          "hash": "7An4OaKObaiQQLtABRxh+I75VVDozuh0x4u7+onFuQY="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Units.Tests.Unit_Reassignment_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Units.Tests.Unit_Reassignment_Tests.html",
+          "hash": "L0+p10x6tU4935iK/F+ChZOvpIpD+CM+IblSozK5Bn8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Units.Tests.Unit_Rename_Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Units.Tests.Unit_Rename_Tests.html",
+          "hash": "MMDW9wE6Zy3WyD55Ac1ykVjd8jKMVcz+eoR1s4QseWg="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/PersonnelRecord.BL.Classes.Units.Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PersonnelRecord.BL.Classes.Units.Tests.html",
+          "hash": "YDzF0X32y/aDQpik8ADtDRxkk3MOIRup5SYKDDgsmqU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "obj/api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "4Em3hN285aZ2AhnrU5wtbf0iNf2VY0auRllgGhRtIRY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "Oa9PuD4E1hvZnCkVjUgzNBX6S00Zo5YilamTERTZo54="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": true,
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 3,
+          "skipped_file_count": 3
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 28,
+          "skipped_file_count": 28
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": true,
+        "details": "Can support incremental post processing.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
