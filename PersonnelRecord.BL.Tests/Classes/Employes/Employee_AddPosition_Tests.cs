@@ -135,7 +135,7 @@ namespace PersonnelRecord.BL.Classes.Employes.Tests
         /// <summary>
         /// Исключение на передачу в должность занятой должности,
         /// </summary>
-        [ExpectedException(typeof(ArgumentNullException), "Исключение на передачу в должность занятой должности, не было вызвано.")]
+        [ExpectedException(typeof(ArgumentException), "Исключение на передачу в должность занятой должности, не было вызвано.")]
         [TestMethod()]
         public void AddPosition_WhenPositionIsBusy_ExceptionReterned()
         {

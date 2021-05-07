@@ -95,14 +95,13 @@ namespace PersonnelRecord.BL.Classes
         #endregion
 
 
-
         /// <summary>
         /// Получить список всех главных подразделений
         /// </summary>
         /// <returns>Список подразделений</returns>
         public IReadOnlyList<Unit> GetMainUnits()
         {
-            List<Unit> units = new List<Unit>() { };
+            List<Unit> units = new List<Unit>();
 
             Unit lastMainUnit = mainUnit;
             while (lastMainUnit != null)
@@ -142,6 +141,7 @@ namespace PersonnelRecord.BL.Classes
             {
                 throw new ArgumentNullException("Список должностей не должен быть пустым !!!");
             }
+            
             foreach (var item in positionsName)
             {
                 if (string.IsNullOrWhiteSpace(item))

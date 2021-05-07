@@ -12,10 +12,10 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
     public class Unit_Constructor_Tests
     {
         /// <summary>
-        /// Правильные параметры
+        /// Правильные параметры обычное не задано
         /// </summary>
         [TestMethod()]
-        public void ConstructorTest_WithValidArguments_CreateClass()
+        public void ConstructorTest_WithValidArgumentsBase_CreateClass()
         {
             //Arrange (настройка) — в этом блоке кода мы настраиваем 
             //тестовое окружение тестируемого юнита;
@@ -29,12 +29,57 @@ namespace PersonnelRecord.BL.Classes.Units.Tests
             // определенным образом.
             Assert.AreEqual(nameUnit, unit.GetName());
             Assert.IsNull(unit.GetMainUnit());
-            CollectionAssert.AreEqual(new List<Unit>(), (System.Collections.ICollection)unit.GetSubordinateUnits().ToList());
+            CollectionAssert.AreEqual(new List<Unit>(), unit.GetSubordinateUnits().ToList());
             CollectionAssert.AreEqual(positionsName, unit.GetPositions().Select(x => x.GetName()).ToList());
             Assert.AreEqual(0, unit.GetHierarchyTier());
             Assert.IsFalse(unit.GetIsDelete());
         }
+        /// <summary>
+        /// Правильные параметры обычное задано специально
+        /// </summary>
+        [TestMethod()]
+        public void ConstructorTest_WithValidArgumentsBaseZadano_CreateClass()
+        {
+            //Arrange (настройка) — в этом блоке кода мы настраиваем 
+            //тестовое окружение тестируемого юнита;
+            var nameUnit = "Unit1";
+            var positionsName = new List<string>() { "Pos1", "Pos2" };
 
+            // Act — выполнение или вызов тестируемого сценария;
+            var unit = new Unit(nameUnit, positionsName, false);
+
+            // Assert — проверка того, что тестируемый вызов ведет себя 
+            // определенным образом.
+            Assert.AreEqual(nameUnit, unit.GetName());
+            Assert.IsNull(unit.GetMainUnit());
+            CollectionAssert.AreEqual(new List<Unit>(), unit.GetSubordinateUnits().ToList());
+            CollectionAssert.AreEqual(positionsName, unit.GetPositions().Select(x => x.GetName()).ToList());
+            Assert.AreEqual(0, unit.GetHierarchyTier());
+            Assert.IsFalse(unit.GetIsDelete());
+        }
+        /// <summary>
+        /// Правильные параметры основное
+        /// </summary>
+        [TestMethod()]
+        public void ConstructorTest_WithValidArgumentsMain_CreateClass()
+        {
+            //Arrange (настройка) — в этом блоке кода мы настраиваем 
+            //тестовое окружение тестируемого юнита;
+            var nameUnit = "Unit1";
+            var positionsName = new List<string>() { "Pos1", "Pos2" };
+
+            // Act — выполнение или вызов тестируемого сценария;
+            var unit = new Unit(nameUnit, positionsName, true);
+
+            // Assert — проверка того, что тестируемый вызов ведет себя 
+            // определенным образом.
+            Assert.AreEqual(nameUnit, unit.GetName());
+            Assert.IsNull(unit.GetMainUnit());
+            CollectionAssert.AreEqual(new List<Unit>(), unit.GetSubordinateUnits().ToList());
+            CollectionAssert.AreEqual(positionsName, unit.GetPositions().Select(x => x.GetName()).ToList());
+            Assert.AreEqual(1, unit.GetHierarchyTier());
+            Assert.IsFalse(unit.GetIsDelete());
+        }
         /// <summary>
         /// Исключение на передачу в Название подразделения null или пустой строки
         /// </summary>

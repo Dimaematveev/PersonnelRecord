@@ -249,7 +249,7 @@ namespace PersonnelRecord.BL.Classes
             return change;
         }
 
-        //TODO:Надо наверное проверить что в старой динамике не null должность
+
         /// <summary>
         /// Изменить должность
         /// </summary>
@@ -317,7 +317,7 @@ namespace PersonnelRecord.BL.Classes
             return change;
         }
 
-        //TODO:Надо наверное проверить что в старой динамике не null должность
+      
         /// <summary>
         /// Уволить с должности
         /// </summary>

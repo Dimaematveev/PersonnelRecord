@@ -55,7 +55,6 @@ namespace PersonnelRecord.BL.Classes
         /// </summary>
         private bool isDelete;
 
-        //TODO:не проверял на удаленную должность(
         /// <summary>
         /// Удалена ли должность
         /// </summary>
@@ -69,7 +68,6 @@ namespace PersonnelRecord.BL.Classes
         }
         #endregion
 
-        //TODO:Возможно надо еще конструктор
         /// <summary>
         /// Конструктор Должности можно вызвать только из проекта)
         /// </summary>

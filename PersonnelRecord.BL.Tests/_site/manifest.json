@@ -81,7 +81,7 @@
       "output": {
         ".html": {
           "relative_path": "api/PersonnelRecord.BL.Classes.Changes.Tests.Change_Recruitment_Tests.html",
-          "hash": "GLq2jRHL6dDFKzYmzIOq0R0/Oi8SgtbPdTkYtgk5dlQ="
+          "hash": "tlUpn6FeXTcIR5fEBzrJ5KyoGAZnkcDSFttv08ScHus="
         }
       },
       "is_incremental": true,
@@ -117,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/PersonnelRecord.BL.Classes.Employes.Tests.Employee_AddPosition_Tests.html",
-          "hash": "hKKbRgoBjDAWltDjp/1KcWbfL1SlxFkIO0rtO1n6vqw="
+          "hash": "iuR13DvXtlPdhyOAj2+NWgFabWFGitGPHSjSR/n366k="
         }
       },
       "is_incremental": true,
@@ -132,7 +132,7 @@
           "hash": "SQqgB/cX2pLNYj6dboRrkIW1PHgts620v+Nzcn8dQMQ="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -177,7 +177,7 @@
       "output": {
         ".html": {
           "relative_path": "api/PersonnelRecord.BL.Classes.Employes.Tests.Employee_Recruitment_Tests.html",
-          "hash": "6cR+9vSZMv3ZmPP+maQBH9X5UhYoJqb/LuME080EC64="
+          "hash": "Lfsqd7Li1GvBWL/GudkOfTeIfYH2nP3sASC4EM9W6fM="
         }
       },
       "is_incremental": true,
@@ -192,7 +192,7 @@
           "hash": "CzxRZzXztxgkd3vkLJwgmmkh0TOCSCJxkDcjAIdUqLI="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -288,7 +288,7 @@
           "hash": "Fvro3k7rchN6YP4UF/y+gIlOXPfRNmbEPFUXfv1DOq8="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -297,7 +297,7 @@
       "output": {
         ".html": {
           "relative_path": "api/PersonnelRecord.BL.Classes.Units.Tests.Unit_Constructor_Tests.html",
-          "hash": "ssw3uiwLH7Pc94UDb+cnWMxjPYYvViUCpfx1ywekjnw="
+          "hash": "WBmNRtWGvd+0Nco6zVS1c3tt77vvQL3jr/JRQzKtd+A="
         }
       },
       "is_incremental": true,
@@ -372,7 +372,7 @@
           "hash": "yfJE8garfN4dOnePdDykUyXtOBqxN7echnBCExxrhMw="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -384,7 +384,7 @@
           "hash": "YDzF0X32y/aDQpik8ADtDRxkk3MOIRup5SYKDDgsmqU="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -431,7 +431,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 28,
-          "skipped_file_count": 25
+          "skipped_file_count": 28
         },
         "TocDocumentProcessor": {
           "can_incremental": false,
